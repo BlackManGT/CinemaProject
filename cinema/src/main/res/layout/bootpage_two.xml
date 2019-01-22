@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/bootpageimageviewtwo"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/tuceng2"
+        android:layout_width="205dp"
+        android:layout_height="205dp" />
+
+    <TextView
+        android:id="@+id/bootpagetextviewtwo"
+        android:text="一场电影"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/bootpageimageviewtwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="看遍人生百态"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:layout_marginTop="21dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/bootpagetextviewtwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
