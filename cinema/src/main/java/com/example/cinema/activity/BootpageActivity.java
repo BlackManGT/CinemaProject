@@ -1,15 +1,21 @@
 package com.example.cinema.activity;
 
+import android.content.Intent;
+import android.gesture.Gesture;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
+import com.example.cinema.LoginActivity;
 import com.example.cinema.R;
 
 import java.util.ArrayList;
@@ -19,11 +25,19 @@ import me.jessyan.autosize.internal.CustomAdapt;
 public class BootpageActivity extends AppCompatActivity implements CustomAdapt {
 
     private ViewPager bootpageviewpage;
+    private int currentItem = 0;
+    private int flaggingWidth;
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bootpage);
+
+        // 获取分辨率
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        flaggingWidth = dm.widthPixels / 3;
 
         bootpageviewpage = findViewById(R.id.bootpageviewpage);
 
@@ -81,6 +95,8 @@ public class BootpageActivity extends AppCompatActivity implements CustomAdapt {
             @Override
             public void onPageSelected(int i) {
                 radioGroup.check(radioGroup.getChildAt(i).getId());
+                currentItem = i;
+
             }
 
             @Override
@@ -96,6 +112,39 @@ public class BootpageActivity extends AppCompatActivity implements CustomAdapt {
 //                bootpageviewpage.setCurrentItem(checkedId - 2131165223);
 //            }
 //        });
+
+        gestureDetector = new GestureDetector(this,new GestureDetector.SimpleOnGestureListener()
+        {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                if (currentItem == 3) {
+                    if ((e1.getRawX() - e2.getRawX()) >= flaggingWidth)
+                    {
+                        Intent intent = new Intent(BootpageActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if(gestureDetector.onTouchEvent(ev))
+        {
+            ev.setAction(MotionEvent.ACTION_CANCEL);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
