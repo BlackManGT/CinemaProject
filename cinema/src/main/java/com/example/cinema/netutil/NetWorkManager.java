@@ -1,5 +1,9 @@
 package com.example.cinema.netutil;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -47,5 +51,13 @@ public class NetWorkManager {
     public <T> T create(final Class<T> service)
     {
         return retrofit.create(service);
+    }
+    public boolean hasNet(Context context){
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
+        if(activeNetworkInfo == null){
+            return false;
+        }
+        return true;
     }
 }
