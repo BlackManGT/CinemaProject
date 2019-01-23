@@ -1,6 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@drawable/mybackgroundmap">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="24dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/my_icon_remind"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/myhead"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/myuserhead"/>
+        <TextView
+            android:id="@+id/myname"
+            android:layout_below="@+id/myhead"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="冬天来了"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/my_sign_in"
+            android:text="签到"
+            android:textColor="#ffffff"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/myname"
+            android:layout_width="66dp"
+            android:layout_height="28dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:background="@drawable/myborder">
+
+        <LinearLayout
+            android:layout_marginLeft="30dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/mymessage"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/my_icon_messiage"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="我的信息"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:layout_below="@+id/mymessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:background="@drawable/myborder">
+
+        <LinearLayout
+            android:layout_marginLeft="30dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/myconcern"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/my_icon_attention"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="我的关注"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:layout_below="@+id/myconcern"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="30dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/myticket"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/my_icon_rccord"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="购票记录"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:layout_below="@+id/myticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:background="@drawable/myborder">
+
+        <LinearLayout
+            android:layout_marginLeft="30dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/myfeedback"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/my_icon_feedback"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="意见反馈"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:layout_below="@+id/myfeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="30dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/myedition"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/my_icon_version"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="最新版本"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:layout_below="@+id/myedition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/mylacunchlogin"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/my_icon_logout"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="最新版本"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:layout_below="@+id/mylacunchlogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

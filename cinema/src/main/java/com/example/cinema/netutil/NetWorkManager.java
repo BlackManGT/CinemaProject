@@ -38,7 +38,7 @@ public class NetWorkManager {
                 .build();
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("")
+                .baseUrl("http://172.17.8.100/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
