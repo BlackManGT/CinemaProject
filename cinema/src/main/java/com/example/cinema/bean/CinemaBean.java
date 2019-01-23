@@ -1,6 +1,17 @@
 package com.example.cinema.bean;
 
+import java.util.List;
+
 public class CinemaBean {
+        /**
+         * address : 东城区滨河路乙1号雍和航星园74-76号楼
+         * commentTotal : 183
+         * distance : 0
+         * followCinema : 2
+         * id : 1
+         * logo : http://172.17.8.100/images/movie/logo/qcgx.jpg
+         * name : 青春光线电影院
+         */
 
         private String address;
         private int commentTotal;

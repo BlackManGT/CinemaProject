@@ -12,12 +12,17 @@ import android.view.ViewGroup;
 
 import com.example.cinema.R;
 import com.example.cinema.adapter.CinemaAdapter;
+import com.example.cinema.bean.CinemaBean;
 import com.example.cinema.bean.Result;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.CinemaPresenter;
 
+import java.util.List;
+
 public class CinemaFragment extends Fragment {
+
+    private CinemaAdapter cinemaAdapter;
 
     @Nullable
     @Override
@@ -31,7 +36,8 @@ public class CinemaFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recycleView.setLayoutManager(linearLayoutManager);
 
-        CinemaAdapter cinemaAdapter = new CinemaAdapter();
+        cinemaAdapter = new CinemaAdapter(getActivity());
+        recycleView.setAdapter(cinemaAdapter);
 
 
         cinemaPresenter.reqeust(0,"",1,10);
@@ -44,7 +50,9 @@ public class CinemaFragment extends Fragment {
         public void success(Result result) {
             if(result.getStatus().equals("0000"))
             {
-
+                List<CinemaBean> cinemaBeans = (List<CinemaBean>) result.getResult();
+                cinemaAdapter.addItem(cinemaBeans);
+                cinemaAdapter.notifyDataSetChanged();
             }
         }
 
