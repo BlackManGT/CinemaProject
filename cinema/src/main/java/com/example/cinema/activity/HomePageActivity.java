@@ -14,7 +14,9 @@ import com.example.cinema.homefragment.CinemaFragment;
 import com.example.cinema.homefragment.FilmFragment;
 import com.example.cinema.homefragment.MyFragment;
 
-public class HomePageActivity extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public class HomePageActivity extends AppCompatActivity implements CustomAdapt {
 
     private FragmentManager manager;
     private FilmFragment filmFragment;
@@ -60,5 +62,15 @@ public class HomePageActivity extends AppCompatActivity {
                 transaction1.commit();
             }
         });
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 720;
     }
 }
