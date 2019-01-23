@@ -6,14 +6,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.example.cinema.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.GuidanceActivity">
+        <activity android:name="com.example.cinema.activity.GuidanceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,11 +28,11 @@
             android:name="design_height_in_dp"
             android:value="1280" />
 
-        <activity android:name=".activity.BootpageActivity" />
-        <activity android:name=".activity.StartupPageActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.HomePageActivity" />
-        <activity android:name=".activity.RegiestActivity"></activity>
+        <activity android:name="com.example.cinema.activity.BootpageActivity" />
+        <activity android:name="com.example.cinema.activity.StartupPageActivity" />
+        <activity android:name="com.example.cinema.activity.LoginActivity" />
+        <activity android:name="com.example.cinema.activity.HomePageActivity" />
+        <activity android:name="com.example.cinema.activity.RegiestActivity"></activity>
     </application>
 
 </manifest>
