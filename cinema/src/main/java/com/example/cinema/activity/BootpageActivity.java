@@ -1,21 +1,18 @@
 package com.example.cinema.activity;
 
 import android.content.Intent;
-import android.gesture.Gesture;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
-import com.example.cinema.LoginActivity;
 import com.example.cinema.R;
 
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
-
+//数据库
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 28
 
@@ -24,6 +25,12 @@ android {
     }
 
 }
+//与android平级
+greendao {
+    schemaVersion 1  //版本
+    daoPackage 'com.example.work_demo01' // 一般为app包名+生成文件的文件夹名
+    targetGenDir 'src/main/java' //生成文件路径
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -43,4 +50,14 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
     //屏幕适配
     implementation 'me.jessyan:autosize:0.9.5'
+    //Recycleview
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    //Fresco
+    implementation 'com.facebook.fresco:fresco:1.11.0'
+    //Butterknife依赖
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //数据库依赖
+    implementation 'org.greenrobot:greendao:3.2.2' // add library
+    implementation 'org.greenrobot:greendao-generator:3.2.2'
 }

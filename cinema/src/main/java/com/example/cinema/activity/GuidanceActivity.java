@@ -1,12 +1,11 @@
-package com.example.cinema;
+package com.example.cinema.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.cinema.activity.BootpageActivity;
-import com.example.cinema.activity.StartupPageActivity;
+import com.example.cinema.R;
 
 public class GuidanceActivity extends AppCompatActivity {
 
