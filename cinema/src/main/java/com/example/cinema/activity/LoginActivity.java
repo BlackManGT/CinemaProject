@@ -73,7 +73,8 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-
+                Intent loginintent = new Intent(LoginActivity.this,HomePageActivity.class);
+                startActivity(loginintent);
                 break;
         }
     }

@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:background="@drawable/moviebackground"
+            android:layout_width="match_parent"
+            android:layout_height="186dp" />
+
+        <recycler.coverflow.RecyclerCoverFlow
+            android:id="@+id/movieflow"
+            android:layout_marginTop="85dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"></recycler.coverflow.RecyclerCoverFlow>
+    </RelativeLayout>
 </LinearLayout>
