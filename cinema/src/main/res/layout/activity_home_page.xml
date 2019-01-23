@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.HomePageActivity">
+
+    <FrameLayout
+        android:id="@+id/homefragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/homeradiogroup"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/homeradiobuttonone"
+            android:button="@null"
+            android:layout_width="68dp"
+            android:drawableTop="@drawable/film"
+            android:layout_weight="1"
+            android:layout_height="68dp" />
+        <RadioButton
+            android:id="@+id/homeradiobuttontwo"
+            android:button="@null"
+            android:layout_width="68dp"
+            android:drawableTop="@drawable/cinema"
+            android:layout_weight="1"
+            android:layout_height="68dp" />
+        <RadioButton
+            android:id="@+id/homeradiobuttonthree"
+            android:button="@null"
+            android:layout_width="68dp"
+            android:drawableTop="@drawable/my"
+            android:layout_weight="1"
+            android:layout_height="68dp" />
+    </RadioGroup>
+
+</RelativeLayout>
