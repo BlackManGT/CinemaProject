@@ -13,7 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
-import com.example.cinema.R;
+
+import com.bw.movie.R;
 
 import java.util.ArrayList;
 

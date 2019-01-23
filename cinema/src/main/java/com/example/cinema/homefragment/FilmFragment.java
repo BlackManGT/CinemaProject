@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.cinema.R;
+import com.bw.movie.R;
 import com.example.cinema.adapter.MovieFlowAdapter;
 import com.example.cinema.adapter.PopularAdapter;
 import com.example.cinema.bean.MoiveBean;

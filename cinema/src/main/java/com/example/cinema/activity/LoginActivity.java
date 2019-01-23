@@ -11,7 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.cinema.R;
+
+import com.bw.movie.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,8 +74,7 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                Intent loginintent = new Intent(LoginActivity.this,HomePageActivity.class);
-                startActivity(loginintent);
+
                 break;
         }
     }

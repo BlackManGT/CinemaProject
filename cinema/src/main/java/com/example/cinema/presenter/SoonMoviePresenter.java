@@ -6,14 +6,14 @@ import com.example.cinema.netutil.NetWorkManager;
 
 import io.reactivex.Observable;
 
-public class MoviePresenter extends BasePresenter{
-    public MoviePresenter(DataCall dataCall) {
+public class BeingMoviePresenter extends BasePresenter{
+    public BeingMoviePresenter(DataCall dataCall) {
         super(dataCall);
     }
 
     @Override
     protected Observable observable(Object... args) {
         IBaseView iBaseView = NetWorkManager.getInstance().create(IBaseView.class);
-        return iBaseView.Popular((int) args[0],(String) args[1],(int) args[2],(int) args[3]);
+        return iBaseView.Being((int) args[0],(String) args[1],(int) args[2],(int) args[3]);
     }
 }

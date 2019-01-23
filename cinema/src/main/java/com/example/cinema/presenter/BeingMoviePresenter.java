@@ -6,8 +6,8 @@ import com.example.cinema.netutil.NetWorkManager;
 
 import io.reactivex.Observable;
 
-public class MoviePresenter extends BasePresenter{
-    public MoviePresenter(DataCall dataCall) {
+public class PopularMoviePresenter extends BasePresenter{
+    public PopularMoviePresenter(DataCall dataCall) {
         super(dataCall);
     }
 

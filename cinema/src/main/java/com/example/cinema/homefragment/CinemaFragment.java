@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.cinema.R;
+import com.bw.movie.R;
 import com.example.cinema.adapter.CinemaAdapter;
 import com.example.cinema.bean.CinemaBean;
 import com.example.cinema.bean.Result;
