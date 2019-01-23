@@ -117,7 +117,7 @@ public class BootpageActivity extends AppCompatActivity implements CustomAdapt {
                 if (currentItem == 3) {
                     if ((e1.getRawX() - e2.getRawX()) >= flaggingWidth)
                     {
-                        Intent intent = new Intent(BootpageActivity.this,LoginActivity.class);
+                        Intent intent = new Intent(BootpageActivity.this,HomePageActivity.class);
                         startActivity(intent);
                         finish();
                         return true;
