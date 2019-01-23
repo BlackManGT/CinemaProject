@@ -1,0 +1,63 @@
+package com.example.cinema.adapter;
+
+import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.cinema.R;
+import com.example.cinema.bean.MoiveBean;
+import com.facebook.drawee.view.SimpleDraweeView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PopularAdapter extends RecyclerView.Adapter {
+
+    private Context context;
+
+    public PopularAdapter(Context context) {
+        this.context = context;
+    }
+    private ArrayList<MoiveBean> list = new ArrayList<>();
+    public void addItem(List<MoiveBean> popularMovieBeans) {
+        if(popularMovieBeans!=null)
+        {
+            list.addAll(popularMovieBeans);
+        }
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = View.inflate(context, R.layout.item_popularmovie, null);
+        PopularVH popularVH = new PopularVH(view);
+        return popularVH;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+        MoiveBean moiveBean = list.get(i);
+        PopularVH popularVH = (PopularVH) viewHolder;
+        popularVH.popularsdv.setImageURI(Uri.parse(moiveBean.getImageUrl()));
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+
+
+    //创建ViewHolder
+    class PopularVH extends RecyclerView.ViewHolder {
+
+        public SimpleDraweeView popularsdv;
+        public PopularVH(@NonNull View itemView) {
+            super(itemView);
+            popularsdv = itemView.findViewById(R.id.popularsdv);
+        }
+    }
+}
