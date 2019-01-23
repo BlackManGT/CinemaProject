@@ -5,11 +5,23 @@ import android.os.Bundle;
 
 import com.example.cinema.R;
 
-public class LoginActivity extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public class LoginActivity extends AppCompatActivity implements CustomAdapt {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 720;
     }
 }
