@@ -62,7 +62,6 @@
             android:hint="性别"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:password="true"
             android:textSize="18dp" />
         <View
             android:layout_below="@+id/regiest_sex2"
@@ -94,7 +93,6 @@
             android:hint="出生日期"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:password="true"
             android:textSize="18dp" />
         <View
             android:layout_below="@+id/regiest_date2"
@@ -123,10 +121,9 @@
             android:background="@android:color/transparent"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/regiest_phone2"
-            android:hint="出生日期"
+            android:hint="手机号"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:password="true"
             android:textSize="18dp" />
         <View
             android:layout_below="@+id/regiest_phone2"
@@ -155,10 +152,9 @@
             android:background="@android:color/transparent"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/regiest_email2"
-            android:hint="出生日期"
+            android:hint="邮箱"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:password="true"
             android:textSize="18dp" />
         <View
             android:layout_below="@+id/regiest_email2"

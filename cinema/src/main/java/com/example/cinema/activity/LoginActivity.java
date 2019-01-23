@@ -10,8 +10,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cinema.R;
+import com.example.cinema.bean.LoginBean;
+import com.example.cinema.bean.Result;
+import com.example.cinema.core.DataCall;
+import com.example.cinema.core.EncryptUtil;
+import com.example.cinema.core.exception.ApiException;
+import com.example.cinema.presenter.LoginPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,13 +26,9 @@ import butterknife.OnClick;
 import me.jessyan.autosize.internal.CustomAdapt;
 
 public class LoginActivity extends AppCompatActivity implements CustomAdapt {
-
-    @BindView(R.id.login_phone)
-    ImageView loginPhone;
+    
     @BindView(R.id.login_name)
     EditText loginName;
-    @BindView(R.id.login_lock)
-    ImageView loginLock;
     @BindView(R.id.login_pwd)
     EditText loginPwd;
     @BindView(R.id.login_eyes)
@@ -38,13 +41,14 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
     TextView loginRegiest;
     @BindView(R.id.btn_login)
     Button btnLogin;
+    private LoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        Button button = findViewById(R.id.btn_login);
+        loginPresenter = new LoginPresenter(new MyLogin());
     }
 
     @Override
@@ -73,8 +77,23 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-
+                String name = loginName.getText().toString();
+                String s = loginPwd.getText().toString();
+                String pwd = EncryptUtil.encrypt(s);
+                loginPresenter.reqeust(name,pwd);
                 break;
+        }
+    }
+    class MyLogin implements DataCall<Result<LoginBean>>{
+
+        @Override
+        public void success(Result<LoginBean> result) {
+            Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException e) {
+            Toast.makeText(LoginActivity.this, e.getDisplayMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }
