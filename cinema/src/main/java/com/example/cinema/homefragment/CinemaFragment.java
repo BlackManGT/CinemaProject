@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.example.cinema.adapter.CinemaAdapter;
@@ -20,11 +21,30 @@ import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.CinemaMoviePresenter;
 import com.example.cinema.presenter.NearbyMoivePresenter;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
-public class CinemaFragment extends Fragment implements View.OnClickListener{
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
+public class CinemaFragment extends Fragment implements View.OnClickListener {
+
+    @BindView(R.id.cinemasdv)
+    SimpleDraweeView cinemasdv;
+    @BindView(R.id.cimema_text)
+    TextView cimemaText;
+    @BindView(R.id.cinema_relative)
+    RelativeLayout cinemaRelative;
+    @BindView(R.id.recommend)
+    Button recommend;
+    @BindView(R.id.nearby)
+    Button nearby;
+    @BindView(R.id.cinemarecycleview)
+    RecyclerView cinemarecycleview;
+    Unbinder unbinder;
     private CinemaAdapter cinemaAdapter;
     private LinearLayoutManager linearLayoutManager;
     private CinemaMoviePresenter cinemaPresenter;
@@ -51,35 +71,45 @@ public class CinemaFragment extends Fragment implements View.OnClickListener{
         //默认推荐影院
         cinemaAdapter = new CinemaAdapter(getActivity());
         recycleView.setAdapter(cinemaAdapter);
-        cinemaPresenter.reqeust(0,"",1,10);
+        cinemaPresenter.reqeust(0, "", 1, 10);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.recommend)
-        {
+        if (v.getId() == R.id.recommend) {
             cinemaAdapter.remove();
             cinemaAdapter = new CinemaAdapter(getActivity());
             recycleView.setAdapter(cinemaAdapter);
-            cinemaPresenter.reqeust(0,"",1,10);
+            cinemaPresenter.reqeust(0, "", 1, 10);
         }
-        if(v.getId() == R.id.nearby)
-        {
+        if (v.getId() == R.id.nearby) {
             cinemaAdapter.remove();
             cinemaAdapter = new CinemaAdapter(getActivity());
             recycleView.setAdapter(cinemaAdapter);
-            nearbyMoivePresenter.reqeust(0,"","116.30551391385724","40.04571807462411",1,10);
+            nearbyMoivePresenter.reqeust(0, "", "116.30551391385724", "40.04571807462411", 1, 10);
         }
     }
 
-    class CinemaCall implements DataCall<Result>
-    {
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick(R.id.cinema_relative)
+    public void onViewClicked() {
+
+    }
+
+
+
+    class CinemaCall implements DataCall<Result> {
 
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 List<CinemaBean> cinemaBeans = (List<CinemaBean>) result.getResult();
                 cinemaAdapter.addItem(cinemaBeans);
                 cinemaAdapter.notifyDataSetChanged();

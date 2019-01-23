@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/cinema_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,6 +17,7 @@
             android:layout_width="16dp"
             android:layout_height="21dp" />
         <TextView
+            android:id="@+id/cimema_text"
             android:layout_toRightOf="@+id/cinemasdv"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="30dp"

@@ -15,5 +15,6 @@ public class MyApplication extends Application {
         ImageLoader.getInstance().init(imageLoaderConfiguration);
 
         Fresco.initialize(this);
+
     }
 }
