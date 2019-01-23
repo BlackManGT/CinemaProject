@@ -53,6 +53,11 @@ public class CinemaAdapter extends RecyclerView.Adapter {
         return list.size();
     }
 
+    public void remove() {
+        list.clear();
+        notifyDataSetChanged();
+    }
+
     //创建ViewHolder
     class CinemaVH extends RecyclerView.ViewHolder {
 

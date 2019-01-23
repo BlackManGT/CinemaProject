@@ -41,6 +41,7 @@
             android:layout_width="83dp"
             android:layout_height="25dp" />
         <Button
+            android:id="@+id/nearby"
             android:text="附近影院"
             android:background="@drawable/myborder"
             android:textSize="14sp"
