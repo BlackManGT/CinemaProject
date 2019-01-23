@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cinema.R;
+import com.bw.movie.R;
 import com.example.cinema.bean.MoiveBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 

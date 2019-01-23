@@ -14,11 +14,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BeingAdapter extends RecyclerView.Adapter {
+public class SoonAdapter extends RecyclerView.Adapter {
 
     private Context context;
 
-    public BeingAdapter(Context context) {
+    public SoonAdapter(Context context) {
         this.context = context;
     }
     private ArrayList<MoiveBean> list = new ArrayList<>();
