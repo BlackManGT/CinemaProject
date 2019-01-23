@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cinema.R;
+import com.bw.movie.R;
+
 
 public class MyFragment extends Fragment {
     @Nullable

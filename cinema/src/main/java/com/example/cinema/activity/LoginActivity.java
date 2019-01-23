@@ -11,7 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.cinema.R;
+
+import com.bw.movie.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

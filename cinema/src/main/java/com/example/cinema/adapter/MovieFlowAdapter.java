@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.cinema.R;
+import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 public class MovieFlowAdapter extends RecyclerView.Adapter {

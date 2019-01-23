@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.cinema.R;
+import com.bw.movie.R;
 import com.example.cinema.homefragment.CinemaFragment;
 import com.example.cinema.homefragment.FilmFragment;
 import com.example.cinema.homefragment.MyFragment;

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
-import com.example.cinema.R;
+import com.bw.movie.R;
 import com.example.cinema.bean.Result;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.EncryptUtil;
