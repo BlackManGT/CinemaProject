@@ -26,10 +26,12 @@ import com.example.cinema.presenter.SoonMoviePresenter;
 
 import java.util.List;
 
+import me.jessyan.autosize.AutoSizeConfig;
+import me.jessyan.autosize.internal.CustomAdapt;
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
-public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemClick{
+public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemClick,CustomAdapt {
 
     private RecyclerCoverFlow movieflow;
     private MovieFlowAdapter movieFlowAdapter;
@@ -41,6 +43,8 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_film, container, false);
+
+        AutoSizeConfig.getInstance().setCustomFragment(true);
 
         movieflow = view.findViewById(R.id.movieflow);
 //        mList.setFlatFlow(true); //平面滚动
@@ -87,6 +91,17 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         soonMoviePresenter.reqeust(0,"",1,10);
         return view;
     }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 720;
+    }
+
     //热门电影
     class PopularCall implements DataCall<Result>
     {
