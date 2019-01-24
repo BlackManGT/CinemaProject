@@ -22,23 +22,26 @@
             android:id="@+id/homeradiobuttonone"
             android:button="@null"
             android:layout_width="68dp"
+            android:layout_marginTop="40dp"
             android:drawableTop="@drawable/film"
             android:layout_weight="1"
-            android:layout_height="68dp" />
+            android:layout_height="wrap_content" />
         <RadioButton
+            android:layout_marginTop="40dp"
             android:id="@+id/homeradiobuttontwo"
             android:button="@null"
             android:layout_width="68dp"
             android:drawableTop="@drawable/cinema"
             android:layout_weight="1"
-            android:layout_height="68dp" />
+            android:layout_height="wrap_content" />
         <RadioButton
+            android:layout_marginTop="40dp"
             android:id="@+id/homeradiobuttonthree"
             android:button="@null"
             android:layout_width="68dp"
             android:drawableTop="@drawable/my"
             android:layout_weight="1"
-            android:layout_height="68dp" />
+            android:layout_height="wrap_content" />
     </RadioGroup>
 
 </RelativeLayout>

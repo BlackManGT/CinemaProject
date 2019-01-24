@@ -173,7 +173,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
             //以下只列举部分获取地址相关的结果信息
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
             String locationDescribe = location.getLocationDescribe();    //获取位置描述信息
-            String addr = location.getAddrStr();    //获取详细地址信息
+            String addr = location.getCity();    //获取详细地址信息
             cimemaText.setText(locationDescribe + addr);
 
         }
