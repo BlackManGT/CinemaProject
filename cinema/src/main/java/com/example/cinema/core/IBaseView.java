@@ -54,8 +54,7 @@ public interface IBaseView {
     Observable<Result> login(@Query("phone")String phone,
                                                @Query("pwd")String pwd);
 
-    //注册
-    @POST("movieApi/user/v1/registerUser")
+    @POST("movieApi/user1/registerUser")
     @FormUrlEncoded
     Observable<Result> regiest(@Field("nickName") String nickName,
                                @Field("phone") String phone,

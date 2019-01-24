@@ -1,5 +1,6 @@
 package com.example.cinema.homefragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -73,18 +74,30 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         recycleView.setAdapter(cinemaAdapter);
         cinemaPresenter.reqeust(0, "", 1, 10);
         unbinder = ButterKnife.bind(this, view);
+        recommend.setBackgroundResource(R.drawable.btn_gradient);
+        recommend.setTextColor(Color.WHITE);
+        nearby.setBackgroundResource(R.drawable.myborder);
+        nearby.setTextColor(Color.BLACK);
         return view;
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.recommend) {
+            recommend.setBackgroundResource(R.drawable.btn_gradient);
+            recommend.setTextColor(Color.WHITE);
+            nearby.setBackgroundResource(R.drawable.myborder);
+            nearby.setTextColor(Color.BLACK);
             cinemaAdapter.remove();
             cinemaAdapter = new CinemaAdapter(getActivity());
             recycleView.setAdapter(cinemaAdapter);
             cinemaPresenter.reqeust(0, "", 1, 10);
         }
         if (v.getId() == R.id.nearby) {
+            nearby.setBackgroundResource(R.drawable.btn_gradient);
+            nearby.setTextColor(Color.WHITE);
+            recommend.setBackgroundResource(R.drawable.myborder);
+            recommend.setTextColor(Color.BLACK);
             cinemaAdapter.remove();
             cinemaAdapter = new CinemaAdapter(getActivity());
             recycleView.setAdapter(cinemaAdapter);
