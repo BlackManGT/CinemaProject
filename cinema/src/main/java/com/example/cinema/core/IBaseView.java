@@ -1,6 +1,7 @@
 package com.example.cinema.core;
 
 import com.example.cinema.bean.CinemaBean;
+import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.MoiveBean;
 import com.example.cinema.bean.Result;
 
@@ -51,8 +52,8 @@ public interface IBaseView {
     //登录
     @POST("movieApi/user/v1/login")
     @FormUrlEncoded
-    Observable<Result> login(@Query("phone")String phone,
-                                               @Query("pwd")String pwd);
+    Observable<Result<LoginBean>> login(@Field("phone") String phone,
+                                        @Field("pwd") String pwd);
 
     @POST("movieApi/user1/registerUser")
     @FormUrlEncoded

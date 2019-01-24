@@ -31,7 +31,7 @@ public class StartupPageActivity extends AppCompatActivity {
             {
                 if(CountNum <= 0)
                 {
-                    Intent intent = new Intent(StartupPageActivity.this,LoginActivity.class);
+                    Intent intent = new Intent(StartupPageActivity.this,HomePageActivity.class);
                     startActivity(intent);
                     finish();
                     return;

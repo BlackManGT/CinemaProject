@@ -10,9 +10,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.bw.movie.R;
+import com.example.cinema.bean.LoginBean;
+import com.example.cinema.bean.Result;
+import com.example.cinema.core.DataCall;
+import com.example.cinema.core.EncryptUtil;
+import com.example.cinema.core.exception.ApiException;
+import com.example.cinema.presenter.LoginPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,13 +46,15 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
     TextView loginRegiest;
     @BindView(R.id.btn_login)
     Button btnLogin;
+    private LoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        Button button = findViewById(R.id.btn_login);
+        loginPresenter = new LoginPresenter(new MyCall());
+
     }
 
     @Override
@@ -74,9 +83,25 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                Intent loginintent = new Intent(LoginActivity.this,HomePageActivity.class);
-                startActivity(loginintent);
+                String name = loginName.getText().toString();
+                String s = loginPwd.getText().toString();
+                String pwd = EncryptUtil.encrypt(s);
+                loginPresenter.reqeust(name,pwd);
                 break;
+        }
+    }
+    class MyCall implements DataCall<Result<LoginBean>>{
+
+        @Override
+        public void success(Result<LoginBean> result) {
+            Intent intent = new Intent(LoginActivity.this,HomePageActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
         }
     }
 }
