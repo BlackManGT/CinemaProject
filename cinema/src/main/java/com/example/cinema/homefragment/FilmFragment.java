@@ -95,8 +95,12 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
             if(result.getStatus().equals("0000"))
             {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
+
+                movieFlowAdapter.addItem(moiveBeans);
+
                 popularAdapter.addItem(moiveBeans);
                 popularAdapter.notifyDataSetChanged();
+                movieFlowAdapter.notifyDataSetChanged();
             }
         }
 

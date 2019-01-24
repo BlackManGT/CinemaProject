@@ -1,22 +1,38 @@
 package com.example.cinema.adapter;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
+import com.example.cinema.bean.MoiveBean;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieFlowAdapter extends RecyclerView.Adapter {
     private Context context;
 
     public MovieFlowAdapter(Context context) {
         this.context = context;
+    }
+    private ArrayList<MoiveBean> list = new ArrayList<>();
+    public void addItem(List<MoiveBean> moiveBeans) {
+        if(moiveBeans!=null)
+        {
+            list.addAll(moiveBeans);
+        }
     }
 
     private onItemClick clickCb;
@@ -25,7 +41,7 @@ public class MovieFlowAdapter extends RecyclerView.Adapter {
         this.clickCb = clickCb;
     }
 
-    private int[] mColors = {R.drawable.tu3,R.drawable.tu1,R.drawable.tu2};
+
 
 
     @NonNull
@@ -38,13 +54,14 @@ public class MovieFlowAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
+        MoiveBean moiveBean = list.get(i);
         MovieVH movieVH = (MovieVH) viewHolder;
-        Glide.with(context).load(mColors[i % mColors.length]).into(movieVH.img);
-//        movieVH.img.setImageURI(Uri.parse(String.valueOf(mColors[i % mColors.length])));
+        Glide.with(context).load(moiveBean.getImageUrl()).into(movieVH.img);
+        movieVH.populartextviewone.setBackgroundColor(0x55000000);
+        movieVH.populartextviewone.setText(moiveBean.getName());
         movieVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(mContext, "点击了："+position, Toast.LENGTH_SHORT).show();
                 if (clickCb != null) {
                     clickCb.clickItem(i);
                 }
@@ -54,14 +71,18 @@ public class MovieFlowAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mColors.length;
+        return list.size();
     }
+
+
 
     class MovieVH extends RecyclerView.ViewHolder {
         public ImageView img;
+        public TextView populartextviewone;
         public MovieVH(View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.img);
+            populartextviewone = (TextView) itemView.findViewById(R.id.populartextviewone);
         }
     }
 

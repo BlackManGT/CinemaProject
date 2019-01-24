@@ -124,6 +124,7 @@ public class RegiestActivity extends AppCompatActivity implements CustomAdapt {
         @Override
         public void success(Result result) {
             Toast.makeText(RegiestActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         @Override
