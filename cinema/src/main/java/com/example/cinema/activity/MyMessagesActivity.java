@@ -64,8 +64,6 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
             }else {
                 mymessagessex.setText("女");
             }
-
-
             mymessagesphone.setText(userInfoBean.getPhone());
 
         } catch (SQLException e) {
