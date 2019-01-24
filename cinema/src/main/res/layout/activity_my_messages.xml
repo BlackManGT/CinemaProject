@@ -235,10 +235,12 @@
 
     <RelativeLayout
         android:layout_marginLeft="24dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/mymessagesreturn"
             android:layout_alignParentBottom="true"
             android:background="@drawable/com_icon_my_default"
             android:layout_width="58dp"

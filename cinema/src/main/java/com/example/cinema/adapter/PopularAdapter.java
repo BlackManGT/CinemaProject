@@ -1,6 +1,7 @@
 package com.example.cinema.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.example.cinema.activity.MoiveListActivity;
 import com.example.cinema.bean.MoiveBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -45,6 +47,13 @@ public class PopularAdapter extends RecyclerView.Adapter {
         popularVH.popularsdv.setImageURI(Uri.parse(moiveBean.getImageUrl()));
         popularVH.populartextview.setBackgroundColor(0x55000000);
         popularVH.populartextview.setText(moiveBean.getName());
+        popularVH.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,MoiveListActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
