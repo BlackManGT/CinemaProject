@@ -52,6 +52,7 @@
         android:background="@drawable/myborder">
 
         <LinearLayout
+            android:id="@+id/mymessages"
             android:layout_marginLeft="30dp"
             android:layout_centerVertical="true"
             android:gravity="center"
@@ -203,7 +204,7 @@
                 android:background="@drawable/my_icon_logout"/>
             <TextView
                 android:layout_marginTop="10dp"
-                android:text="最新版本"
+                android:text="退出登录"
                 android:textColor="#333333"
                 android:textSize="12sp"
                 android:layout_below="@+id/mylacunchlogin"

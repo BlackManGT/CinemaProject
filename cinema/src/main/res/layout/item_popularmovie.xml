@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,13 +7,20 @@
     android:paddingRight="10dp"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/popularsdv"
-            android:background="@drawable/tu1"
-            android:layout_width="126dp"
-            android:layout_height="164dp" />
-    </RelativeLayout>
-</LinearLayout>
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/popularsdv"
+        android:background="@drawable/tu3"
+        android:layout_width="126dp"
+        android:layout_height="164dp" />
+
+    <TextView
+        android:id="@+id/populartextview"
+        android:layout_below="@+id/popularsdv"
+        android:layout_marginTop="-40dp"
+        android:gravity="center"
+        android:text="找到你"
+        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:layout_width="126dp"
+        android:layout_height="40dp" />
+</RelativeLayout>

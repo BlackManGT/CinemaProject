@@ -203,7 +203,7 @@
         <Button
             android:id="@+id/btn_regiest"
             android:layout_centerInParent="true"
-            android:text="登录"
+            android:text="注册"
             android:textSize="18dp"
             android:textColor="#ffffff"
             android:gravity="center"
