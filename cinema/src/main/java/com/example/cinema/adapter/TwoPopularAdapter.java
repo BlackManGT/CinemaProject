@@ -1,7 +1,6 @@
 package com.example.cinema.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,18 +9,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
-import com.example.cinema.activity.MoiveListActivity;
 import com.example.cinema.bean.MoiveBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BeingAdapter extends RecyclerView.Adapter {
+public class TwoPopularAdapter extends RecyclerView.Adapter {
 
     private Context context;
 
-    public BeingAdapter(Context context) {
+    public TwoPopularAdapter(Context context) {
         this.context = context;
     }
     private ArrayList<MoiveBean> list = new ArrayList<>();
@@ -35,18 +33,18 @@ public class BeingAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = View.inflate(context, R.layout.item_popularmovie, null);
-        PopularVH popularVH = new PopularVH(view);
-        return popularVH;
+        View view = View.inflate(context, R.layout.item_twopopularmovie, null);
+        TwoPopularVH twoPopularVH = new TwoPopularVH(view);
+        return twoPopularVH;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         MoiveBean moiveBean = list.get(i);
-        PopularVH popularVH = (PopularVH) viewHolder;
-        popularVH.popularsdv.setImageURI(Uri.parse(moiveBean.getImageUrl()));
-        popularVH.populartextview.setBackgroundColor(0x55000000);
-        popularVH.populartextview.setText(moiveBean.getName());
+        TwoPopularVH twoPopularVH = (TwoPopularVH) viewHolder;
+        twoPopularVH.twopopularsdvtwo.setImageURI(Uri.parse(moiveBean.getImageUrl()));
+        twoPopularVH.twopopulartextviewone.setText(moiveBean.getName());
+        twoPopularVH.twopopulartextviewtwo.setText(moiveBean.getSummary());
     }
 
     @Override
@@ -57,14 +55,16 @@ public class BeingAdapter extends RecyclerView.Adapter {
 
 
     //创建ViewHolder
-    class PopularVH extends RecyclerView.ViewHolder {
+    class TwoPopularVH extends RecyclerView.ViewHolder {
 
-        public SimpleDraweeView popularsdv;
-        public TextView populartextview;
-        public PopularVH(@NonNull View itemView) {
+        public SimpleDraweeView twopopularsdvtwo;
+        public TextView twopopulartextviewone;
+        public TextView twopopulartextviewtwo;
+        public TwoPopularVH(@NonNull View itemView) {
             super(itemView);
-            popularsdv = itemView.findViewById(R.id.popularsdv);
-            populartextview = itemView.findViewById(R.id.populartextview);
+            twopopularsdvtwo = itemView.findViewById(R.id.twopopularsdvtwo);
+            twopopulartextviewone = itemView.findViewById(R.id.twopopulartextviewone);
+            twopopulartextviewtwo = itemView.findViewById(R.id.twopopulartextviewtwo);
         }
     }
 }
