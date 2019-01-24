@@ -16,10 +16,14 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.Result;
+import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.EncryptUtil;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.LoginPresenter;
+import com.example.cinema.sqlite.DBManager;
+
+import java.sql.SQLException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,6 +98,16 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
 
         @Override
         public void success(Result<LoginBean> result) {
+            LoginBean result1 = result.getResult();
+            UserInfoBean userInfo = result1.getUserInfo();
+            DBManager dbManager = null;
+            try {
+                dbManager = new DBManager(LoginActivity.this);
+                dbManager.insertStudent(userInfo);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
             Intent intent = new Intent(LoginActivity.this,HomePageActivity.class);
             startActivity(intent);
             finish();
