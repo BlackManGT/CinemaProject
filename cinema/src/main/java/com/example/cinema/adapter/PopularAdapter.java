@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.example.cinema.activity.DetalisHomePageActivity;
-import com.example.cinema.activity.MoiveListActivity;
 import com.example.cinema.bean.MoiveBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
