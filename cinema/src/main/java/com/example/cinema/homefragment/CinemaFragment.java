@@ -1,5 +1,6 @@
 package com.example.cinema.homefragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +15,12 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.bw.movie.R;
+import com.example.cinema.MyApplication;
 import com.example.cinema.adapter.CinemaAdapter;
 import com.example.cinema.bean.CinemaBean;
 import com.example.cinema.bean.Result;
@@ -51,17 +57,20 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     private CinemaMoviePresenter cinemaPresenter;
     private RecyclerView recycleView;
     private NearbyMoivePresenter nearbyMoivePresenter;
+    public LocationClient mLocationClient = null;
+    private MyLocationListener myListener = new MyLocationListener();
+
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cinema, container, false);
+        view = inflater.inflate(R.layout.fragment_cinema, container, false);
 
         Button recommend = view.findViewById(R.id.recommend);
         Button nearby = view.findViewById(R.id.nearby);
         recommend.setOnClickListener(this);
         nearby.setOnClickListener(this);
-
         recycleView = view.findViewById(R.id.cinemarecycleview);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         recycleView.setLayoutManager(linearLayoutManager);
@@ -78,7 +87,30 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         recommend.setTextColor(Color.WHITE);
         nearby.setBackgroundResource(R.drawable.myborder);
         nearby.setTextColor(Color.BLACK);
+
+        initData();
         return view;
+    }
+
+    private void initData() {
+        mLocationClient = new LocationClient(getActivity());
+        //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);
+        //注册监听函数
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);
+        //可选，是否需要位置描述信息，默认为不需要，即参数为false
+        //如果开发者需要获得当前点的位置信息，此处必须为true
+        option.setIsNeedLocationDescribe(true);
+        //可选，设置是否需要地址信息，默认不需要
+        option.setIsNeedAddress(true);
+        //可选，默认false,设置是否使用gps
+        option.setOpenGps(true);
+        //可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
+        option.setLocationNotify(true);
+        mLocationClient.setLocOption(option);
+        mLocationClient.start();
+
     }
 
     @Override
@@ -111,11 +143,11 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         unbinder.unbind();
     }
 
-    @OnClick(R.id.cinema_relative)
-    public void onViewClicked() {
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
-
 
 
     class CinemaCall implements DataCall<Result> {
@@ -134,4 +166,16 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
 
         }
     }
-}
+    public class MyLocationListener implements BDLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+            //以下只列举部分获取地址相关的结果信息
+            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+            String locationDescribe = location.getLocationDescribe();    //获取位置描述信息
+            String addr = location.getAddrStr();    //获取详细地址信息
+            cimemaText.setText(locationDescribe + addr);
+
+        }
+    }
+    }
