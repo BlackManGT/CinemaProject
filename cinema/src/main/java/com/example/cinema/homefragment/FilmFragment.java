@@ -1,5 +1,6 @@
 package com.example.cinema.homefragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bw.movie.R;
+import com.example.cinema.activity.MoiveListActivity;
 import com.example.cinema.adapter.BeingAdapter;
 import com.example.cinema.adapter.MovieFlowAdapter;
 import com.example.cinema.adapter.PopularAdapter;
@@ -31,7 +34,7 @@ import me.jessyan.autosize.internal.CustomAdapt;
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
-public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemClick,CustomAdapt {
+public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemClick,CustomAdapt,View.OnClickListener {
 
     private RecyclerCoverFlow movieflow;
     private MovieFlowAdapter movieFlowAdapter;
@@ -45,6 +48,13 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         View view = inflater.inflate(R.layout.fragment_film, container, false);
 
         AutoSizeConfig.getInstance().setCustomFragment(true);
+
+        RelativeLayout populars = view.findViewById(R.id.populars);
+        RelativeLayout Beings = view.findViewById(R.id.Beings);
+        RelativeLayout Soons = view.findViewById(R.id.Soons);
+        populars.setOnClickListener(this);
+        Beings.setOnClickListener(this);
+        Soons.setOnClickListener(this);
 
         movieflow = view.findViewById(R.id.movieflow);
 //        mList.setFlatFlow(true); //平面滚动
@@ -62,6 +72,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         PopularMoviePresenter popularMoviePresenter = new PopularMoviePresenter(new PopularCall());
         BeingMoviePresenter beingMoviePresenter = new BeingMoviePresenter(new BeingCall());
         SoonMoviePresenter soonMoviePresenter = new SoonMoviePresenter(new SoonCall());
+
         RecyclerView popularRecycleView = view.findViewById(R.id.popular);
         RecyclerView beingRecycleView = view.findViewById(R.id.being);
         RecyclerView soonRecycleView = view.findViewById(R.id.soon);
@@ -102,6 +113,29 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         return 720;
     }
 
+    //点金进入//热门//上映//即将
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.populars:
+                Intent intentone = new Intent(getActivity(),MoiveListActivity.class);
+                intentone.putExtra("skrone","1");
+                startActivity(intentone);
+                break;
+            case R.id.Beings:
+                Intent intenttwo = new Intent(getActivity(),MoiveListActivity.class);
+                intenttwo.putExtra("skrone","2");
+                startActivity(intenttwo);
+                break;
+            case R.id.Soons:
+                Intent intentthree = new Intent(getActivity(),MoiveListActivity.class);
+                intentthree.putExtra("skrone","3");
+                startActivity(intentthree);
+                break;
+        }
+    }
+
     //热门电影
     class PopularCall implements DataCall<Result>
     {
@@ -132,8 +166,8 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
             if(result.getStatus().equals("0000"))
             {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
-                soonAdapter.addItem(moiveBeans);
-                soonAdapter.notifyDataSetChanged();
+                beingAdapter.addItem(moiveBeans);
+                beingAdapter.notifyDataSetChanged();
             }
         }
 
@@ -150,8 +184,8 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
             if(result.getStatus().equals("0000"))
             {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
-                beingAdapter.addItem(moiveBeans);
-                beingAdapter.notifyDataSetChanged();
+                soonAdapter.addItem(moiveBeans);
+                soonAdapter.notifyDataSetChanged();
             }
         }
 

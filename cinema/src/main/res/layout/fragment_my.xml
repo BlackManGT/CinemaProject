@@ -45,11 +45,11 @@
 
     <RelativeLayout
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
         android:layout_width="match_parent"
-        android:layout_height="86dp"
-        android:background="@drawable/myborder">
+        android:layout_height="106dp"
+        android:background="@drawable/border">
 
         <LinearLayout
             android:id="@+id/mymessages"
@@ -77,12 +77,11 @@
         </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
         android:layout_width="match_parent"
-        android:layout_height="86dp"
-        android:background="@drawable/myborder">
+        android:layout_height="106dp"
+        android:background="@drawable/border">
 
         <LinearLayout
             android:layout_marginLeft="30dp"
@@ -134,12 +133,11 @@
 
     </RelativeLayout>
     <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
         android:layout_width="match_parent"
-        android:layout_height="86dp"
-        android:background="@drawable/myborder">
+        android:layout_height="106dp"
+        android:background="@drawable/border">
 
         <LinearLayout
             android:layout_marginLeft="30dp"

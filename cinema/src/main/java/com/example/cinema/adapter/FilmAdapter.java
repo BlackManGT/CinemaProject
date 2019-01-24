@@ -15,11 +15,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TwoPopularAdapter extends RecyclerView.Adapter {
+public class FilmAdapter extends RecyclerView.Adapter {
 
     private Context context;
 
-    public TwoPopularAdapter(Context context) {
+    public FilmAdapter(Context context) {
         this.context = context;
     }
     private ArrayList<MoiveBean> list = new ArrayList<>();
@@ -52,6 +52,10 @@ public class TwoPopularAdapter extends RecyclerView.Adapter {
         return list.size();
     }
 
+    public void remove() {
+        list.clear();
+        notifyDataSetChanged();
+    }
 
 
     //创建ViewHolder

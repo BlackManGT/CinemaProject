@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.example.cinema.activity.DetalisHomePageActivity;
 import com.example.cinema.activity.MoiveListActivity;
 import com.example.cinema.bean.MoiveBean;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -50,7 +51,7 @@ public class PopularAdapter extends RecyclerView.Adapter {
         popularVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,MoiveListActivity.class);
+                Intent intent = new Intent(context,DetalisHomePageActivity.class);
                 context.startActivity(intent);
             }
         });

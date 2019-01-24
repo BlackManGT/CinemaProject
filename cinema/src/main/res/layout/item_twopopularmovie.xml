@@ -8,62 +8,54 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:gravity="center"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp">
-        <RelativeLayout
-            android:layout_gravity="center"
-            android:layout_width="312dp"
-            android:layout_height="139dp">
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_marginTop="16dp"
-                android:id="@+id/twopopularsdvone"
-                android:background="@drawable/moivebackgroundtwo"
-                android:layout_centerHorizontal="true"
-                android:layout_width="312dp"
-                android:layout_height="123dp" />
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/twopopularsdvtwo"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/tu2"
-                android:layout_width="103dp"
-                android:layout_height="129dp" />
+        android:layout_height="139dp">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_marginTop="16dp"
+            android:id="@+id/twopopularsdvone"
+            android:background="@drawable/moivebackgroundtwo"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="123dp" />
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/twopopularsdvtwo"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="103dp"
+            android:layout_height="129dp" />
 
 
-            <TextView
-                android:id="@+id/twopopulartextviewone"
-                android:layout_toRightOf="@+id/twopopularsdvtwo"
-                android:textColor="#ffffff"
-                android:textSize="14sp"
-                android:layout_marginTop="26dp"
-                android:layout_marginLeft="10dp"
-                android:text="铁血战士"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/twopopularsdvthree"
-                android:layout_marginTop="26dp"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/com_icon_collection_selectet"
-                android:layout_width="16dp"
-                android:layout_height="14dp" />
-            <TextView
-                android:id="@+id/twopopulartextviewtwo"
-                android:layout_toRightOf="@+id/twopopularsdvtwo"
-                android:layout_below="@+id/twopopulartextviewone"
-                android:textColor="#ffffff"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="铁血战士"
-                android:textSize="12sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/twopopulartextviewone"
+            android:layout_toRightOf="@+id/twopopularsdvtwo"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:layout_marginTop="26dp"
+            android:layout_marginLeft="10dp"
+            android:text="铁血战士"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/twopopularsdvthree"
+            android:layout_marginTop="26dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/com_icon_collection_selectet"
+            android:layout_width="16dp"
+            android:layout_height="14dp" />
+        <TextView
+            android:id="@+id/twopopulartextviewtwo"
+            android:layout_toRightOf="@+id/twopopularsdvtwo"
+            android:layout_below="@+id/twopopulartextviewone"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="简介"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 </LinearLayout>

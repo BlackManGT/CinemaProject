@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="95dp"
-        android:background="@drawable/myborder">
+        android:layout_height="115dp"
+        android:background="@drawable/border">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/cinemasdvsone"

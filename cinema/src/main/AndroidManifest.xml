@@ -50,7 +50,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
 
         <activity android:name="com.example.cinema.activity.BootpageActivity" />
         <activity android:name="com.example.cinema.activity.StartupPageActivity" />
@@ -58,7 +58,8 @@
         <activity android:name="com.example.cinema.activity.HomePageActivity" />
         <activity android:name="com.example.cinema.activity.RegiestActivity" />
         <activity android:name="com.example.cinema.activity.MyMessagesActivity" />
-        <activity android:name="com.example.cinema.activity.MoiveListActivity"></activity>
+        <activity android:name="com.example.cinema.activity.MoiveListActivity" />
+        <activity android:name="com.example.cinema.activity.DetalisHomePageActivity"></activity>
     </application>
 
 </manifest>
