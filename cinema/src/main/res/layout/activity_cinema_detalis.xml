@@ -51,8 +51,8 @@
 
         </RelativeLayout>
         <recycler.coverflow.RecyclerCoverFlow
-            android:id="@+id/movieflow"
-            android:layout_marginTop="85dp"
+            android:id="@+id/cinema_detalis_horse"
+            android:layout_marginTop="105dp"
             android:layout_width="match_parent"
             android:layout_height="223dp"></recycler.coverflow.RecyclerCoverFlow>
 

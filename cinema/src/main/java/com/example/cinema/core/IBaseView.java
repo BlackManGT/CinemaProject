@@ -61,7 +61,7 @@ public interface IBaseView {
                                      @Field("image") String image);
 
     //注册
-    @POST("movieApi/user1/registerUser")
+    @POST("movieApi/user/v1/registerUser")
     @FormUrlEncoded
     Observable<Result> regiest(@Field("nickName") String nickName,
                                @Field("phone") String phone,
