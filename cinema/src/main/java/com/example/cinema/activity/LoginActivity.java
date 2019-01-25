@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            finish();
+
         }
 
         @Override
