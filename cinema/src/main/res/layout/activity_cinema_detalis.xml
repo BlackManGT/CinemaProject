@@ -56,5 +56,11 @@
             android:layout_width="match_parent"
             android:layout_height="223dp"></recycler.coverflow.RecyclerCoverFlow>
 
+        <View
+            android:layout_below="@+id/cinema_detalis_horse"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/lineone"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"/>
     </RelativeLayout>
 </RelativeLayout>
