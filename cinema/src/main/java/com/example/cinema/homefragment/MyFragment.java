@@ -24,9 +24,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.jessyan.autosize.AutoSizeConfig;
+import me.jessyan.autosize.internal.CustomAdapt;
 
 
-public class MyFragment extends Fragment implements View.OnClickListener {
+public class MyFragment extends Fragment implements View.OnClickListener,CustomAdapt{
     @BindView(R.id.myhead)
     SimpleDraweeView myhead;
     @BindView(R.id.myname)
@@ -37,6 +39,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
+        AutoSizeConfig.getInstance().setCustomFragment(true);
         //我的信息
         LinearLayout mymessages = view.findViewById(R.id.mymessages);
         mymessages.setOnClickListener(this);
@@ -80,5 +83,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 720;
     }
 }

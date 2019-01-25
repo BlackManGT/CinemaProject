@@ -1,6 +1,7 @@
 package com.example.cinema.core;
 
 import com.example.cinema.bean.CinemaBean;
+import com.example.cinema.bean.IDMoiveDetalisOne;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.MoiveBean;
 import com.example.cinema.bean.Result;
@@ -55,6 +56,7 @@ public interface IBaseView {
     Observable<Result<LoginBean>> login(@Field("phone") String phone,
                                         @Field("pwd") String pwd);
 
+    //注册
     @POST("movieApi/user1/registerUser")
     @FormUrlEncoded
     Observable<Result> regiest(@Field("nickName") String nickName,
@@ -68,5 +70,10 @@ public interface IBaseView {
                                @Field("screenSize") String screenSize,
                                @Field("os") String os,
                                @Field("email") String email);
+    //根据电影id查询电影信息
+    @GET("movieApi/movie/v1/findMoviesById")
+    Observable<Result<IDMoiveDetalisOne>> IDMoivedetalis(@Header("userId")int userId,
+                                                         @Header("sessionId")String sessionId,
+                                                         @Query("movieId") int movieId);
 
 }

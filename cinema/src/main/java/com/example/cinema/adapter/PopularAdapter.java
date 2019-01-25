@@ -42,7 +42,7 @@ public class PopularAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        MoiveBean moiveBean = list.get(i);
+        final MoiveBean moiveBean = list.get(i);
         PopularVH popularVH = (PopularVH) viewHolder;
         popularVH.popularsdv.setImageURI(Uri.parse(moiveBean.getImageUrl()));
         popularVH.populartextview.setBackgroundColor(0x55000000);
@@ -51,6 +51,7 @@ public class PopularAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,DetalisHomePageActivity.class);
+                intent.putExtra("id",moiveBean.getId()+"");
                 context.startActivity(intent);
             }
         });

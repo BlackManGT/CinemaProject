@@ -21,6 +21,7 @@
         <TextView
             android:layout_toRightOf="@+id/detalishomepagesdvone"
             android:layout_marginLeft="6dp"
+            android:layout_centerVertical="true"
             android:text="电影详情"
             android:textColor="#ffffff"
             android:textSize="14sp"
@@ -54,7 +55,7 @@
         android:layout_height="360dp" />
 
     <RadioGroup
-        android:id="@+id/detalisgroup"
+        android:id="@+id/detalishomegroup"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/detalishomepagesdvtwo"
         android:layout_width="match_parent"
@@ -75,7 +76,7 @@
             android:button="@null"
             android:background="@drawable/btn_gradienttwo"/>
         <RadioButton
-            android:id="@+id/detalisbuttonotwo"
+            android:id="@+id/detalisbuttontwo"
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:text="预告"
@@ -119,8 +120,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/mymessagesreturn"
+        <Button
+            android:id="@+id/detalishomepagebutton"
             android:layout_alignParentBottom="true"
             android:background="@drawable/com_icon_my_default"
             android:layout_width="58dp"

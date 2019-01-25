@@ -40,6 +40,8 @@ public class HomePageActivity extends AppCompatActivity implements CustomAdapt {
         setContentView(R.layout.activity_home_page);
         ButterKnife.bind(this);
 
+
+
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
