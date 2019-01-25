@@ -59,7 +59,8 @@
         <activity android:name="com.example.cinema.activity.RegiestActivity" />
         <activity android:name="com.example.cinema.activity.MyMessagesActivity" />
         <activity android:name="com.example.cinema.activity.MoiveListActivity" />
-        <activity android:name="com.example.cinema.activity.DetalisHomePageActivity"></activity>
+        <activity android:name="com.example.cinema.activity.DetalisHomePageActivity" />
+        <activity android:name="com.example.cinema.activity.CinemaDetalisActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_marginTop="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:background="@drawable/border"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/one"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_below="@+id/dialog_detalis_sdvone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/yugaopian"
+                        android:text="剧情简介"
+                        android:textSize="16dp"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <View
+                        android:id="@+id/lineone"
+                        android:layout_marginTop="6dp"
+                        android:layout_below="@+id/yugaopian"
+                        android:background="@drawable/linetwo"
+                        android:layout_width="30dp"
+                        android:layout_height="3dp"/>
+
+                </RelativeLayout>
+
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/notice_sdv"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/com_icon_down_default"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_below="@+id/one"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.axlecho.sakura.PlayerView
+                    android:id="@+id/ontice_playerviewone"
+                    android:layout_width="match_parent"
+                    android:layout_height="153dp"></com.axlecho.sakura.PlayerView>
+                <com.axlecho.sakura.PlayerView
+                    android:id="@+id/ontice_playerviewtwo"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="153dp"></com.axlecho.sakura.PlayerView>
+                <com.axlecho.sakura.PlayerView
+                    android:id="@+id/ontice_playerviewthree"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="153dp"></com.axlecho.sakura.PlayerView>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

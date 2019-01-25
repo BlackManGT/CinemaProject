@@ -1,7 +1,9 @@
 package com.example.cinema.core;
 
 import com.example.cinema.bean.CinemaBean;
+import com.example.cinema.bean.CinemaDetalisBean;
 import com.example.cinema.bean.IDMoiveDetalisOne;
+import com.example.cinema.bean.IDMoiveDetalisTwo;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.MoiveBean;
 import com.example.cinema.bean.Result;
@@ -72,8 +74,20 @@ public interface IBaseView {
                                @Field("email") String email);
     //根据电影id查询电影信息
     @GET("movieApi/movie/v1/findMoviesById")
-    Observable<Result<IDMoiveDetalisOne>> IDMoivedetalis(@Header("userId")int userId,
+    Observable<Result<IDMoiveDetalisOne>> IDMoivedetalisOne(@Header("userId")int userId,
                                                          @Header("sessionId")String sessionId,
                                                          @Query("movieId") int movieId);
+
+    //根据电影Id查询电影信息2
+    @GET("movieApi/movie/v1/findMoviesById")
+    Observable<Result<IDMoiveDetalisTwo>> IDMoivedetalisTwo(@Header("userId")int userId,
+                                                            @Header("sessionId")String sessionId,
+                                                            @Query("movieId") int movieId);
+
+    //查询电影信息明细
+    @GET("movieApi/cinema/v1/findCinemaInfo")
+    Observable<Result<CinemaDetalisBean>> CinemaDetalis(@Header("userId")int userId,
+                                                        @Header("sessionId")String sessionId,
+                                                        @Query("cinemaId") int cinemaId);
 
 }

@@ -72,5 +72,8 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     implementation 'com.j256.ormlite:ormlite-android:5.1'
     implementation 'com.j256.ormlite:ormlite-core:5.1'
+    implementation 'com.github.axlecho:SakuraPlayer:0.4'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.4'
+    implementation 'com.android.support:design:28.0.0'
 
 }
