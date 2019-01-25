@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.sqlite.DBManager;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -49,22 +50,24 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
         mymessagesreturn.setOnClickListener(this);
         try {
             DBManager dbManager = new DBManager(this);
-            List<UserInfoBean> student = dbManager.getStudent();
-            String nickName = student.get(0).getNickName();
-            UserInfoBean userInfoBean = student.get(0);
+            List<LoginBean> student = dbManager.getStudent();
+            LoginBean loginBean = student.get(0);
+            UserInfoBean userInfo = loginBean.getUserInfo();
+
+            String nickName = userInfo.getNickName();
             mymessagesname.setText(nickName);
-            mymessagesheard.setImageURI( student.get(0).getHeadPic());
+            mymessagesheard.setImageURI( userInfo.getHeadPic());
             SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-            Date d1=new Date(userInfoBean.getBirthday());
+            Date d1=new Date(userInfo.getBirthday());
             String t1=format.format(d1);
             mymessagesdate.setText(t1);
-            int sex = userInfoBean.getSex();
+            int sex = userInfo.getSex();
             if(sex==1){
                 mymessagessex.setText("男");
             }else {
                 mymessagessex.setText("女");
             }
-            mymessagesphone.setText(userInfoBean.getPhone());
+            mymessagesphone.setText(userInfo.getPhone());
 
         } catch (SQLException e) {
             e.printStackTrace();

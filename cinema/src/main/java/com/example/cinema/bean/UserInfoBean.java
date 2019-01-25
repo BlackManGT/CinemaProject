@@ -3,8 +3,9 @@ package com.example.cinema.bean;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "user")
-public class UserInfoBean {
+import java.io.Serializable;
+
+public class UserInfoBean implements Serializable {
     @DatabaseField
     private long birthday;
     @DatabaseField(generatedId = true)

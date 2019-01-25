@@ -99,11 +99,10 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
         @Override
         public void success(Result<LoginBean> result) {
             LoginBean result1 = result.getResult();
-            UserInfoBean userInfo = result1.getUserInfo();
             DBManager dbManager = null;
             try {
                 dbManager = new DBManager(LoginActivity.this);
-                dbManager.insertStudent(userInfo);
+                dbManager.insertStudent(result1);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

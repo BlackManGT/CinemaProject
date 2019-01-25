@@ -3,6 +3,7 @@ package com.example.cinema.sqlite;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.UserInfoBean;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
@@ -19,7 +20,7 @@ public class Helper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             // 建表
-            TableUtils.createTable(connectionSource,UserInfoBean.class);
+            TableUtils.createTable(connectionSource,LoginBean.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

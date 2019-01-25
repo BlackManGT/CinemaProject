@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.example.cinema.activity.LoginActivity;
 import com.example.cinema.activity.MyMessagesActivity;
+import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.sqlite.DBManager;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -43,7 +44,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         unbinder = ButterKnife.bind(this, view);
         try {
             DBManager dbManager = new DBManager(getContext());
-            List<UserInfoBean> student = dbManager.getStudent();
+            List<LoginBean> student = dbManager.getStudent();
             if(student.size()==0){
                 myname.setText("请登录");
                 myname.setOnClickListener(new View.OnClickListener() {
@@ -54,9 +55,11 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     }
                 });
             }else{
-                String nickName = student.get(0).getNickName();
+                LoginBean loginBean = student.get(0);
+                UserInfoBean userInfo = loginBean.getUserInfo();
+                String nickName =userInfo.getNickName();
                 myname.setText(nickName);
-                myhead.setImageURI( student.get(0).getHeadPic());
+                myhead.setImageURI( userInfo.getHeadPic());
             }
         } catch (SQLException e) {
             e.printStackTrace();
