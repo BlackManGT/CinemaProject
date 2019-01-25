@@ -106,9 +106,6 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
-            Intent intent = new Intent(LoginActivity.this,HomePageActivity.class);
-            startActivity(intent);
             finish();
         }
 

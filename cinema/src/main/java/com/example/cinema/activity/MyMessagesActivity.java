@@ -65,6 +65,7 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
     private UploadHeadPicPresenter uploadHeadPicPresenter;
     private LoginBean loginBean;
     private Bitmap bmp;
+    private List<LoginBean> student;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
     private void intit() {
         try {
             DBManager dbManager = new DBManager(this);
-            List<LoginBean> student = dbManager.getStudent();
+            student = dbManager.getStudent();
             loginBean = student.get(0);
             UserInfoBean userInfo = loginBean.getUserInfo();
 
@@ -120,7 +121,7 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
     }
 
 
-    @OnClick({R.id.mymessagesheard, R.id.mymessagesname, R.id.mymessagessex, R.id.mymessagesdate, R.id.mymessagesphone, R.id.mymessagesemail, R.id.mymessagesreturn})
+    @OnClick({R.id.mymessagesheard,R.id.mymessagesreturn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mymessagesheard:
@@ -153,16 +154,6 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
                             }
                         }).create();
                 dialog.show();
-                break;
-            case R.id.mymessagesname:
-                break;
-            case R.id.mymessagessex:
-                break;
-            case R.id.mymessagesdate:
-                break;
-            case R.id.mymessagesphone:
-                break;
-            case R.id.mymessagesemail:
                 break;
             case R.id.mymessagesreturn:
                 finish();

@@ -5,6 +5,7 @@ import com.example.cinema.bean.IDMoiveDetalisOne;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.MoiveBean;
 import com.example.cinema.bean.Result;
+import com.example.cinema.bean.TicketBean;
 
 import java.util.List;
 
@@ -82,5 +83,12 @@ public interface IBaseView {
     @FormUrlEncoded
     Observable<Result<LoginBean>> login(@Field("phone") String phone,
                                         @Field("pwd") String pwd);
+    //购票记录
+    @GET("movieApi/user/v1/verify/findUserBuyTicketRecordList")
+    Observable<Result<List<TicketBean>>> findTicket(@Query("userId") int userId,
+                                                    @Query("sessionId") String sessionId,
+                                                    @Query("page") int page,
+                                                    @Query("count")int count,
+                                                    @Query("status")int status);
 
 }
