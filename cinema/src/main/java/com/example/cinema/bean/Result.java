@@ -3,7 +3,16 @@ package com.example.cinema.bean;
 public class Result<T> {
     private String message;
     private String status;
+    private String headPath;
     T result;
+
+    public String getHeadPath() {
+        return headPath;
+    }
+
+    public void setHeadPath(String headPath) {
+        this.headPath = headPath;
+    }
 
     public String getMessage() {
         return message;

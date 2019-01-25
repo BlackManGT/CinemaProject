@@ -13,6 +13,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -50,11 +51,12 @@ public interface IBaseView {
                                                 @Query("latitude") String latitude,
                                                 @Query("page") int page,
                                                 @Query("count") int count);
-    //登录
-    @POST("movieApi/user/v1/login")
+    //上传用户头像
+    @POST("movieApi/user/v1/verify/uploadHeadPic")
     @FormUrlEncoded
-    Observable<Result<LoginBean>> login(@Field("phone") String phone,
-                                        @Field("pwd") String pwd);
+    Observable<Result> uploadHeadPic(@Header("userId") String userId,
+                                     @Header("sessionId") String sessionId,
+                                     @Field("image") String image);
 
     //注册
     @POST("movieApi/user1/registerUser")
@@ -75,5 +77,10 @@ public interface IBaseView {
     Observable<Result<IDMoiveDetalisOne>> IDMoivedetalis(@Header("userId")int userId,
                                                          @Header("sessionId")String sessionId,
                                                          @Query("movieId") int movieId);
+    //登录
+    @POST("movieApi/user/v1/login")
+    @FormUrlEncoded
+    Observable<Result<LoginBean>> login(@Field("phone") String phone,
+                                        @Field("pwd") String pwd);
 
 }
