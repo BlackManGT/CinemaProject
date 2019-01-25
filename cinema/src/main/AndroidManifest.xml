@@ -61,6 +61,8 @@
         <activity android:name="com.example.cinema.activity.MoiveListActivity" />
         <activity android:name="com.example.cinema.activity.DetalisHomePageActivity" />
         <activity android:name="com.example.cinema.activity.CinemaDetalisActivity"></activity>
+        <activity android:name="com.example.cinema.activity.MyTicketActivity" />
+        <activity android:name="com.example.cinema.activity.GuanZhuActivity"></activity>
     </application>
 
 </manifest>

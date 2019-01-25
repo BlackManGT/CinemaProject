@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "user")
 public class LoginBean {
         @DatabaseField(generatedId = true)
-        private int id;
+        private int  id;
         @DatabaseField
         private String sessionId;
         @DatabaseField
