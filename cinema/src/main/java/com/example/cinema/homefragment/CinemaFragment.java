@@ -36,8 +36,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import me.jessyan.autosize.AutoSizeConfig;
+import me.jessyan.autosize.internal.CustomAdapt;
 
-public class CinemaFragment extends Fragment implements View.OnClickListener {
+public class CinemaFragment extends Fragment implements View.OnClickListener,CustomAdapt {
 
     @BindView(R.id.cinemasdv)
     SimpleDraweeView cinemasdv;
@@ -66,6 +68,8 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cinema, container, false);
+
+        AutoSizeConfig.getInstance().setCustomFragment(true);
 
         Button recommend = view.findViewById(R.id.recommend);
         Button nearby = view.findViewById(R.id.nearby);
@@ -147,6 +151,16 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         initData();
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 720;
     }
 
 
