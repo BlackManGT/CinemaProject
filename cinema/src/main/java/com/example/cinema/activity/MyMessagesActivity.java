@@ -27,7 +27,6 @@ import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.UploadHeadPicPresenter;
-import com.example.cinema.sqlite.DBManager;
 import com.example.cinema.view.Constant;
 import com.example.cinema.view.GetRealPath;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -73,42 +72,10 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
         setContentView(R.layout.activity_my_messages);
         ButterKnife.bind(this);
 
-        intit();
         uploadHeadPicPresenter = new UploadHeadPicPresenter(new MyCall());
     }
 
-    private void intit() {
-        try {
-            DBManager dbManager = new DBManager(this);
-            student = dbManager.getStudent();
-            loginBean = student.get(0);
-            UserInfoBean userInfo = loginBean.getUserInfo();
 
-            String nickName = userInfo.getNickName();
-            mymessagesname.setText(nickName);
-            mymessagesheard.setImageURI(userInfo.getHeadPic());
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date d1 = new Date(userInfo.getBirthday());
-            String t1 = format.format(d1);
-            mymessagesdate.setText(t1);
-            int sex = userInfo.getSex();
-            if (sex == 1) {
-                mymessagessex.setText("男");
-            } else {
-                mymessagessex.setText("女");
-            }
-            mymessagesphone.setText(userInfo.getPhone());
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    //返回上一个页面
-    @Override
-    protected void onResume() {
-        super.onResume();
-        intit();
-    }
 
     @Override
     public boolean isBaseOnWidth() {

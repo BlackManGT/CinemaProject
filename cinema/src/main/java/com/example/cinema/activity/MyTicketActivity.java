@@ -18,7 +18,6 @@ import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.TicketPresenter;
-import com.example.cinema.sqlite.DBManager;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -55,16 +54,8 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
         ticketRecy.setLayoutManager(manager);
         myAdapter = new MyAdapter(this);
         ticketRecy.setAdapter(myAdapter);
-        DBManager dbManager = null;
-        try {
-            dbManager = new DBManager(this);
-            List<LoginBean> student = dbManager.getStudent();
-            loginBean = student.get(0);
-            ticketPresenter.reqeust(loginBean.getUserId(), loginBean.getSessionId(),id,5);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
+           // ticketPresenter.reqeust(loginBean.getUserId(), loginBean.getSessionId(),id,5);
 
     }
 
