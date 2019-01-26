@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -16,8 +17,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.axlecho.sakura.PlayerView;
 import com.bw.movie.R;
+import com.example.cinema.adapter.NoticeAdapter;
 import com.example.cinema.adapter.StillsAdapter;
 import com.example.cinema.bean.IDMoiveDetalisOne;
 import com.example.cinema.bean.IDMoiveDetalisTwo;
@@ -49,11 +50,11 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
     private TextView plot;
     private Dialog bottomDialog;
     private View notice;
-    private PlayerView ontice_playerviewone;
-    private PlayerView ontice_playerviewtwo;
-    private PlayerView ontice_playerviewthree;
     private View stills;
     private StillsAdapter stillsAdapter;
+    private RecyclerView notice_recycleview;
+    private NoticeAdapter noticeAdapter;
+    private RecyclerView stills_recycleview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +100,11 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.dismiss();
             }
         });
-        ontice_playerviewone = notice.findViewById(R.id.ontice_playerviewone);
-        ontice_playerviewtwo = notice.findViewById(R.id.ontice_playerviewtwo);
-        ontice_playerviewthree = notice.findViewById(R.id.ontice_playerviewthree);
+        notice_recycleview = notice.findViewById(R.id.notice_recycleview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        notice_recycleview.setLayoutManager(linearLayoutManager);
+        noticeAdapter = new NoticeAdapter(this);
+        notice_recycleview.setAdapter(noticeAdapter);
 
         //剧照
         stills = View.inflate(DetalisHomePageActivity.this, R.layout.dialog_stills, null);
@@ -111,7 +114,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.dismiss();
             }
         });
-        RecyclerView stills_recycleview = stills.findViewById(R.id.stills_recycleview);
+        stills_recycleview = stills.findViewById(R.id.stills_recycleview);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         stills_recycleview.setLayoutManager(staggeredGridLayoutManager);
         stillsAdapter = new StillsAdapter(this);
@@ -206,6 +209,9 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
             if(result.getStatus().equals("0000"))
             {
                 IDMoiveDetalisTwo idMoiveDetalisTwo = (IDMoiveDetalisTwo) result.getResult();
+                List<IDMoiveDetalisTwo.ShortFilmListBean> shortFilmList = idMoiveDetalisTwo.getShortFilmList();
+                List<String> posterList = idMoiveDetalisTwo.getPosterList();
+                Log.e("============",shortFilmList.size()+"");
                 //详情
                 dialog_detalis_sdvone.setImageURI(Uri.parse(idMoiveDetalisTwo.getImageUrl()));
                 dialog_detalis_leixing.setText("类型："+idMoiveDetalisTwo.getMovieTypes());
@@ -214,20 +220,14 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 dialog_detalis_chandi.setText("产地："+idMoiveDetalisTwo.getPlaceOrigin());
                 plot.setText(idMoiveDetalisTwo.getSummary());
 
-
-                //                IDMoiveDetalisTwo idMoiveDetalisTwo = (IDMoiveDetalisTwo) result.getResult();
-//                List<IDMoiveDetalisTwo.ShortFilmListBean> shortFilmList = idMoiveDetalisTwo.getShortFilmList();
-//                //预告片
-//                List<String> posterList = idMoiveDetalisTwo.getPosterList();
-//                String videoUrl = shortFilmList.get(2).getVideoUrl();
-//                ontice_playerviewthree.setVideoUrl(videoUrl);
+                //预告片
+                noticeAdapter.addItem(shortFilmList);
+                //剧照
+                stillsAdapter.addItem(posterList);
 
 
-
-//                //剧照
-//                stillsAdapter.addItem(posterList);
-//                stillsAdapter.notifyDataSetChanged();
-//                Toast.makeText(DetalisHomePageActivity.this, "66666666666", Toast.LENGTH_SHORT).show();
+                noticeAdapter.notifyDataSetChanged();
+                stillsAdapter.notifyDataSetChanged();
 
             }
         }

@@ -42,7 +42,7 @@ public class NetWorkManager {
                 .build();
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://mobile.bwstudent.com/")//mobile.bwstudent.com
+                .baseUrl("http://mobile.bwstudent.com/")//mobile.bwstudent.com//172.17.8.100
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

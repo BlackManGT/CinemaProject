@@ -25,7 +25,7 @@ import me.jessyan.autosize.internal.CustomAdapt;
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
-public class CinemaDetalisActivity extends AppCompatActivity implements CustomAdapt {
+public class CinemaDetalisActivity extends AppCompatActivity implements CustomAdapt{
 
     private RecyclerCoverFlow horse;
     private MovieFlowAdapter movieFlowAdapter;
@@ -75,6 +75,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
     public float getSizeInDp() {
         return 720;
     }
+
 
     //旋转木马电影
     class PopularCall implements DataCall<Result>

@@ -93,7 +93,7 @@ public interface IBaseView {
                                                     @Query("status")int status);
 
     //根据电影Id查询电影信息2
-    @GET("movieApi/movie/v1/findMoviesById")
+    @GET("movieApi/movie/v1/findMoviesDetail")
     Observable<Result<IDMoiveDetalisTwo>> IDMoivedetalisTwo(@Header("userId")int userId,
                                                             @Header("sessionId")String sessionId,
                                                             @Query("movieId") int movieId);

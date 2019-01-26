@@ -66,20 +66,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.axlecho.sakura.PlayerView
-                    android:id="@+id/ontice_playerviewone"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/notice_recycleview"
                     android:layout_width="match_parent"
-                    android:layout_height="153dp"></com.axlecho.sakura.PlayerView>
-                <com.axlecho.sakura.PlayerView
-                    android:id="@+id/ontice_playerviewtwo"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="153dp"></com.axlecho.sakura.PlayerView>
-                <com.axlecho.sakura.PlayerView
-                    android:id="@+id/ontice_playerviewthree"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="153dp"></com.axlecho.sakura.PlayerView>
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
 
