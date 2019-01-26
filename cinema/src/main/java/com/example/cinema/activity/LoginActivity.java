@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 
 import com.bw.movie.DaoMaster;
+import com.bw.movie.DaoSession;
 import com.bw.movie.R;
+import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.Result;
 import com.example.cinema.bean.UserInfoBean;
@@ -100,7 +102,15 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
         public void success(Result<LoginBean> result) {
             Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
             if(result.getStatus().equals("0000")){
-
+                LoginBean result1 = result.getResult();
+                int userId = result1.getUserId();
+                String sessionId = result1.getSessionId();
+                UserInfoBean userInfo = result1.getUserInfo();
+                userInfo.setSessionId(sessionId);
+                userInfo.setUserId(userId+"");
+                DaoSession daoSession = DaoMaster.newDevSession(LoginActivity.this, UserInfoBeanDao.TABLENAME);
+                UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
+                userInfoBeanDao.insertOrReplace(userInfo);
                 Intent intent = new Intent(LoginActivity.this,HomePageActivity.class);
                 startActivity(intent);
             }
