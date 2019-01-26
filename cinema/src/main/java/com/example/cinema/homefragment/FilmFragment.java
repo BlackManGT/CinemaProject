@@ -1,5 +1,6 @@
 package com.example.cinema.homefragment;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
@@ -29,18 +33,31 @@ import com.example.cinema.presenter.SoonMoviePresenter;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.internal.CustomAdapt;
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
-public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemClick,CustomAdapt,View.OnClickListener {
+public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemClick, CustomAdapt, View.OnClickListener {
 
+    @BindView(R.id.imageView)
+    ImageView imageView;
+    Unbinder unbinder;
+    @BindView(R.id.seacrch_text)
+    TextView seacrchText;
+    @BindView(R.id.seacrch_linear2)
+    LinearLayout seacrchLinear2;
     private RecyclerCoverFlow movieflow;
     private MovieFlowAdapter movieFlowAdapter;
     private PopularAdapter popularAdapter;
     private BeingAdapter beingAdapter;
     private SoonAdapter soonAdapter;
+    private boolean animatort = false;
+    private boolean animatorf = false;
 
     @Nullable
     @Override
@@ -65,7 +82,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         movieflow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
-                Toast.makeText(getActivity(), ""+(position+1)+"/"+movieflow.getLayoutManager().getItemCount(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "" + (position + 1) + "/" + movieflow.getLayoutManager().getItemCount(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -97,9 +114,14 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         soonAdapter = new SoonAdapter(getActivity());
         soonRecycleView.setAdapter(soonAdapter);
 
-        popularMoviePresenter.reqeust(0,"",1,10);
-        beingMoviePresenter.reqeust(0,"",1,10);
-        soonMoviePresenter.reqeust(0,"",1,10);
+        popularMoviePresenter.reqeust(0, "", 1, 10);
+        beingMoviePresenter.reqeust(0, "", 1, 10);
+        soonMoviePresenter.reqeust(0, "", 1, 10);
+        unbinder = ButterKnife.bind(this, view);
+        //这是刚进页面设置的动画状态
+        ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear2, "translationX", 30f, 510f);
+        animator.setDuration(0);
+        animator.start();
         return view;
     }
 
@@ -116,33 +138,64 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
     //点金进入//热门//上映//即将
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.populars:
-                Intent intentone = new Intent(getActivity(),MoiveListActivity.class);
-                intentone.putExtra("skrone","1");
+                Intent intentone = new Intent(getActivity(), MoiveListActivity.class);
+                intentone.putExtra("skrone", "1");
                 startActivity(intentone);
                 break;
             case R.id.Beings:
-                Intent intenttwo = new Intent(getActivity(),MoiveListActivity.class);
-                intenttwo.putExtra("skrone","2");
+                Intent intenttwo = new Intent(getActivity(), MoiveListActivity.class);
+                intenttwo.putExtra("skrone", "2");
                 startActivity(intenttwo);
                 break;
             case R.id.Soons:
-                Intent intentthree = new Intent(getActivity(),MoiveListActivity.class);
-                intentthree.putExtra("skrone","3");
+                Intent intentthree = new Intent(getActivity(), MoiveListActivity.class);
+                intentthree.putExtra("skrone", "3");
                 startActivity(intentthree);
                 break;
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick({R.id.imageView, R.id.seacrch_text})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.imageView:
+                if (animatort) {
+                    return;
+                }
+                animatort = true;
+                animatorf = false;
+                //这是显示出现的动画
+                ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear2, "translationX", 510f, 30f);
+                animator.setDuration(1500);
+                animator.start();
+                break;
+            case R.id.seacrch_text:
+                if (animatorf) {
+                    return;
+                }
+                animatorf = true;
+                animatort = false;
+                //这是隐藏进去的动画
+                ObjectAnimator animator2 = ObjectAnimator.ofFloat(seacrchLinear2, "translationX", 30f, 510f);
+                animator2.setDuration(1500);
+                animator2.start();
+                break;
+        }
+    }
+
     //热门电影
-    class PopularCall implements DataCall<Result>
-    {
+    class PopularCall implements DataCall<Result> {
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
 
                 movieFlowAdapter.addItem(moiveBeans);
@@ -158,13 +211,12 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
 
         }
     }
+
     //正在上映
-    class BeingCall implements DataCall<Result>
-    {
+    class BeingCall implements DataCall<Result> {
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
                 beingAdapter.addItem(moiveBeans);
                 beingAdapter.notifyDataSetChanged();
@@ -176,13 +228,12 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
 
         }
     }
+
     //即将上映
-    class SoonCall implements DataCall<Result>
-    {
+    class SoonCall implements DataCall<Result> {
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
                 soonAdapter.addItem(moiveBeans);
                 soonAdapter.notifyDataSetChanged();

@@ -21,6 +21,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="186dp" />
                 <RelativeLayout
+                    android:id="@+id/one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -41,6 +42,49 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/seacrch_linear2"
+                    android:layout_width="220dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="22dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:background="@drawable/shape_search"
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="20dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:id="@+id/imageView"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/com_icon_search_default" />
+
+                    <EditText
+                        android:id="@+id/seacrch_editext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="CCTV影城"
+                        android:textColor="#ffffff"
+                        android:textColorHint="#ffffff"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/seacrch_text"
+                        android:text="搜索"
+                        android:textColor="#ffffff" />
+
+                </LinearLayout>
+
 
 
 

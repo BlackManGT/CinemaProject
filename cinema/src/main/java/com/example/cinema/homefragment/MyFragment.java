@@ -61,6 +61,12 @@ public class MyFragment extends Fragment implements CustomAdapt {
         AutoSizeConfig.getInstance().setCustomFragment(true);
         //我的信息
         unbinder = ButterKnife.bind(this, view);
+        initDt();
+
+        return view;
+    }
+
+    private void initDt() {
         try {
             DBManager dbManager = new DBManager(getContext());
             student = dbManager.getStudent();
@@ -84,9 +90,8 @@ public class MyFragment extends Fragment implements CustomAdapt {
             e.printStackTrace();
         }
 
-
-        return view;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -154,5 +159,12 @@ public class MyFragment extends Fragment implements CustomAdapt {
             case R.id.my_back:
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initDt();
+
     }
 }
