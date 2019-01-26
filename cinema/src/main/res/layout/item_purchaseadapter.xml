@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:background="@drawable/border">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/purchase_sdv"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+        <LinearLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/purchase_textviewone"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:text="CGV影院"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/purchase_textviewtwo"
+                android:layout_marginTop="10dp"
+                android:textSize="12sp"
+                android:textColor="#333333"
+                android:text="CGV影院"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/purchase_textviewthree"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="#333333"
+                    android:text="CGV影院"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/cinemasdvstwo"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/com_icon_collection_selectet"
+                    android:layout_width="16dp"
+                    android:layout_height="14dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

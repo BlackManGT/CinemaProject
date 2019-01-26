@@ -2,10 +2,12 @@ package com.example.cinema.core;
 
 import com.example.cinema.bean.CinemaBean;
 import com.example.cinema.bean.CinemaDetalisBean;
+import com.example.cinema.bean.FilmReviewBean;
 import com.example.cinema.bean.IDMoiveDetalisOne;
 import com.example.cinema.bean.IDMoiveDetalisTwo;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.MoiveBean;
+import com.example.cinema.bean.PurchaseBean;
 import com.example.cinema.bean.Result;
 import com.example.cinema.bean.TicketBean;
 
@@ -104,4 +106,25 @@ public interface IBaseView {
                                                         @Header("sessionId")String sessionId,
                                                         @Query("cinemaId") int cinemaId);
 
+
+    //查询电影影评
+    @GET("movieApi/movie/v1/findAllMovieComment")
+    Observable<Result<List<FilmReviewBean>>> FilmReview(@Header("userId")int userId,
+                                                        @Header("sessionId")String sessionId,
+                                                        @Query("movieId") int movieId,
+                                                        @Query("page") int page,
+                                                        @Query("count") int count);
+
+    //根据电影ID查询当前排片该电影的影院列表
+    @GET("movieApi/movie/v1/findCinemasListByMovieId")
+    Observable<Result<List<PurchaseBean>>> Purchase(@Query("movieId") int movieId);
+
+
+    //重置密码
+    @POST("movieApi/user/v1/verify/modifyUserPwd")
+    Observable<Result> Reset(@Header("userId")int userId,
+                                                 @Header("sessionId")String sessionId,
+                                                 @Query("oldPwd") int oldPwd,
+                                                 @Query("newPwd") int newPwd,
+                                                 @Query("cinemaId") int newPwd2);
 }

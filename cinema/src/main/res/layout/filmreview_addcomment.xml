@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="80dp">
+
+    <EditText
+        android:id="@+id/addcomment"
+        android:hint="写评论"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:layout_width="284dp"
+        android:layout_height="60dp" />
+</LinearLayout>

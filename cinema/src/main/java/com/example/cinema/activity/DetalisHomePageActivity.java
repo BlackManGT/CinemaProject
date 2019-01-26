@@ -1,6 +1,7 @@
 package com.example.cinema.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,13 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
+import com.example.cinema.adapter.FilmReviewAdapter;
 import com.example.cinema.adapter.NoticeAdapter;
 import com.example.cinema.adapter.StillsAdapter;
+import com.example.cinema.bean.FilmReviewBean;
 import com.example.cinema.bean.IDMoiveDetalisOne;
 import com.example.cinema.bean.IDMoiveDetalisTwo;
 import com.example.cinema.bean.Result;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
+import com.example.cinema.presenter.FilmReviewPresenter;
 import com.example.cinema.presenter.IDMoiveDetalisonePresenter;
 import com.example.cinema.presenter.IDMoiveDetalisoneTwoPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -55,26 +59,51 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
     private RecyclerView notice_recycleview;
     private NoticeAdapter noticeAdapter;
     private RecyclerView stills_recycleview;
+    private FilmReviewPresenter filmReviewPresenter;
+    private View filmreview;
+    private FilmReviewAdapter filmReviewAdapter;
+    private Button detalisbuttonone;
+    private Button detalisbuttontwo;
+    private Button detalisbuttonthree;
+    private Button detalisbuttonfour;
+    private IDMoiveDetalisOne idMoiveDetalisOne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalis_home_page);
 
+        //得到电影id
+        id = Integer.parseInt(getIntent().getStringExtra("id"));
+        IDMoiveDetalisonePresenter idMoiveDetalisonePresenter = new IDMoiveDetalisonePresenter(new IDMoiveDetalisOneCall());
+        idMoiveDetalisonePresenter.reqeust(0,"", id);
+        //按钮
+        detalisbuttonone = findViewById(R.id.detalisbuttonone);
+        detalisbuttontwo = findViewById(R.id.detalisbuttontwo);
+        detalisbuttonthree = findViewById(R.id.detalisbuttonthree);
+        detalisbuttonfour = findViewById(R.id.detalisbuttonfour);
+        detalisbuttonone.setOnClickListener(this);
+        detalisbuttontwo.setOnClickListener(this);
+        detalisbuttonthree.setOnClickListener(this);
+        detalisbuttonfour.setOnClickListener(this);
+
+        //购票按钮
+        Button purchase = findViewById(R.id.purchase);
+        purchase.setOnClickListener(this);
+
         bottomDialog = new Dialog(DetalisHomePageActivity.this, R.style.BottomDialog);
 
         idMoiveDetalisoneTwoPresenter = new IDMoiveDetalisoneTwoPresenter(new Dialog_DetalisCall());
+        //影评
+        filmReviewPresenter = new FilmReviewPresenter(new FilmReviewCall());
+
+
 
         detalishomepagesdvone = findViewById(R.id.detalishomepagesdvone);
         Button detalishomepagebutton = findViewById(R.id.detalishomepagebutton);
         detalishomepagename = findViewById(R.id.detalishomepagename);
         detalishomepagesdvtwo = findViewById(R.id.detalishomepagesdvtwo);
         detalishomepagebutton.setOnClickListener(this);
-
-        //得到电影id
-        id = Integer.parseInt(getIntent().getStringExtra("id"));
-        IDMoiveDetalisonePresenter idMoiveDetalisonePresenter = new IDMoiveDetalisonePresenter(new IDMoiveDetalisOneCall());
-        idMoiveDetalisonePresenter.reqeust(0,"", id);
 
         //点击电影详情/预告/剧照/影评
         detalis = View.inflate(DetalisHomePageActivity.this, R.layout.dialog_detalis, null);
@@ -120,53 +149,20 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         stillsAdapter = new StillsAdapter(this);
         stills_recycleview.setAdapter(stillsAdapter);
 
-        RadioGroup detalishomegroup = findViewById(R.id.detalishomegroup);
-        detalishomegroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-
+        //影评
+        filmreview = View.inflate(DetalisHomePageActivity.this, R.layout.dialog_filmreview, null);
+        RecyclerView filmreview_recycleview = filmreview.findViewById(R.id.filmreview_recycleview);
+        LinearLayoutManager linearLayoutManagerfilmreview = new LinearLayoutManager(this);
+        filmreview_recycleview.setLayoutManager(linearLayoutManagerfilmreview);
+        filmReviewAdapter = new FilmReviewAdapter(this);
+        filmreview_recycleview.setAdapter(filmReviewAdapter);
+        filmreview.findViewById(R.id.filmreview_sdv).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId)
-                {
-                    case R.id.detalisbuttonone:
-                        bottomDialog.setContentView(detalis);
-                        ViewGroup.LayoutParams layoutParams = detalis.getLayoutParams();
-                        layoutParams.width = getResources().getDisplayMetrics().widthPixels;
-                        detalis.setLayoutParams(layoutParams);
-                        bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
-                        bottomDialog.setCanceledOnTouchOutside(true);
-                        bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
-                        bottomDialog.show();
-                        idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
-                        break;
-                    case R.id.detalisbuttontwo:
-                        bottomDialog.setContentView(notice);
-                        ViewGroup.LayoutParams layoutParamstwo = notice.getLayoutParams();
-                        layoutParamstwo.width = getResources().getDisplayMetrics().widthPixels;
-                        notice.setLayoutParams(layoutParamstwo);
-                        bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
-                        bottomDialog.setCanceledOnTouchOutside(true);
-                        bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
-                        bottomDialog.show();
-                        idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
-                        break;
-                    case R.id.detalisbuttonthree:
-                        bottomDialog.setContentView(stills);
-                        ViewGroup.LayoutParams layoutParamsthree = stills.getLayoutParams();
-                        layoutParamsthree.width = getResources().getDisplayMetrics().widthPixels;
-                        stills.setLayoutParams(layoutParamsthree);
-                        bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
-                        bottomDialog.setCanceledOnTouchOutside(true);
-                        bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
-                        bottomDialog.show();
-                        idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
-                        break;
-                    case R.id.detalisbuttonfour:
-                        break;
-                }
+            public void onClick(View v) {
+                bottomDialog.dismiss();
             }
         });
-
+        //添加评论
 
     }
 
@@ -178,6 +174,56 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
             case R.id.detalishomepagebutton:
                 finish();
                 break;
+            case R.id.detalisbuttonone:
+                bottomDialog.setContentView(detalis);
+                ViewGroup.LayoutParams layoutParamsDetalis = detalis.getLayoutParams();
+                layoutParamsDetalis.width = getResources().getDisplayMetrics().widthPixels;
+                detalis.setLayoutParams(layoutParamsDetalis);
+                bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+                bottomDialog.setCanceledOnTouchOutside(true);
+                bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+                bottomDialog.show();
+                idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
+                break;
+            case R.id.detalisbuttontwo:
+                bottomDialog.setContentView(notice);
+                ViewGroup.LayoutParams layoutParamsnotice= notice.getLayoutParams();
+                layoutParamsnotice.width = getResources().getDisplayMetrics().widthPixels;
+                notice.setLayoutParams(layoutParamsnotice);
+                bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+                bottomDialog.setCanceledOnTouchOutside(true);
+                bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+                bottomDialog.show();
+                idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
+                break;
+            case R.id.detalisbuttonthree:
+                bottomDialog.setContentView(stills);
+                ViewGroup.LayoutParams layoutParamsStills = stills.getLayoutParams();
+                layoutParamsStills.width = getResources().getDisplayMetrics().widthPixels;
+                stills.setLayoutParams(layoutParamsStills);
+                bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+                bottomDialog.setCanceledOnTouchOutside(true);
+                bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+                bottomDialog.show();
+                idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
+                break;
+            case R.id.detalisbuttonfour:
+                bottomDialog.setContentView(filmreview);
+                ViewGroup.LayoutParams layoutParamsthreefilmreview = filmreview.getLayoutParams();
+                layoutParamsthreefilmreview.width = getResources().getDisplayMetrics().widthPixels;
+                filmreview.setLayoutParams(layoutParamsthreefilmreview);
+                bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+                bottomDialog.setCanceledOnTouchOutside(true);
+                bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+                bottomDialog.show();
+                filmReviewPresenter.reqeust(0,"",id,1,10);
+                break;
+            case R.id.purchase:
+                Intent intent = new Intent(DetalisHomePageActivity.this,PurchaseActivity.class);
+                intent.putExtra("id",id+"");
+                intent.putExtra("name",idMoiveDetalisOne.getName());
+                startActivity(intent);
+                break;
         }
     }
 
@@ -188,7 +234,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         public void success(Result result) {
             if(result.getStatus().equals("0000"))
             {
-                 IDMoiveDetalisOne idMoiveDetalisOne = (IDMoiveDetalisOne) result.getResult();
+                idMoiveDetalisOne = (IDMoiveDetalisOne) result.getResult();
                  detalishomepagename.setText(idMoiveDetalisOne.getName());
                  detalishomepagesdvtwo.setImageURI(Uri.parse(idMoiveDetalisOne.getImageUrl()));
             }
@@ -200,7 +246,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         }
     }
 
-    //详情//预告
+    //详情//预告/剧照
     class Dialog_DetalisCall implements DataCall<Result>
     {
 
@@ -229,6 +275,25 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 noticeAdapter.notifyDataSetChanged();
                 stillsAdapter.notifyDataSetChanged();
 
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+    //影评
+    class FilmReviewCall implements DataCall<Result>
+    {
+
+        @Override
+        public void success(Result result) {
+            if(result.getStatus().equals("0000"))
+            {
+                List<FilmReviewBean> filmReviewBeans = (List<FilmReviewBean>) result.getResult();
+                filmReviewAdapter.addItem(filmReviewBeans);
+                filmReviewAdapter.notifyDataSetChanged();
             }
         }
 

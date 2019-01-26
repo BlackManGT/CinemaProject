@@ -1,6 +1,7 @@
 package com.example.cinema.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
+import com.example.cinema.activity.DetalisHomePageActivity;
 import com.example.cinema.bean.MoiveBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -54,7 +56,7 @@ public class MovieFlowAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
-        MoiveBean moiveBean = list.get(i);
+        final MoiveBean moiveBean = list.get(i);
         MovieVH movieVH = (MovieVH) viewHolder;
         Glide.with(context).load(moiveBean.getImageUrl()).into(movieVH.img);
         movieVH.populartextviewone.setBackgroundColor(0x55000000);
@@ -65,6 +67,9 @@ public class MovieFlowAdapter extends RecyclerView.Adapter {
                 if (clickCb != null) {
                     clickCb.clickItem(i);
                 }
+                Intent intent = new Intent(context,DetalisHomePageActivity.class);
+                intent.putExtra("id",moiveBean.getId()+"");
+                context.startActivity(intent);
             }
         });
     }

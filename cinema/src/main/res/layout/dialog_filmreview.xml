@@ -26,7 +26,7 @@
 
                 <TextView
                     android:id="@+id/yugaopian"
-                    android:text="剧情简介"
+                    android:text="影评"
                     android:textSize="16dp"
                     android:textColor="#333333"
                     android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
 
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/stills_sdv"
+                android:id="@+id/filmreview_sdv"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/com_icon_down_default"
@@ -60,10 +60,22 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/stills_recycleview"
+                android:id="@+id/filmreview_recycleview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
+            <RelativeLayout
+                android:layout_marginTop="-78dp"
+                android:layout_below="@+id/filmreview_recycleview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/commentbutton"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/com_icon_publish_default"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp" />
+            </RelativeLayout>
         </RelativeLayout>
 
 

@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +73,15 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_messages);
         ButterKnife.bind(this);
+
+        LinearLayout resetpwd = findViewById(R.id.resetpwd);
+        resetpwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyMessagesActivity.this,ResetPwdActivity.class);
+                startActivity(intent);
+            }
+        });
 
         intit();
         uploadHeadPicPresenter = new UploadHeadPicPresenter(new MyCall());

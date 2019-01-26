@@ -171,6 +171,9 @@ public class MyFragment extends Fragment implements CustomAdapt {
             case R.id.my_version:
                 break;
             case R.id.my_back:
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+
+                startActivity(intent);
                 break;
         }
     }

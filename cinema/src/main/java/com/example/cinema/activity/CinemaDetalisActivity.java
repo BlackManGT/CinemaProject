@@ -17,8 +17,10 @@ import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.homefragment.FilmFragment;
 import com.example.cinema.presenter.CinemaDetalisPresenter;
 import com.example.cinema.presenter.PopularMoviePresenter;
+import com.example.cinema.sqlite.DBManager;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import me.jessyan.autosize.internal.CustomAdapt;
@@ -27,8 +29,6 @@ import recycler.coverflow.RecyclerCoverFlow;
 
 public class CinemaDetalisActivity extends AppCompatActivity implements CustomAdapt{
 
-    private RecyclerCoverFlow horse;
-    private MovieFlowAdapter movieFlowAdapter;
     private SimpleDraweeView cinema_detalis_sdvone;
     private TextView cinema_detalis_textviewone;
     private TextView cinema_detalis_textviewtwo;
@@ -42,7 +42,6 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         cinema_detalis_textviewone = findViewById(R.id.cinema_detalis_textviewone);
         cinema_detalis_textviewtwo = findViewById(R.id.cinema_detalis_textviewtwo);
 
-        PopularMoviePresenter popularMoviePresenter = new PopularMoviePresenter(new PopularCall());
 
         //获取传过来的电影ID
         int id = Integer.parseInt(getIntent().getStringExtra("id"));
@@ -50,19 +49,6 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
 
         cinemaDetalisPresenter.reqeust(0,"",id);
 
-        horse = findViewById(R.id.cinema_detalis_horse);
-//        mList.setFlatFlow(true); //平面滚动
-//        mList.setGreyItem(true); //设置灰度渐变
-//        mList.setAlphaItem(true); //设置半透渐变
-        movieFlowAdapter = new MovieFlowAdapter(this);
-        horse.setAdapter(movieFlowAdapter);
-        horse.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
-            @Override
-            public void onItemSelected(int position) {
-                Toast.makeText(CinemaDetalisActivity.this, ""+(position+1)+"/"+ horse.getLayoutManager().getItemCount(),Toast.LENGTH_SHORT).show();
-            }
-        });
-        popularMoviePresenter.reqeust(0,"",1,10);
 
     }
 
@@ -76,26 +62,6 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         return 720;
     }
 
-
-    //旋转木马电影
-    class PopularCall implements DataCall<Result>
-    {
-        @Override
-        public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
-                List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
-
-                movieFlowAdapter.addItem(moiveBeans);
-                movieFlowAdapter.notifyDataSetChanged();
-            }
-        }
-
-        @Override
-        public void fail(ApiException e) {
-
-        }
-    }
 
     //电影院信息
     class CinemaDetalisCall implements DataCall<Result>

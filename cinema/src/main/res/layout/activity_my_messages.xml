@@ -205,6 +205,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/resetpwd"
             android:background="@drawable/border"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="14dp"
