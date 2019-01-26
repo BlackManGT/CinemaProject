@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bw.movie.DaoMaster;
+import com.bw.movie.DaoSession;
 import com.bw.movie.R;
+import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.activity.LoginActivity;
 import com.example.cinema.activity.MyMessagesActivity;
 import com.example.cinema.activity.MyTicketActivity;
@@ -21,7 +24,6 @@ import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.UserInfoBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,8 +52,12 @@ public class MyFragment extends Fragment implements CustomAdapt {
     LinearLayout myVersion;
     @BindView(R.id.my_back)
     LinearLayout myBack;
+    @BindView(R.id.my_linear)
+    LinearLayout myLinear;
 
     private List<LoginBean> student;
+    private UserInfoBean userInfoBean;
+    private List<UserInfoBean> userInfoBeans;
 
     @Nullable
     @Override
@@ -60,7 +66,41 @@ public class MyFragment extends Fragment implements CustomAdapt {
         AutoSizeConfig.getInstance().setCustomFragment(true);
         //我的信息
         unbinder = ButterKnife.bind(this, view);
+        init();
         return view;
+    }
+
+    private void init() {
+        DaoSession daoSession = DaoMaster.newDevSession(getContext(), UserInfoBeanDao.TABLENAME);
+        UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
+        userInfoBeans = userInfoBeanDao.loadAll();
+
+        if (userInfoBeans.size() != 0) {
+            userInfoBean = userInfoBeans.get(0);
+            myhead.setImageURI(userInfoBean.getHeadPic());
+            myname.setText(userInfoBean.getNickName());
+        } else {
+            myLinear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("请先登录");
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent myMessagesintent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(myMessagesintent);
+                        }
+                    });
+                    builder.show();
+                }
+            });
+            myname.setText("请登录");
+
+        }
+
+
     }
 
     @Override
@@ -84,11 +124,11 @@ public class MyFragment extends Fragment implements CustomAdapt {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mymessages:
-                if(student.size()==0){
+                if (userInfoBeans.size() == 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setMessage("请先登录");
-                    builder.setNegativeButton("取消",null);
-                    builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent myMessagesintent = new Intent(getActivity(), LoginActivity.class);
@@ -96,46 +136,46 @@ public class MyFragment extends Fragment implements CustomAdapt {
                         }
                     });
                     builder.show();
-                }else{
+                } else {
                     Intent intent = new Intent(getActivity(), MyMessagesActivity.class);
                     startActivity(intent);
                 }
                 break;
             case R.id.my_guanzhu:
-//                if(student.size()==0){
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//                    builder.setMessage("请先登录");
-//                    builder.setNegativeButton("取消",null);
-//                    builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            Intent myMessagesintent = new Intent(getActivity(), MyTicketActivity.class);
-//                            startActivity(myMessagesintent);
-//                        }
-//                    });
-//                    builder.show();
-//                }else{
-//                    Intent intent = new Intent(getActivity(), MyTicketActivity.class);
-//                    startActivity(intent);
-//                }
+                if (userInfoBeans.size() == 0) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("请先登录");
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent myMessagesintent = new Intent(getActivity(), MyTicketActivity.class);
+                            startActivity(myMessagesintent);
+                        }
+                    });
+                    builder.show();
+                } else {
+                    Intent intent = new Intent(getActivity(), MyTicketActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.my_ticket:
-//                if(student.size()==0){
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//                    builder.setMessage("请先登录");
-//                    builder.setNegativeButton("取消",null);
-//                    builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            Intent myMessagesintent = new Intent(getActivity(), MyTicketActivity.class);
-//                            startActivity(myMessagesintent);
-//                        }
-//                    });
-//                    builder.show();
-//                }else{
-//                    Intent intent = new Intent(getActivity(), MyTicketActivity.class);
-//                    startActivity(intent);
-//                }
+                if (userInfoBeans.size() == 0) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("请先登录");
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent myMessagesintent = new Intent(getActivity(), MyTicketActivity.class);
+                            startActivity(myMessagesintent);
+                        }
+                    });
+                    builder.show();
+                } else {
+                    Intent intent = new Intent(getActivity(), MyTicketActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.my_yijian:
                 break;
@@ -149,6 +189,6 @@ public class MyFragment extends Fragment implements CustomAdapt {
     @Override
     public void onResume() {
         super.onResume();
-
+        init();
     }
 }
