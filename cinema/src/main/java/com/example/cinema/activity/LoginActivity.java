@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bw.movie.DaoMaster;
 import com.bw.movie.R;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.Result;
@@ -21,7 +22,6 @@ import com.example.cinema.core.DataCall;
 import com.example.cinema.core.EncryptUtil;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.LoginPresenter;
-import com.example.cinema.sqlite.DBManager;
 
 import java.sql.SQLException;
 
@@ -100,14 +100,7 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
         public void success(Result<LoginBean> result) {
             Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
             if(result.getStatus().equals("0000")){
-                LoginBean result1 = result.getResult();
-                DBManager dbManager = null;
-                try {
-                    dbManager = new DBManager(LoginActivity.this);
-                    dbManager.insertStudent(result1);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+
                 Intent intent = new Intent(LoginActivity.this,HomePageActivity.class);
                 startActivity(intent);
             }

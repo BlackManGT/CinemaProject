@@ -1,7 +1,9 @@
 package com.example.cinema.core;
 
 import com.example.cinema.bean.CinemaBean;
+import com.example.cinema.bean.CinemaById;
 import com.example.cinema.bean.CinemaDetalisBean;
+import com.example.cinema.bean.CinemaRecy;
 import com.example.cinema.bean.FilmReviewBean;
 import com.example.cinema.bean.IDMoiveDetalisOne;
 import com.example.cinema.bean.IDMoiveDetalisTwo;
@@ -105,6 +107,13 @@ public interface IBaseView {
     Observable<Result<CinemaDetalisBean>> CinemaDetalis(@Header("userId")int userId,
                                                         @Header("sessionId")String sessionId,
                                                         @Query("cinemaId") int cinemaId);
+    //查看影院影片
+    @GET("movieApi/movie/v1/findMovieListByCinemaId")
+    Observable<Result<List<CinemaById>>> cinemaById(@Query("cinemaId")int cinemaId);
+    //查看影院排期
+    @GET("movieApi/movie/v1/findMovieScheduleList")
+    Observable<Result<List<CinemaRecy>>> cinemaRecy(@Query("cinemasId")int cinemasId,
+                                                    @Query("movieId") int movieId);
 
 
     //查询电影影评

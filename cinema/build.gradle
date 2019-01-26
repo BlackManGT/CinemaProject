@@ -33,7 +33,7 @@ android {
 //与android平级
 greendao {
     schemaVersion 1  //版本
-    daoPackage 'com.example.cinema' // 一般为app包名+生成文件的文件夹名
+    daoPackage 'com.bw.movie' // 一般为app包名+生成文件的文件夹名
     targetGenDir 'src/main/java' //生成文件路径
 }
 
@@ -70,8 +70,6 @@ dependencies {
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation files('libs/BaiduLBS_Android.jar')
-    implementation 'com.j256.ormlite:ormlite-android:5.1'
-    implementation 'com.j256.ormlite:ormlite-core:5.1'
     implementation 'cn.jzvd:jiaozivideoplayer:6.2.9'
 
 }
