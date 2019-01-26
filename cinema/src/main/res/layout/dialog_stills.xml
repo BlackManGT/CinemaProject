@@ -4,70 +4,70 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+    <RelativeLayout
+        android:background="@drawable/border"
+        android:layout_marginTop="120dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:background="@drawable/border"
-            android:layout_marginTop="120dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:id="@+id/one"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_below="@+id/dialog_detalis_sdvone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:id="@+id/one"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_below="@+id/dialog_detalis_sdvone"
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <RelativeLayout
-                    android:layout_centerVertical="true"
+                <TextView
+                    android:id="@+id/yugaopian"
+                    android:text="剧情简介"
+                    android:textSize="16dp"
+                    android:textColor="#333333"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content" />
+                <View
+                    android:id="@+id/lineone"
+                    android:layout_marginTop="6dp"
+                    android:layout_below="@+id/yugaopian"
+                    android:background="@drawable/linetwo"
+                    android:layout_width="30dp"
+                    android:layout_height="3dp"/>
 
-                    <TextView
-                        android:id="@+id/yugaopian"
-                        android:text="剧情简介"
-                        android:textSize="16dp"
-                        android:textColor="#333333"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <View
-                        android:id="@+id/lineone"
-                        android:layout_marginTop="6dp"
-                        android:layout_below="@+id/yugaopian"
-                        android:background="@drawable/linetwo"
-                        android:layout_width="30dp"
-                        android:layout_height="3dp"/>
-
-                </RelativeLayout>
-
-
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:id="@+id/stills_sdv"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/com_icon_down_default"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
             </RelativeLayout>
+
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/stills_sdv"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/com_icon_down_default"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/one"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/stills_recycleview"
-                android:layout_below="@+id/one"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
-
         </RelativeLayout>
 
-    </ScrollView>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

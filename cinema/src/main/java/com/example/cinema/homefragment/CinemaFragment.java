@@ -118,6 +118,16 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
     }
 
     @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 720;
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.recommend) {
             recommend.setBackgroundResource(R.drawable.btn_gradient);
@@ -151,16 +161,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
     public void onResume() {
         super.onResume();
         initData();
-    }
-
-    @Override
-    public boolean isBaseOnWidth() {
-        return false;
-    }
-
-    @Override
-    public float getSizeInDp() {
-        return 720;
     }
 
 

@@ -1,34 +1,31 @@
 package com.example.cinema.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
-import com.example.cinema.activity.DetalisHomePageActivity;
-import com.example.cinema.bean.MoiveBean;
+import com.example.cinema.bean.IDMoiveDetalisTwo;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StillsAdapter extends RecyclerView.Adapter {
+import cn.jzvd.JZVideoPlayerStandard;
+
+public class NoticeAdapter extends RecyclerView.Adapter {
 
     private Context context;
 
-    public StillsAdapter(Context context) {
+    public NoticeAdapter(Context context) {
         this.context = context;
     }
-    private ArrayList<String> list = new ArrayList<>();
-    public void addItem(List<String> posterList) {
+    private ArrayList<IDMoiveDetalisTwo.ShortFilmListBean> list = new ArrayList<>();
+    public void addItem(List<IDMoiveDetalisTwo.ShortFilmListBean> posterList) {
         if(posterList!=null)
         {
             list.addAll(posterList);
@@ -38,7 +35,7 @@ public class StillsAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = View.inflate(context, R.layout.item_stilsmoive, null);
+        View view = View.inflate(context, R.layout.item_noticemoive, null);
         StilsVH stilsVH = new StilsVH(view);
         return stilsVH;
     }
@@ -46,10 +43,12 @@ public class StillsAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
+        IDMoiveDetalisTwo.ShortFilmListBean shortFilmListBean = list.get(i);
+        String imageUrl = shortFilmListBean.getImageUrl();
+        String videoUrl = shortFilmListBean.getVideoUrl();
         StilsVH stilsVH = (StilsVH) viewHolder;
-        String s = list.get(i);
-        Glide.with(context).load(s).into(stilsVH.stills_imageview);
-
+        stilsVH.notice_jzv.setUp(videoUrl,JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
+        Glide.with(context).load(imageUrl).into(stilsVH.notice_jzv.thumbImageView);
     }
 
     @Override
@@ -63,10 +62,10 @@ public class StillsAdapter extends RecyclerView.Adapter {
     //创建ViewHolder
     class StilsVH extends RecyclerView.ViewHolder {
 
-        public ImageView stills_imageview;
+        public JZVideoPlayerStandard notice_jzv;
         public StilsVH(@NonNull View itemView) {
             super(itemView);
-            stills_imageview = itemView.findViewById(R.id.stills_imageview);
+            notice_jzv = itemView.findViewById(R.id.notice_jzv);
         }
     }
 }
