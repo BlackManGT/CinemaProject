@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.example.cinema.adapter.CinemaFlowAdapter;
 import com.example.cinema.adapter.CinemaRecycleAdapter;
-import com.example.cinema.adapter.MovieFlowAdapter;
 import com.example.cinema.bean.CinemaById;
 import com.example.cinema.bean.CinemaDetalisBean;
 import com.example.cinema.bean.CinemaRecy;
@@ -21,13 +20,9 @@ import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.CinemaByIdPresenter;
 import com.example.cinema.presenter.CinemaDetalisPresenter;
-import com.example.cinema.presenter.PopularMoviePresenter;
-import com.example.cinema.sqlite.DBManager;
 import com.example.cinema.presenter.CinemaRecyPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-
-import java.sql.SQLException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,7 +36,6 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
     @BindView(R.id.cinema_recy2)
     RecyclerView cinemaRecy;
     private RecyclerCoverFlow horse;
-    private MovieFlowAdapter movieFlowAdapter;
     private SimpleDraweeView cinema_detalis_sdvone;
     private TextView cinema_detalis_textviewone;
     private TextView cinema_detalis_textviewtwo;
@@ -98,7 +92,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
                 Toast.makeText(CinemaDetalisActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 List<CinemaRecy> result1 = result.getResult();
                 cinemaRecycleAdapter.addList(result1);
-                cinemaRecycleAdapter.notifyDataSetChanged();;
+                cinemaRecycleAdapter.notifyDataSetChanged();
             }
         }
 

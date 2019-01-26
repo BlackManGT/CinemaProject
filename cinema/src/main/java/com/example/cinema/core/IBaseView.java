@@ -136,4 +136,10 @@ public interface IBaseView {
                                                  @Query("oldPwd") int oldPwd,
                                                  @Query("newPwd") int newPwd,
                                                  @Query("cinemaId") int newPwd2);
+
+    //意见反馈
+    @POST("movieApi/tool/v1/verify/recordFeedBack")
+    Observable<Result> Feedback(@Header("userId")int userId,
+                             @Header("sessionId")String sessionId,
+                             @Query("content") int content);
 }
