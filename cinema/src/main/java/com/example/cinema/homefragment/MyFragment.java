@@ -113,8 +113,22 @@ public class MyFragment extends Fragment implements CustomAdapt {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mymessages:
-                Intent myMessagesintent = new Intent(getActivity(), MyMessagesActivity.class);
-                startActivity(myMessagesintent);
+                if(student.size()==0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("请先登录");
+                    builder.setNegativeButton("取消",null);
+                    builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent myMessagesintent = new Intent(getActivity(), MyMessagesActivity.class);
+                            startActivity(myMessagesintent);
+                        }
+                    });
+                    builder.show();
+                }else{
+                    Intent intent = new Intent(getActivity(), MyMessagesActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.my_guanzhu:
                 if(student.size()==0){
