@@ -26,9 +26,12 @@ public class MyAdapter extends RecyclerView.Adapter{
     private Context context;
     private ClickListener clickListener;
     private LongClickListener longClickListener;
-
-    public MyAdapter(List<TicketBean>  list, Context context) {
-        this.list = list;
+    public void addList(List<TicketBean> u){
+        if(u!=null){
+            list.addAll(u);
+        }
+    }
+    public MyAdapter( Context context) {
         this.context = context;
     }
 
@@ -38,11 +41,11 @@ public class MyAdapter extends RecyclerView.Adapter{
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wait_money, parent, false);
             return new MyViewHolder(view);
         }else if(viewType==1){
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.two, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.finish_layout, parent, false);
             return new ViewHolder2(view);
         }
 
-        return ;
+       return null;
     }
 
     @Override
@@ -51,41 +54,25 @@ public class MyAdapter extends RecyclerView.Adapter{
         switch (itemViewType){
             case 0:
                 MyViewHolder myViewHolder = (MyViewHolder) holder;
-                myViewHolder.textView1.setText(list.get(position).getTitle());
-                Glide.with(context).load(list.get(position).getThumbnail_pic_s()).into(myViewHolder.imageView1);
-                myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickListener.onItmeClickListener(v,position);
-                    }
-                });
-                myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        longClickListener.onLongItmeClickListener(v,position);
-                        return true;
-                    }
-                });
+                TicketBean ticketBean = list.get(position);
+                myViewHolder.one_dingdan.setText(ticketBean.getOrderId());
+                myViewHolder.one_film.setText(ticketBean.getCinemaName());
+                myViewHolder.one_count.setText(ticketBean.getAmount());
+                myViewHolder.one_money.setText(ticketBean.getPrice()+"");
+                myViewHolder.one_yingting.setText(ticketBean.getScreeningHall());
+                myViewHolder.one_time.setText(ticketBean.getBeginTime());
+                myViewHolder.one_title.setText(ticketBean.getMovieName());
                 break;
             case 1:
                 ViewHolder2 holder2 = (ViewHolder2) holder;
-                holder2.textView2.setText(list.get(position).getTitle());
-                Glide.with(context).load(list.get(position).getThumbnail_pic_s()).into(holder2.imageView21);
-                Glide.with(context).load(list.get(position).getThumbnail_pic_s02()).into(holder2.imageView22);
-                Glide.with(context).load(list.get(position).getThumbnail_pic_s03()).into(holder2.imageView23);
-                holder2.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickListener.onItmeClickListener(v,position);
-                    }
-                });
-                holder2.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        longClickListener.onLongItmeClickListener(v,position);
-                        return true;
-                    }
-                });
+                TicketBean ticketBean2 = list.get(position);
+                holder2.two_dingdan.setText(ticketBean2.getOrderId());
+                holder2.two_film.setText(ticketBean2.getCinemaName());
+                holder2.two_count.setText(ticketBean2.getAmount());
+                holder2.two_money.setText(ticketBean2.getPrice()+"");
+                holder2.two_yingting.setText(ticketBean2.getScreeningHall());
+                holder2.two_time.setText(ticketBean2.getBeginTime());
+                holder2.two_title.setText(ticketBean2.getMovieName());
                 break;
         }
     }
@@ -137,17 +124,22 @@ public class MyAdapter extends RecyclerView.Adapter{
     }
     class ViewHolder2 extends RecyclerView.ViewHolder{
 
-        private final TextView textView2;
-        private final ImageView imageView21;
-        private final ImageView imageView22;
-        private final ImageView imageView23;
-
+        private final TextView two_title;
+        private final TextView two_dingdan;
+        private final TextView two_yingting;
+        private final TextView two_film;
+        private final TextView two_time;
+        private final TextView two_count;
+        private final TextView two_money;
         public ViewHolder2(View itemView) {
             super(itemView);
-            textView2 = itemView.findViewById(R.id.two_view);
-            imageView21 = itemView.findViewById(R.id.two_image1);
-            imageView22 = itemView.findViewById(R.id.two_image2);
-            imageView23 = itemView.findViewById(R.id.two_image3);
+            two_title = itemView.findViewById(R.id.two_title);
+            two_dingdan = itemView.findViewById(R.id.two_dingdan);
+            two_film = itemView.findViewById(R.id.two_film);
+            two_yingting = itemView.findViewById(R.id.two_yingting);
+            two_time = itemView.findViewById(R.id.two_time);
+            two_count = itemView.findViewById(R.id.two_count);
+            two_money = itemView.findViewById(R.id.two_money);
         }
     }
     public interface ClickListener{
