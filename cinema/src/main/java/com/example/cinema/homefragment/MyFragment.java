@@ -126,7 +126,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
                     });
                     builder.show();
                 }else{
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    Intent intent = new Intent(getActivity(), MyMessagesActivity.class);
                     startActivity(intent);
                 }
                 break;
