@@ -120,13 +120,13 @@ public class MyFragment extends Fragment implements CustomAdapt {
                     builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent myMessagesintent = new Intent(getActivity(), MyMessagesActivity.class);
+                            Intent myMessagesintent = new Intent(getActivity(), LoginActivity.class);
                             startActivity(myMessagesintent);
                         }
                     });
                     builder.show();
                 }else{
-                    Intent intent = new Intent(getActivity(), MyMessagesActivity.class);
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
                 }
                 break;
