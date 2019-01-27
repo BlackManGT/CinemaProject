@@ -55,7 +55,7 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
         myAdapter = new MyAdapter(this);
         ticketRecy.setAdapter(myAdapter);
 
-           // ticketPresenter.reqeust(loginBean.getUserId(), loginBean.getSessionId(),id,5);
+//        ticketPresenter.reqeust(loginBean.getUserId(), loginBean.getSessionId(),id,5);
 
     }
 

@@ -1,9 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.cinema.activity.GuanZhuActivity">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/guanzhu_radiogroup"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/guanzhu_radiobuttonone"
+                android:text="正在热映"
+                android:button="@null"
+                android:gravity="center"
+                android:background="@drawable/myborder"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:layout_margin="16dp"
+                android:layout_width="83dp"
+                android:layout_height="25dp" />
+            <RadioButton
+                android:id="@+id/guanzhu_radiobuttontwo"
+                android:text="即将上映"
+                android:button="@null"
+                android:gravity="center"
+                android:background="@drawable/myborder"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:layout_margin="16dp"
+                android:layout_width="83dp"
+                android:layout_height="25dp" />
+
+        </RadioGroup>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/guanzhu_recycleview"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/guanzhu_return"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/com_icon_my_default"
+            android:layout_width="58dp"
+            android:layout_height="58dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

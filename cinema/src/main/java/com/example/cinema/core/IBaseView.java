@@ -9,6 +9,7 @@ import com.example.cinema.bean.IDMoiveDetalisOne;
 import com.example.cinema.bean.IDMoiveDetalisTwo;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.MoiveBean;
+import com.example.cinema.bean.MyIsFollowListBean;
 import com.example.cinema.bean.PurchaseBean;
 import com.example.cinema.bean.Result;
 import com.example.cinema.bean.TicketBean;
@@ -133,13 +134,33 @@ public interface IBaseView {
     @POST("movieApi/user/v1/verify/modifyUserPwd")
     Observable<Result> Reset(@Header("userId")int userId,
                                                  @Header("sessionId")String sessionId,
-                                                 @Query("oldPwd") int oldPwd,
-                                                 @Query("newPwd") int newPwd,
-                                                 @Query("cinemaId") int newPwd2);
+                                                 @Field("oldPwd") int oldPwd,
+                                                 @Field("newPwd") int newPwd,
+                                                 @Field("cinemaId") int newPwd2);
 
     //意见反馈
     @POST("movieApi/tool/v1/verify/recordFeedBack")
     Observable<Result> Feedback(@Header("userId")int userId,
                              @Header("sessionId")String sessionId,
-                             @Query("content") int content);
+                             @Field("content") int content);
+
+    //关注
+    @GET("movieApi/movie/v1/verify/followMovie")
+    Observable<Result> isFollow(@Header("userId")int userId,
+                                                        @Header("sessionId")String sessionId,
+                                                        @Query("movieId") int movieId);
+    //关注列表
+    @GET("movieApi/movie/v1/verify/findMoviePageList")
+    Observable<Result<List<MyIsFollowListBean>>> MyisFollowList(@Header("userId")int userId,
+                                                                @Header("sessionId")String sessionId,
+                                                                @Query("page") int page,
+                                                                @Query("count") int count);
+
+    //对影片评论
+    @POST("movieApi/movie/v1/verify/movieComment")
+    @FormUrlEncoded
+    Observable<Result> addFilmComment(@Header("userId")int userId,
+                                @Header("sessionId")String sessionId,
+                                @Field("movieId") int movieId,
+                                      @Field("commentContent") String commentContent);
 }

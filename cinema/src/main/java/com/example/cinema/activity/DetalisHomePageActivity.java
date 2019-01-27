@@ -1,6 +1,8 @@
 package com.example.cinema.activity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +15,18 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.DaoMaster;
+import com.bw.movie.DaoSession;
 import com.bw.movie.R;
+import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.adapter.FilmReviewAdapter;
 import com.example.cinema.adapter.NoticeAdapter;
 import com.example.cinema.adapter.StillsAdapter;
@@ -26,11 +34,14 @@ import com.example.cinema.bean.FilmReviewBean;
 import com.example.cinema.bean.IDMoiveDetalisOne;
 import com.example.cinema.bean.IDMoiveDetalisTwo;
 import com.example.cinema.bean.Result;
+import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
+import com.example.cinema.presenter.AddFilmCommentPresenter;
 import com.example.cinema.presenter.FilmReviewPresenter;
 import com.example.cinema.presenter.IDMoiveDetalisonePresenter;
 import com.example.cinema.presenter.IDMoiveDetalisoneTwoPresenter;
+import com.example.cinema.presenter.IsFollowPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -67,11 +78,27 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
     private Button detalisbuttonthree;
     private Button detalisbuttonfour;
     private IDMoiveDetalisOne idMoiveDetalisOne;
+    private CheckBox detalis_home_page_follow;
+    private IsFollowPresenter isFollowPresenter;
+    private int userId;
+    private String sessionId;
+    private List<UserInfoBean> userInfoBeans;
+    private Button commentaddbutton;
+    private View addcomments;
+    private EditText addcomment;
+    private AddFilmCommentPresenter addFilmCommentPresenter;
+    private Button send;
+    private Dialog bottomDialogtwo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalis_home_page);
+
+        //数据库
+        DaoSession daoSession = DaoMaster.newDevSession(this, UserInfoBeanDao.TABLENAME);
+        UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
+        userInfoBeans = userInfoBeanDao.loadAll();
 
         //得到电影id
         id = Integer.parseInt(getIntent().getStringExtra("id"));
@@ -86,6 +113,46 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         detalisbuttontwo.setOnClickListener(this);
         detalisbuttonthree.setOnClickListener(this);
         detalisbuttonfour.setOnClickListener(this);
+
+        //关注
+
+        isFollowPresenter = new IsFollowPresenter(new isFollowCall());
+        detalis_home_page_follow = findViewById(R.id.detalis_home_page_follow);
+        detalis_home_page_follow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    if(userInfoBeans.size() != 0)
+                    {
+                        userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
+                        sessionId = userInfoBeans.get(0).getSessionId();
+                        Log.e("=========userId========", userId +"");
+                        Log.e("======sessionId======",sessionId+"");
+                        detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_selectet);
+                        isFollowPresenter.reqeust(userId, sessionId,id);
+                    }
+                    else
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(DetalisHomePageActivity.this);
+                        builder.setMessage("请先登录");
+                        builder.setNegativeButton("取消", null);
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent myMessagesintent = new Intent(DetalisHomePageActivity.this, LoginActivity.class);
+                                startActivity(myMessagesintent);
+                            }
+                        });
+                        builder.show();
+                    }
+                }
+
+            }
+        });
+
+
 
         //购票按钮
         Button purchase = findViewById(R.id.purchase);
@@ -162,8 +229,19 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.dismiss();
             }
         });
-        //添加评论
 
+        //添加评论按钮
+        commentaddbutton = filmreview.findViewById(R.id.commentaddbutton);
+        commentaddbutton.setOnClickListener(this);
+
+        //评论
+        addcomments = View.inflate(DetalisHomePageActivity.this, R.layout.filmreview_addcomment, null);
+        //评论内容
+        addcomment = addcomments.findViewById(R.id.addcomment);
+        //点击发送
+        send = addcomments.findViewById(R.id.send);
+        send.setOnClickListener(this);
+        addFilmCommentPresenter = new AddFilmCommentPresenter(new AddFilmCommentCall());
     }
 
     //点击事件
@@ -207,7 +285,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.show();
                 idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
                 break;
-            case R.id.detalisbuttonfour:
+            case R.id.detalisbuttonfour://影评
                 bottomDialog.setContentView(filmreview);
                 ViewGroup.LayoutParams layoutParamsthreefilmreview = filmreview.getLayoutParams();
                 layoutParamsthreefilmreview.width = getResources().getDisplayMetrics().widthPixels;
@@ -224,6 +302,43 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 intent.putExtra("name",idMoiveDetalisOne.getName());
                 startActivity(intent);
                 break;
+            case R.id.commentaddbutton://添加评论
+                if(userInfoBeans.size() != 0)
+                {
+                    bottomDialogtwo = new Dialog(DetalisHomePageActivity.this, R.style.BottomDialog);
+                    bottomDialogtwo.setContentView(addcomments);
+                    ViewGroup.LayoutParams layoutParamsaddcomment = addcomments.getLayoutParams();
+                    layoutParamsaddcomment.width = getResources().getDisplayMetrics().widthPixels;
+                    addcomments.setLayoutParams(layoutParamsaddcomment);
+                    bottomDialogtwo.getWindow().setGravity(Gravity.BOTTOM);
+                    bottomDialogtwo.setCanceledOnTouchOutside(true);
+                    bottomDialogtwo.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+                    bottomDialogtwo.show();
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DetalisHomePageActivity.this);
+                    builder.setMessage("请先登录");
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent myMessagesintent = new Intent(DetalisHomePageActivity.this, LoginActivity.class);
+                            startActivity(myMessagesintent);
+                        }
+                    });
+                    builder.show();
+                }
+                break;
+                case R.id.send:
+                    int userIdOne = Integer.parseInt(userInfoBeans.get(0).getUserId());
+                    String sessionIdOne = userInfoBeans.get(0).getSessionId();
+                    String s = addcomment.getText().toString();
+                    filmReviewAdapter.remove();
+                    addFilmCommentPresenter.reqeust(userIdOne,sessionIdOne,id,s);
+                    filmReviewPresenter.reqeust(0,"",id,1,10);
+                    bottomDialogtwo.dismiss();
+                    break;
         }
     }
 
@@ -234,7 +349,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         public void success(Result result) {
             if(result.getStatus().equals("0000"))
             {
-                idMoiveDetalisOne = (IDMoiveDetalisOne) result.getResult();
+                 idMoiveDetalisOne = (IDMoiveDetalisOne) result.getResult();
                  detalishomepagename.setText(idMoiveDetalisOne.getName());
                  detalishomepagesdvtwo.setImageURI(Uri.parse(idMoiveDetalisOne.getImageUrl()));
             }
@@ -271,7 +386,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 //剧照
                 stillsAdapter.addItem(posterList);
 
-
                 noticeAdapter.notifyDataSetChanged();
                 stillsAdapter.notifyDataSetChanged();
 
@@ -303,6 +417,45 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         }
     }
 
+    //关注
+    class isFollowCall implements DataCall<Result>
+    {
+
+        @Override
+        public void success(Result result) {
+            if(result.getStatus().equals("0000"))
+            {
+                Toast.makeText(DetalisHomePageActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
+    //评论
+    class AddFilmCommentCall implements DataCall<Result>
+    {
+
+        @Override
+        public void success(Result result) {
+            if(result.getStatus().equals("0000"))
+            {
+                Toast.makeText(DetalisHomePageActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+                List<FilmReviewBean> filmReviewBeans = (List<FilmReviewBean>) result.getResult();
+                filmReviewAdapter.addItem(filmReviewBeans);
+                filmReviewAdapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
     @Override
     public boolean isBaseOnWidth() {
         return false;
@@ -312,7 +465,5 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
     public float getSizeInDp() {
         return 720;
     }
-
-
 
 }

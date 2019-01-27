@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <Button
-                    android:id="@+id/commentbutton"
+                    android:id="@+id/commentaddbutton"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/com_icon_publish_default"
                     android:layout_width="58dp"

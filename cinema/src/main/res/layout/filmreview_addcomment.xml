@@ -2,13 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:gravity="center"
+    android:layout_marginTop="240dp"
     android:layout_height="80dp">
 
-    <EditText
-        android:id="@+id/addcomment"
-        android:hint="写评论"
-        android:textSize="14sp"
-        android:textColor="#666666"
-        android:layout_width="284dp"
-        android:layout_height="60dp" />
+    <RelativeLayout
+        android:background="#ededed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/addcomment"
+            android:background="#ededed"
+            android:hint="写评论"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_width="284dp"
+            android:layout_height="60dp" />
+
+        <Button
+            android:id="@+id/send"
+            android:text="发送"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/addcomment"
+            android:background="#ededed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 </LinearLayout>
