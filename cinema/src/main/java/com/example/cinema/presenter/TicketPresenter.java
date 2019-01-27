@@ -15,6 +15,6 @@ public class TicketPresenter extends BasePresenter {
     @Override
     protected Observable observable(Object... args) {
         IBaseView iBaseView = NetWorkManager.getInstance().create(IBaseView.class);
-        return iBaseView.findTicket((int)args[0],(String)args[1],(int)args[2],(int)args[3],(int)args[3]);
+        return iBaseView.findTicket((String)args[0],(String)args[1],(int)args[2],(int)args[3],(int)args[4]);
     }
 }

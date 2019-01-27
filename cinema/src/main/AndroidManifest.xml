@@ -64,7 +64,8 @@
         <activity android:name="com.example.cinema.activity.MyTicketActivity" />
         <activity android:name="com.example.cinema.activity.GuanZhuActivity" />
         <activity android:name="com.example.cinema.activity.PurchaseActivity" />
-        <activity android:name="com.example.cinema.activity.ResetPwdActivity"></activity>
+        <activity android:name="com.example.cinema.activity.ResetPwdActivity" />
+        <activity android:name="com.example.cinema.activity.ChooseActivity"></activity>
     </application>
 
 </manifest>

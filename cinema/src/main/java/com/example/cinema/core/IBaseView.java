@@ -21,6 +21,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -91,8 +92,8 @@ public interface IBaseView {
                                         @Field("pwd") String pwd);
     //购票记录
     @GET("movieApi/user/v1/verify/findUserBuyTicketRecordList")
-    Observable<Result<List<TicketBean>>> findTicket(@Query("userId") int userId,
-                                                    @Query("sessionId") String sessionId,
+    Observable<Result<List<TicketBean>>> findTicket(@Header("userId") String userId,
+                                                    @Header("sessionId") String sessionId,
                                                     @Query("page") int page,
                                                     @Query("count")int count,
                                                     @Query("status")int status);
