@@ -1,8 +1,9 @@
 package com.example.cinema.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CinemaRecy {
+public class CinemaRecy implements Serializable {
         private String beginTime;
         private String duration;
         private String endTime;
