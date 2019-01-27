@@ -1,6 +1,7 @@
 package com.example.cinema.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.example.cinema.activity.ChooseActivity;
 import com.example.cinema.bean.CinemaRecy;
 
 import java.text.SimpleDateFormat;
@@ -47,6 +49,13 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
         myViewHolder.cinema_start.setText(cinemaRecy.getBeginTime());
         myViewHolder.cinema_end.setText(cinemaRecy.getEndTime());
         myViewHolder.cinema_mongey.setText(cinemaRecy.getPrice()+"");
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,ChooseActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
