@@ -141,9 +141,10 @@ public interface IBaseView {
 
     //意见反馈
     @POST("movieApi/tool/v1/verify/recordFeedBack")
+    @FormUrlEncoded
     Observable<Result> Feedback(@Header("userId")int userId,
                              @Header("sessionId")String sessionId,
-                             @Field("content") int content);
+                             @Field("content") String content);
 
     //关注
     @GET("movieApi/movie/v1/verify/followMovie")
@@ -164,4 +165,10 @@ public interface IBaseView {
                                 @Header("sessionId")String sessionId,
                                 @Field("movieId") int movieId,
                                       @Field("commentContent") String commentContent);
+
+    //用户签到
+    @GET("movieApi/user/v1/verify/userSignIn")
+    Observable<Result> Signin(@Header("userId")int userId,
+                              @Header("sessionId")String sessionId);
+
 }

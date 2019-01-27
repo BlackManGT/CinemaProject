@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.example.cinema.activity.ChooseActivity;
 import com.example.cinema.bean.CinemaRecy;
 
 import java.util.ArrayList;

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.cinema.activity.FeedBackActivity">
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/one"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_below="@+id/dialog_detalis_sdvone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/yugaopian"
+                    android:text="意见反馈"
+                    android:textSize="16dp"
+                    android:textColor="#333333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/two"
+            android:layout_below="@+id/one"
+            android:background="@drawable/border"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/feedback_edittext"
+                android:hint="写下您对产品的感受吧！工作人员将会在第一时间评估下处理。"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:textColor="#999999"
+                android:background="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></EditText>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/feedback_tijiao"
+            android:layout_below="@+id/two"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="10dp"
+            android:text="提交"
+            android:background="@drawable/btn_gradientthree"
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            android:layout_width="48dp"
+            android:layout_height="25dp" />
+
+        <RelativeLayout
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/feedback_return"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/com_icon_my_default"
+                android:layout_width="58dp"
+                android:layout_height="58dp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,1 +1,1 @@
-include ':app', ':cinema'
+include ':app', ':cinema', ':SeatTable'
