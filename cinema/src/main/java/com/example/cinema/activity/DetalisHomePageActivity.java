@@ -386,6 +386,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 //剧照
                 stillsAdapter.addItem(posterList);
 
+
                 noticeAdapter.notifyDataSetChanged();
                 stillsAdapter.notifyDataSetChanged();
 
