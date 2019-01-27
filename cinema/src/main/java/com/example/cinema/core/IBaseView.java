@@ -171,4 +171,11 @@ public interface IBaseView {
                                       @Field("scheduleId") int scheduleId,
                                       @Field("amount")int amount,
                                       @Field("sign")String sign);
+    @POST("movieApi/movie/v1/verify/pay")
+    @FormUrlEncoded
+    Observable<Result> pay(@Header("userId")String userId,
+                                      @Header("sessionId")String sessionId,
+                                      @Field("payType") int payType,
+                                      @Field("orderId")String orderId);
+
 }

@@ -20,7 +20,11 @@ import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.BuyMovieTicketPresenter;
+import com.example.cinema.presenter.PayPresenter;
 import com.qfdqc.views.seattable.SeatTable;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.io.Serializable;
 import java.security.MessageDigest;
@@ -40,6 +44,7 @@ public class ChooseActivity extends AppCompatActivity {
     private UserInfoBean userInfoBean;
     private int count=0;
     private List<UserInfoBean> userInfoBeans;
+    private PayPresenter payPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,17 +131,45 @@ public class ChooseActivity extends AppCompatActivity {
                 rl_bot.setVisibility(View.GONE);
             }
         });
+        payPresenter = new PayPresenter(new MyPay());
     }
     class MyBuy implements DataCall<Result>{
 
         @Override
         public void success(Result result) {
-            Toast.makeText(ChooseActivity.this, result.getMessage()+"成功", Toast.LENGTH_SHORT).show();
+           if(result.getStatus().equals("0000")){
+               final String userId = userInfoBean.getUserId();
+               final String sessionId = userInfoBean.getSessionId();
+                payPresenter.reqeust(userId,sessionId,1,result.getOrderId());
+           }
         }
 
         @Override
         public void fail(ApiException e) {
             Toast.makeText(ChooseActivity.this,e.getMessage()+"失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+    class MyPay implements DataCall<Result>{
+
+        @Override
+        public void success(Result result) {
+            Toast.makeText(ChooseActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+            final IWXAPI msgApi = WXAPIFactory.createWXAPI(ChooseActivity.this, "wxb3852e6a6b7d9516");
+            msgApi.registerApp("wxb3852e6a6b7d9516");
+            PayReq request = new PayReq();
+            request.appId = result.getAppId();
+            request.partnerId = result.getPartnerId();
+            request.prepayId= result.getPrepayId();
+            request.packageValue = result.getPackageValue();
+            request.nonceStr= result.getNonceStr();
+            request.timeStamp=result.getTimeStamp();
+            request.sign= result.getSign();
+            msgApi.sendReq(request);
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
         }
     }
     /**
