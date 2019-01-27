@@ -164,4 +164,11 @@ public interface IBaseView {
                                 @Header("sessionId")String sessionId,
                                 @Field("movieId") int movieId,
                                       @Field("commentContent") String commentContent);
+    @POST("movieApi/movie/v1/verify/buyMovieTicket")
+    @FormUrlEncoded
+    Observable<Result> buyMovieTicket(@Header("userId")String userId,
+                                      @Header("sessionId")String sessionId,
+                                      @Field("scheduleId") int scheduleId,
+                                      @Field("amount")int amount,
+                                      @Field("sign")String sign);
 }

@@ -49,7 +49,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
     private CinemaRecyPresenter cinemaRecyPresenter;
     private CinemaRecycleAdapter cinemaRecycleAdapter;
     private List<CinemaById> cinemaByIds;
-    private int p =4;;
+    private int p =0;;
     private int id;
 
     @Override
@@ -100,7 +100,6 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
             if (result.getStatus().equals("0000")){
                 Toast.makeText(CinemaDetalisActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 List<CinemaRecy> result1 = result.getResult();
-
                 cinemaRecycleAdapter.addList(result1);
                 cinemaRecycleAdapter.notifyDataSetChanged();
             }
@@ -126,7 +125,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
                 for (int i = 0; i < cinemaByIds.size() ; i++) {
                     list.add(cinemaByIds.get(i).getName());
                 }
-                cinemaRecycleAdapter.addName(list);
+                cinemaRecycleAdapter.addName(list,p);
             }
         }
 

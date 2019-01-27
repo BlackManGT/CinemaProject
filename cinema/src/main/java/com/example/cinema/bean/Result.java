@@ -5,6 +5,15 @@ public class Result<T> {
     private String status;
     private String headPath;
     T result;
+    private String orderId;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
 
     public String getHeadPath() {
         return headPath;
