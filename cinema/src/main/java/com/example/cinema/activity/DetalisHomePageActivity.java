@@ -115,7 +115,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         detalisbuttonfour.setOnClickListener(this);
 
         //关注
-
         isFollowPresenter = new IsFollowPresenter(new isFollowCall());
         detalis_home_page_follow = findViewById(R.id.detalis_home_page_follow);
         detalis_home_page_follow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -330,13 +329,11 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                     builder.show();
                 }
                 break;
-                case R.id.send:
+                case R.id.send://发送评论
                     int userIdOne = Integer.parseInt(userInfoBeans.get(0).getUserId());
                     String sessionIdOne = userInfoBeans.get(0).getSessionId();
                     String s = addcomment.getText().toString();
-                    filmReviewAdapter.remove();
                     addFilmCommentPresenter.reqeust(userIdOne,sessionIdOne,id,s);
-                    filmReviewPresenter.reqeust(0,"",id,1,10);
                     bottomDialogtwo.dismiss();
                     break;
         }
@@ -436,7 +433,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         }
     }
 
-    //评论
+    //添加评论
     class AddFilmCommentCall implements DataCall<Result>
     {
 
@@ -445,9 +442,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
             if(result.getStatus().equals("0000"))
             {
                 Toast.makeText(DetalisHomePageActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
-                List<FilmReviewBean> filmReviewBeans = (List<FilmReviewBean>) result.getResult();
-                filmReviewAdapter.addItem(filmReviewBeans);
-                filmReviewAdapter.notifyDataSetChanged();
             }
         }
 

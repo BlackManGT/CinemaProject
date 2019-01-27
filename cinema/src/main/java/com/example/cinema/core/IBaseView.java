@@ -133,11 +133,12 @@ public interface IBaseView {
 
     //重置密码
     @POST("movieApi/user/v1/verify/modifyUserPwd")
-    Observable<Result> Reset(@Header("userId")int userId,
+    @FormUrlEncoded
+    Observable<Result> ResetPwd(@Header("userId")int userId,
                                                  @Header("sessionId")String sessionId,
-                                                 @Field("oldPwd") int oldPwd,
-                                                 @Field("newPwd") int newPwd,
-                                                 @Field("cinemaId") int newPwd2);
+                                                 @Field("oldPwd") String oldPwd,
+                                                 @Field("newPwd") String newPwd,
+                                                 @Field("newPwd2") String newPwd2);
 
     //意见反馈
     @POST("movieApi/tool/v1/verify/recordFeedBack")
@@ -171,6 +172,7 @@ public interface IBaseView {
     Observable<Result> Signin(@Header("userId")int userId,
                               @Header("sessionId")String sessionId);
 
+    //下单
     @POST("movieApi/movie/v1/verify/buyMovieTicket")
     @FormUrlEncoded
     Observable<Result> buyMovieTicket(@Header("userId")String userId,

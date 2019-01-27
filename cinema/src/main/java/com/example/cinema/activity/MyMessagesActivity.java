@@ -66,12 +66,22 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
     private LoginBean loginBean;
     private Bitmap bmp;
     private List<LoginBean> student;
+    private LinearLayout resetpwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_messages);
         ButterKnife.bind(this);
+
+        resetpwd = findViewById(R.id.resetpwd);
+        resetpwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyMessagesActivity.this, ResetPwdActivity.class);
+                startActivity(intent);
+            }
+        });
 
         uploadHeadPicPresenter = new UploadHeadPicPresenter(new MyCall());
     }
