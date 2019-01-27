@@ -24,6 +24,9 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
             list.addAll(u);
         }
     }
+    public void clearList(){
+        list.clear();
+    }
     private Context context;
 
     public CinemaRecycleAdapter(Context context) {
@@ -41,7 +44,6 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         CinemaRecy cinemaRecy = list.get(i);
         myViewHolder.cinema_name.setText(cinemaRecy.getScreeningHall());
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         myViewHolder.cinema_start.setText(cinemaRecy.getBeginTime());
         myViewHolder.cinema_end.setText(cinemaRecy.getEndTime());
         myViewHolder.cinema_mongey.setText(cinemaRecy.getPrice()+"");
@@ -65,7 +67,7 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
             cinema_name = itemView.findViewById(R.id.cinema_name);
             cinema_start = itemView.findViewById(R.id.cinema_start);
             cinema_end = itemView.findViewById(R.id.cinema_end);
-            cinema_mongey = itemView.findViewById(R.id.cinema_name);
+            cinema_mongey = itemView.findViewById(R.id.cinema_mongey);
         }
     }
 }

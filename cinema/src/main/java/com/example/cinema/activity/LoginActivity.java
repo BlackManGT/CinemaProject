@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -105,6 +106,7 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
                 LoginBean result1 = result.getResult();
                 int userId = result1.getUserId();
                 String sessionId = result1.getSessionId();
+                Log.d("login", "success: "+sessionId);
                 UserInfoBean userInfo = result1.getUserInfo();
                 userInfo.setSessionId(sessionId);
                 userInfo.setUserId(userId+"");

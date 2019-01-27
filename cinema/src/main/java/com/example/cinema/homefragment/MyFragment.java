@@ -58,6 +58,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
     private List<LoginBean> student;
     private UserInfoBean userInfoBean;
     private List<UserInfoBean> userInfoBeans;
+    private UserInfoBeanDao userInfoBeanDao;
 
     @Nullable
     @Override
@@ -72,7 +73,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
 
     private void init() {
         DaoSession daoSession = DaoMaster.newDevSession(getContext(), UserInfoBeanDao.TABLENAME);
-        UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
+        userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();
 
         if (userInfoBeans.size() != 0) {
@@ -167,7 +168,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent myMessagesintent = new Intent(getActivity(), MyTicketActivity.class);
+                            Intent myMessagesintent = new Intent(getActivity(), LoginActivity.class);
                             startActivity(myMessagesintent);
                         }
                     });
@@ -182,6 +183,19 @@ public class MyFragment extends Fragment implements CustomAdapt {
             case R.id.my_version:
                 break;
             case R.id.my_back:
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("是否确认退出");
+                builder.setNegativeButton("取消", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userInfoBeanDao.deleteAll();
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                });
+                builder.show();
                 break;
         }
     }

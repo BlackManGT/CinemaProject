@@ -6,10 +6,14 @@ import android.support.constraint.solver.widgets.ConstraintAnchor;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.bw.movie.DaoMaster;
+import com.bw.movie.DaoSession;
 import com.bw.movie.R;
+import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.adapter.MyAdapter;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.Result;
@@ -39,6 +43,7 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
     private MyAdapter myAdapter;
     private int id= 1;
     private LoginBean loginBean;
+    private UserInfoBean userInfoBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +59,12 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
         ticketRecy.setLayoutManager(manager);
         myAdapter = new MyAdapter(this);
         ticketRecy.setAdapter(myAdapter);
-
-           // ticketPresenter.reqeust(loginBean.getUserId(), loginBean.getSessionId(),id,5);
-
+        DaoSession daoSession = DaoMaster.newDevSession(MyTicketActivity.this, UserInfoBeanDao.TABLENAME);
+        UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
+        List<UserInfoBean> userInfoBeans = userInfoBeanDao.loadAll();
+        userInfoBean = userInfoBeans.get(0);
+        Log.d("login2", "success: "+userInfoBean.getSessionId());
+        ticketPresenter.reqeust(userInfoBean.getUserId(), userInfoBean.getSessionId(),1,5,id);
     }
 
     @OnClick({R.id.ticket_wait_money, R.id.ticket_finish})
@@ -67,11 +75,11 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
                 ticketWaitMoney.setTextColor(Color.WHITE);
                 ticketFinish.setBackgroundResource(R.drawable.myborder);
                 ticketFinish.setTextColor(Color.BLACK);
-                ticketPresenter.reqeust(loginBean.getUserId(),loginBean.getSessionId(),id,5);
+                ticketPresenter.reqeust(userInfoBean.getUserId(), userInfoBean.getSessionId(),1,5,id);
                 break;
             case R.id.ticket_finish:
                 id = 2;
-                ticketPresenter.reqeust(loginBean.getUserId(),loginBean.getSessionId(),id,5);
+                ticketPresenter.reqeust(userInfoBean.getUserId(), userInfoBean.getSessionId(),1,5,id);
                 ticketFinish.setBackgroundResource(R.drawable.btn_gradient);
                 ticketFinish.setTextColor(Color.WHITE);
                 ticketWaitMoney.setBackgroundResource(R.drawable.myborder);

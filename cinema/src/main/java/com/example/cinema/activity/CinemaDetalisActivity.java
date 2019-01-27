@@ -22,6 +22,7 @@ import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.CinemaByIdPresenter;
 import com.example.cinema.presenter.CinemaDetalisPresenter;
 import com.example.cinema.presenter.CinemaRecyPresenter;
+import com.example.cinema.view.SpaceItemDecoration;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
@@ -47,7 +48,8 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
     private CinemaRecyPresenter cinemaRecyPresenter;
     private CinemaRecycleAdapter cinemaRecycleAdapter;
     private List<CinemaById> cinemaByIds;
-    private int id2;
+    private int p =4;;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +63,11 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
 
 
         //获取传过来的电影ID
-        int id = Integer.parseInt(getIntent().getStringExtra("id"));
+        id = Integer.parseInt(getIntent().getStringExtra("id"));
         CinemaDetalisPresenter cinemaDetalisPresenter = new CinemaDetalisPresenter(new CinemaDetalisCall());
         cinemaDetalisPresenter.reqeust(0, "", id);
         cinemaByIdPresenter = new CinemaByIdPresenter(new MyCall());
         cinemaFlowAdapter = new CinemaFlowAdapter(this);
-
         horse = findViewById(R.id.cinema_detalis_horse);
 //        mList.setFlatFlow(true); //平面滚动
 //        mList.setGreyItem(true); //设置灰度渐变
@@ -76,7 +77,10 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         horse.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
-                id2 = cinemaByIds.get(position).getId();
+                p = cinemaByIds.get(position).getId();
+                Log.d("id23", "onItemSelected: "+p);
+                cinemaRecycleAdapter.clearList();
+                cinemaRecyPresenter.reqeust(id,p);
             }
         });
         cinemaRecycleAdapter = new CinemaRecycleAdapter(this);
@@ -84,7 +88,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         cinemaRecy.setLayoutManager(manager);
         cinemaRecy.setAdapter(cinemaRecycleAdapter);
-        cinemaRecyPresenter.reqeust(id,id2);
+        cinemaRecy.addItemDecoration(new SpaceItemDecoration(10));
 
     }
     class My implements DataCall<Result<List<CinemaRecy>>>{
@@ -94,6 +98,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
             if (result.getStatus().equals("0000")){
                 Toast.makeText(CinemaDetalisActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 List<CinemaRecy> result1 = result.getResult();
+
                 cinemaRecycleAdapter.addList(result1);
                 cinemaRecycleAdapter.notifyDataSetChanged();;
             }
@@ -109,8 +114,11 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         @Override
         public void success(Result<List<CinemaById>> result) {
             if (result.getStatus().equals("0000")) {
+
                 cinemaByIds = result.getResult();
-                id2 = cinemaByIds.get(0).getId();
+                p=cinemaByIds.get(0).getId();
+                cinemaRecyPresenter.reqeust(id,p);
+                Log.d("id2", "success: "+p);
                 cinemaFlowAdapter.addItem(cinemaByIds);
                 cinemaFlowAdapter.notifyDataSetChanged();
             }
