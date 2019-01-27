@@ -2,22 +2,16 @@ package com.example.cinema.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
-import com.example.cinema.activity.ChooseActivity;
 import com.example.cinema.bean.CinemaRecy;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdapter.MyViewHolder> {
