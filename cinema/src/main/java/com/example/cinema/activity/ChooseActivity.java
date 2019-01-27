@@ -1,10 +1,15 @@
 package com.example.cinema.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.bw.movie.R;
+import com.example.cinema.bean.CinemaRecy;
 import com.qfdqc.views.seattable.SeatTable;
+
+import java.io.Serializable;
 
 public class ChooseActivity extends AppCompatActivity {
 
@@ -13,6 +18,9 @@ public class ChooseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose);
         SeatTable seat_view = (SeatTable) findViewById(R.id.seat_view);
+        Intent intent = getIntent();
+        CinemaRecy cinemaRecy = (CinemaRecy) intent.getSerializableExtra("name");
+        Log.d("aaa", "onCreate: "+cinemaRecy.toString());
         seat_view.setScreenName("8号厅荧幕");//设置屏幕名称
         seat_view.setMaxSelected(3);//设置最多选中
 

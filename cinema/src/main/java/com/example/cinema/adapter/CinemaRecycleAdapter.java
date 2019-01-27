@@ -14,6 +14,7 @@ import com.bw.movie.R;
 import com.example.cinema.activity.ChooseActivity;
 import com.example.cinema.bean.CinemaRecy;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        CinemaRecy cinemaRecy = list.get(i);
+        final CinemaRecy cinemaRecy = list.get(i);
         myViewHolder.cinema_name.setText(cinemaRecy.getScreeningHall());
         myViewHolder.cinema_start.setText(cinemaRecy.getBeginTime());
         myViewHolder.cinema_end.setText(cinemaRecy.getEndTime());
@@ -53,6 +54,8 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,ChooseActivity.class);
+                intent.putExtra("cinemaname",cinemaRecy.getScreeningHall());
+                intent.putExtra("cinemaprice",cinemaRecy.getPrice()+"");
                 context.startActivity(intent);
             }
         });
