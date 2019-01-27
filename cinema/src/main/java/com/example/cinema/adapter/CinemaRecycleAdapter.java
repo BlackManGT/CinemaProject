@@ -22,7 +22,6 @@ import java.util.List;
 
 public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdapter.MyViewHolder> {
     private List<CinemaRecy> list = new ArrayList<>();
-    private int p1=0;
     public void addList(List<CinemaRecy> u){
         if(u!=null){
             list.addAll(u);
@@ -57,7 +56,6 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
                 Intent intent = new Intent(context,ChooseActivity.class);
                 intent.putExtra("cinemaname", cinemaRecy);
                 intent.putExtra("name",mlist.get(i));
-                intent.putExtra("p1",cinemaRecy.getId()+"");
                 context.startActivity(intent);
             }
         });
@@ -69,10 +67,9 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
         return list.size();
     }
 
-    public void addName(List<String> list, int p) {
+    public void addName(List<String> list) {
         if(list!=null){
             mlist.addAll(list);
-            p1=p;
         }
     }
 

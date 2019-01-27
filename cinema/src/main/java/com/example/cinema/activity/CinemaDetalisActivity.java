@@ -125,7 +125,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
                 for (int i = 0; i < cinemaByIds.size() ; i++) {
                     list.add(cinemaByIds.get(i).getName());
                 }
-                cinemaRecycleAdapter.addName(list,p);
+                cinemaRecycleAdapter.addName(list);
             }
         }
 

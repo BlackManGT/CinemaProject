@@ -40,7 +40,6 @@ public class ChooseActivity extends AppCompatActivity {
     private UserInfoBean userInfoBean;
     private int count=0;
     private List<UserInfoBean> userInfoBeans;
-    private String p1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,6 @@ public class ChooseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         cinemaname = (CinemaRecy) intent.getSerializableExtra("cinemaname");
         String name = intent.getStringExtra("name");
-        Log.d("aaa", "onCreate: "+ cinemaname.toString());
         seat_view.setScreenName(cinemaname.getScreeningHall());//设置屏幕名称
         seat_view.setMaxSelected(2);//设置最多选中
         textname.setText(name);
