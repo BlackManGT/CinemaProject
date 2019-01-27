@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
         ButterKnife.bind(this);
         loginPresenter = new LoginPresenter(new MyCall());
 
+
     }
 
     @Override

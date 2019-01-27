@@ -9,7 +9,9 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.DaoMaster;
 import com.bw.movie.R;
+import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.adapter.CinemaFlowAdapter;
 import com.example.cinema.adapter.CinemaRecycleAdapter;
 import com.example.cinema.bean.CinemaById;
@@ -49,6 +51,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_cinema_detalis);
         ButterKnife.bind(this);
 

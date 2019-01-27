@@ -12,10 +12,16 @@ import android.view.animation.ScaleAnimation;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.bw.movie.DaoMaster;
+import com.bw.movie.DaoSession;
 import com.bw.movie.R;
+import com.bw.movie.UserInfoBeanDao;
+import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.homefragment.CinemaFragment;
 import com.example.cinema.homefragment.FilmFragment;
 import com.example.cinema.homefragment.MyFragment;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +45,6 @@ public class HomePageActivity extends AppCompatActivity implements CustomAdapt {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         ButterKnife.bind(this);
-
-
 
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
