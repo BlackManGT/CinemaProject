@@ -64,6 +64,7 @@
                         android:src="@drawable/com_icon_search_default" />
 
                     <EditText
+                        android:focusable="false"
                         android:id="@+id/seacrch_editext"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

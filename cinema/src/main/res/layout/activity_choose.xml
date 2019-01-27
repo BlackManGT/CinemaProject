@@ -122,6 +122,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_bot"
+        android:visibility="gone"
         android:layout_width="320dp"
         android:layout_height="73dp"
         android:layout_alignParentBottom="true"

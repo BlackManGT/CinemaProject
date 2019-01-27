@@ -26,6 +26,8 @@ import com.example.cinema.presenter.CinemaRecyPresenter;
 import com.example.cinema.view.SpaceItemDecoration;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -114,13 +116,17 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         @Override
         public void success(Result<List<CinemaById>> result) {
             if (result.getStatus().equals("0000")) {
-
+                List<String> list = new ArrayList<>();
                 cinemaByIds = result.getResult();
                 p=cinemaByIds.get(0).getId();
                 cinemaRecyPresenter.reqeust(id,p);
                 Log.d("id2", "success: "+p);
                 cinemaFlowAdapter.addItem(cinemaByIds);
                 cinemaFlowAdapter.notifyDataSetChanged();
+                for (int i = 0; i < cinemaByIds.size() ; i++) {
+                    list.add(cinemaByIds.get(i).getName());
+                }
+                cinemaRecycleAdapter.addName(list);
             }
         }
 
@@ -152,6 +158,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
                 cinema_detalis_textviewone.setText(cinemaDetalisBean.getName());
                 cinema_detalis_textviewtwo.setText(cinemaDetalisBean.getAddress());
                 Log.i("abc", "success: " + new Gson().toJson(result));
+
             }
         }
 

@@ -44,7 +44,7 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
         final CinemaRecy cinemaRecy = list.get(i);
         myViewHolder.cinema_name.setText(cinemaRecy.getScreeningHall());
         myViewHolder.cinema_start.setText(cinemaRecy.getBeginTime());
@@ -54,17 +54,23 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,ChooseActivity.class);
-                intent.putExtra("cinemaname",cinemaRecy.getScreeningHall());
-                intent.putExtra("cinemaprice",cinemaRecy.getPrice()+"");
+                intent.putExtra("cinemaname", cinemaRecy);
+                intent.putExtra("name",mlist.get(i));
                 context.startActivity(intent);
             }
         });
 
     }
-
+    private List<String> mlist = new ArrayList<>();
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void addName(List<String> list) {
+        if(list!=null){
+            mlist.addAll(list);
+        }
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
