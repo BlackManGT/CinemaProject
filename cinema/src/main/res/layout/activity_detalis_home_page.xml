@@ -27,12 +27,14 @@
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <com.facebook.drawee.view.SimpleDraweeView
+        <CheckBox
+            android:id="@+id/detalis_home_page_follow"
+            android:button="@null"
             android:layout_alignParentRight="true"
             android:layout_marginRight="24dp"
             android:layout_width="21dp"
             android:layout_height="18dp"
-            android:background="@drawable/com_icon_collection_selectet"/>
+            android:background="@drawable/com_icon_collection_default"/>
     </RelativeLayout>
 
     <TextView

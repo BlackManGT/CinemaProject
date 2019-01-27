@@ -17,6 +17,7 @@ import com.bw.movie.DaoMaster;
 import com.bw.movie.DaoSession;
 import com.bw.movie.R;
 import com.bw.movie.UserInfoBeanDao;
+import com.example.cinema.activity.GuanZhuActivity;
 import com.example.cinema.activity.LoginActivity;
 import com.example.cinema.activity.MyMessagesActivity;
 import com.example.cinema.activity.MyTicketActivity;
@@ -156,7 +157,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
                     });
                     builder.show();
                 } else {
-                    Intent intent = new Intent(getActivity(), MyTicketActivity.class);
+                    Intent intent = new Intent(getActivity(), GuanZhuActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -183,6 +184,8 @@ public class MyFragment extends Fragment implements CustomAdapt {
             case R.id.my_version:
                 break;
             case R.id.my_back:
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                startActivity(intent);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setMessage("是否确认退出");
                 builder.setNegativeButton("取消", null);

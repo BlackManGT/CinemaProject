@@ -59,6 +59,9 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
         ticketRecy.setLayoutManager(manager);
         myAdapter = new MyAdapter(this);
         ticketRecy.setAdapter(myAdapter);
+
+//        ticketPresenter.reqeust(loginBean.getUserId(), loginBean.getSessionId(),id,5);
+
         DaoSession daoSession = DaoMaster.newDevSession(MyTicketActivity.this, UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         List<UserInfoBean> userInfoBeans = userInfoBeanDao.loadAll();

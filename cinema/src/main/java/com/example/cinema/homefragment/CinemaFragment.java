@@ -19,11 +19,15 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.bw.movie.DaoMaster;
+import com.bw.movie.DaoSession;
 import com.bw.movie.R;
+import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.MyApplication;
 import com.example.cinema.adapter.CinemaAdapter;
 import com.example.cinema.bean.CinemaBean;
 import com.example.cinema.bean.Result;
+import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.CinemaMoviePresenter;
@@ -68,6 +72,12 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cinema, container, false);
+
+//        DaoSession daoSession = DaoMaster.newDevSession(getActivity(), UserInfoBeanDao.TABLENAME);
+//        UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
+//        List<UserInfoBean> userInfoBeans = userInfoBeanDao.loadAll();
+//        String userId = userInfoBeans.get(0).getUserId();
+//        String sessionId = userInfoBeans.get(0).getSessionId();
 
         AutoSizeConfig.getInstance().setCustomFragment(true);
 
