@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.example.cinema.adapter.CinemaFlowAdapter;
 import com.example.cinema.adapter.CinemaRecycleAdapter;
-import com.example.cinema.adapter.MovieFlowAdapter;
 import com.example.cinema.bean.CinemaById;
 import com.example.cinema.bean.CinemaDetalisBean;
 import com.example.cinema.bean.CinemaRecy;
@@ -25,7 +24,6 @@ import com.example.cinema.presenter.CinemaRecyPresenter;
 import com.example.cinema.view.SpaceItemDecoration;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,7 +37,6 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
     @BindView(R.id.cinema_recy2)
     RecyclerView cinemaRecy;
     private RecyclerCoverFlow horse;
-    private MovieFlowAdapter movieFlowAdapter;
     private SimpleDraweeView cinema_detalis_sdvone;
     private TextView cinema_detalis_textviewone;
     private TextView cinema_detalis_textviewtwo;
@@ -100,7 +97,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
                 List<CinemaRecy> result1 = result.getResult();
 
                 cinemaRecycleAdapter.addList(result1);
-                cinemaRecycleAdapter.notifyDataSetChanged();;
+                cinemaRecycleAdapter.notifyDataSetChanged();
             }
         }
 
@@ -139,6 +136,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
     public float getSizeInDp() {
         return 720;
     }
+
 
     //电影院信息
     class CinemaDetalisCall implements DataCall<Result> {

@@ -5,197 +5,193 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_gravity="center"
+        android:background="@drawable/myborder"
+        android:layout_marginTop="120dp"
+        android:id="@+id/twopopularsdvone"
+        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_marginTop="120dp"
-            android:id="@+id/twopopularsdvone"
-            android:background="@drawable/myborder"
-            android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+        android:layout_height="match_parent" >
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/dialog_detalis_sdvtwo"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/com_icon_down_default"
-                android:layout_width="48dp"
-                android:layout_height="48dp" />
-
-        </RelativeLayout>
         <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_marginTop="90dp"
-            android:id="@+id/dialog_detalis_sdvone"
-            android:background="@drawable/tu2"
-            android:layout_marginLeft="24dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="111dp"
-            android:layout_height="149dp" />
-        <RelativeLayout
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/dialog_detalis_sdvone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/dialog_detalis_leixing"
-                android:layout_marginTop="140dp"
-                android:textSize="12sp"
-                android:textColor="#333333"
-                android:text="类型"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/dialog_detalis_daoyan"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/dialog_detalis_leixing"
-                android:textSize="12sp"
-                android:textColor="#333333"
-                android:text="导演"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/dialog_detalis_shichang"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/dialog_detalis_daoyan"
-                android:textSize="12sp"
-                android:textColor="#333333"
-                android:text="时长"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/dialog_detalis_chandi"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/dialog_detalis_shichang"
-                android:textSize="12sp"
-                android:textColor="#333333"
-                android:text="产地"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/one"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="24dp"
+            android:id="@+id/dialog_detalis_sdvtwo"
             android:layout_marginRight="24dp"
-            android:layout_below="@+id/dialog_detalis_sdvone"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/com_icon_down_default"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+    </RelativeLayout>
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_marginTop="90dp"
+        android:id="@+id/dialog_detalis_sdvone"
+        android:background="@drawable/tu2"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="111dp"
+        android:layout_height="149dp" />
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/dialog_detalis_sdvone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dialog_detalis_leixing"
+            android:layout_marginTop="140dp"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="类型"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/jianjie"
-                android:text="剧情简介"
-                android:textSize="16dp"
-                android:textColor="#333333"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <View
-                android:id="@+id/lineone"
-                android:layout_marginTop="4dp"
-                android:layout_below="@+id/jianjie"
-                android:background="@drawable/linetwo"
-                android:layout_width="30dp"
-                android:layout_height="3dp"/>
-
-            <TextView
-                android:id="@+id/plot"
-                android:layout_marginTop="10dp"
-                android:textSize="12sp"
-                android:textColor="#333333"
-                android:text="呵呵呵呵呵呵呵呵呵呵"
-                android:layout_below="@+id/lineone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/two"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_below="@+id/one"
+        <TextView
+            android:id="@+id/dialog_detalis_daoyan"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/dialog_detalis_leixing"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="导演"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/yanzhi"
-                android:text="演职人员"
-                android:textSize="16dp"
-                android:textColor="#333333"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <View
-                android:id="@+id/linetwo"
-                android:layout_marginTop="4dp"
-                android:layout_below="@+id/yanzhi"
-                android:background="@drawable/linetwo"
-                android:layout_width="30dp"
-                android:layout_height="3dp"/>
+        <TextView
+            android:id="@+id/dialog_detalis_shichang"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/dialog_detalis_daoyan"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="时长"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <Button
-                android:id="@+id/buttonname"
-                android:text="演员名字"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_gradienttwo"
-                android:textColor="#ffffff"
-                android:textSize="12sp"
-                android:layout_below="@+id/linetwo"
-                android:layout_width="75dp"
-                android:layout_height="32dp" />
+        <TextView
+            android:id="@+id/dialog_detalis_chandi"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/dialog_detalis_shichang"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="产地"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <Button
-                android:layout_width="75dp"
-                android:layout_height="32dp"
-                android:layout_alignTop="@+id/buttonname"
-                android:background="@drawable/bg_gradienttwo"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
-                android:text="饰演角色"
-                android:textColor="#ffffff"
-                android:textSize="12sp" />
+    </RelativeLayout>
 
-        </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/one"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_below="@+id/dialog_detalis_sdvone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/three"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_below="@+id/two"
+        <TextView
+            android:id="@+id/jianjie"
+            android:text="剧情简介"
+            android:textSize="16dp"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:id="@+id/lineone"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/jianjie"
+            android:background="@drawable/linetwo"
+            android:layout_width="30dp"
+            android:layout_height="3dp"/>
+
+        <TextView
+            android:id="@+id/plot"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="呵呵呵呵呵呵呵呵呵呵"
+            android:layout_below="@+id/lineone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/two"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_below="@+id/one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/yanzhi"
+            android:text="演职人员"
+            android:textSize="16dp"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:id="@+id/linetwo"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/yanzhi"
+            android:background="@drawable/linetwo"
+            android:layout_width="30dp"
+            android:layout_height="3dp"/>
+
+        <Button
+            android:id="@+id/buttonname"
+            android:text="演员名字"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_gradienttwo"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:layout_below="@+id/linetwo"
+            android:layout_width="75dp"
+            android:layout_height="32dp" />
+
+        <Button
+            android:layout_width="75dp"
+            android:layout_height="32dp"
+            android:layout_alignTop="@+id/buttonname"
+            android:background="@drawable/bg_gradienttwo"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:text="饰演角色"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/three"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_below="@+id/two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/weizhi"
+            android:text="未知"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="饰"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:text="未知"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginTop="10dp"
+            android:background="#f2f2f2"
+            android:layout_below="@+id/weizhi"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="1dp"/>
 
-            <TextView
-                android:id="@+id/weizhi"
-                android:text="未知"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:text="饰"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_alignParentRight="true"
-                android:text="未知"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <View
-                android:layout_marginTop="10dp"
-                android:background="#f2f2f2"
-                android:layout_below="@+id/weizhi"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-
-        </RelativeLayout>
     </RelativeLayout>
 
 

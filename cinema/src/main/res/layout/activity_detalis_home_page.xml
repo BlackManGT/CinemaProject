@@ -39,7 +39,6 @@
         android:id="@+id/detalishomepagename"
         android:layout_marginTop="70dp"
         android:layout_centerHorizontal="true"
-        android:text="铁血战士"
         android:textSize="20sp"
         android:textColor="#ffffff"
         android:layout_width="wrap_content"
@@ -50,11 +49,10 @@
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/detalishomepagename"
-        android:background="@drawable/tu2"
         android:layout_width="259dp"
         android:layout_height="360dp" />
 
-    <RadioGroup
+    <LinearLayout
         android:id="@+id/detalishomegroup"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/detalishomepagesdvtwo"
@@ -63,7 +61,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <RadioButton
+        <Button
             android:id="@+id/detalisbuttonone"
             android:layout_margin="15dp"
             android:layout_weight="1"
@@ -75,7 +73,7 @@
             android:layout_height="32dp"
             android:button="@null"
             android:background="@drawable/btn_gradienttwo"/>
-        <RadioButton
+        <Button
             android:id="@+id/detalisbuttontwo"
             android:layout_margin="15dp"
             android:layout_weight="1"
@@ -87,7 +85,7 @@
             android:layout_height="32dp"
             android:button="@null"
             android:background="@drawable/btn_gradienttwo"/>
-        <RadioButton
+        <Button
             android:id="@+id/detalisbuttonthree"
             android:layout_margin="15dp"
             android:layout_weight="1"
@@ -99,7 +97,7 @@
             android:layout_height="32dp"
             android:button="@null"
             android:background="@drawable/btn_gradienttwo"/>
-        <RadioButton
+        <Button
             android:id="@+id/detalisbuttonfour"
             android:layout_margin="15dp"
             android:layout_weight="1"
@@ -111,10 +109,11 @@
             android:layout_height="32dp"
             android:button="@null"
             android:background="@drawable/btn_gradienttwo"/>
-    </RadioGroup>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -123,6 +122,16 @@
             android:id="@+id/detalishomepagebutton"
             android:layout_alignParentBottom="true"
             android:background="@drawable/com_icon_my_default"
+            android:layout_width="58dp"
+            android:layout_height="58dp" />
+        <Button
+            android:id="@+id/purchase"
+            android:text="购票"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_gradientthree"
             android:layout_width="58dp"
             android:layout_height="58dp" />
     </RelativeLayout>
