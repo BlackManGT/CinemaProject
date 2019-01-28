@@ -1,5 +1,6 @@
 package com.example.cinema.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.solver.widgets.ConstraintAnchor;
@@ -32,7 +33,6 @@ import butterknife.OnClick;
 import me.jessyan.autosize.internal.CustomAdapt;
 
 public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
-
     @BindView(R.id.ticket_wait_money)
     Button ticketWaitMoney;
     @BindView(R.id.ticket_finish)
@@ -50,6 +50,9 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ticket);
         ButterKnife.bind(this);
+        Intent intent = getIntent();
+        String code = intent.getStringExtra("code");
+        //id = Integer.parseInt(code);
         ticketWaitMoney.setBackgroundResource(R.drawable.btn_gradient);
         ticketWaitMoney.setTextColor(Color.WHITE);
         ticketFinish.setBackgroundResource(R.drawable.myborder);

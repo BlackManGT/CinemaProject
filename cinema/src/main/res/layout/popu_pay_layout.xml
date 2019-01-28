@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#cccccc"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/xxhdpi"
+            android:layout_marginTop="152dp"
+            />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:text="支付成功"/>
+    <Button
+        android:id="@+id/popu_pay_ok_back"
+        android:layout_marginTop="60dp"
+        android:layout_width="108dp"
+        android:layout_height="40dp"
+        android:background="#ff5e70"
+        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:text="返回主页"/>
+    <Button
+        android:id="@+id/popu_pay_ok_finish"
+        android:layout_marginTop="20dp"
+        android:layout_width="108dp"
+        android:layout_height="40dp"
+        android:background="@drawable/pay_shape"
+        android:textSize="14sp"
+        android:textColor="#ff5e70"
+        android:text="查看订单"/>
+
+</LinearLayout>

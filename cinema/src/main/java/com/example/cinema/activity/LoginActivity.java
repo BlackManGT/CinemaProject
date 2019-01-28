@@ -114,8 +114,7 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
                 DaoSession daoSession = DaoMaster.newDevSession(LoginActivity.this, UserInfoBeanDao.TABLENAME);
                 UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
                 userInfoBeanDao.insertOrReplace(userInfo);
-                Intent intent = new Intent(LoginActivity.this,HomePageActivity.class);
-                startActivity(intent);
+                finish();
             }
 
         }
