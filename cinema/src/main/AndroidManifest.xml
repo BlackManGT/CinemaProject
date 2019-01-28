@@ -65,6 +65,7 @@
         <activity android:name="com.example.cinema.activity.GuanZhuActivity" />
         <activity android:name="com.example.cinema.activity.PurchaseActivity" />
         <activity android:name="com.example.cinema.activity.ResetPwdActivity" />
+        <activity android:name="com.example.cinema.activity.FeedBackActivity"></activity>
         <activity android:name="com.example.cinema.activity.ChooseActivity"></activity>
         <activity android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

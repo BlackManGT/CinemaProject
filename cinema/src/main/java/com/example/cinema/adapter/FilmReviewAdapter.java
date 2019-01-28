@@ -67,6 +67,11 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
         return list.size();
     }
 
+    public void remove() {
+        list.size();
+        notifyDataSetChanged();
+    }
+
 
 
     //创建ViewHolder

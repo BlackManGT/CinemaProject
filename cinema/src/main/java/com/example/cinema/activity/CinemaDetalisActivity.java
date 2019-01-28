@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +64,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         cinema_detalis_sdvone = findViewById(R.id.cinema_detalis_sdvone);
         cinema_detalis_textviewone = findViewById(R.id.cinema_detalis_textviewone);
         cinema_detalis_textviewtwo = findViewById(R.id.cinema_detalis_textviewtwo);
+
 
 
         //获取传过来的电影ID
