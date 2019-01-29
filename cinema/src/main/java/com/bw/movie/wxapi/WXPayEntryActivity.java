@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 
 import com.bw.movie.R;
-import com.example.cinema.MyApplication;
 import com.example.cinema.activity.CinemaDetalisActivity;
 import com.example.cinema.activity.MyTicketActivity;
 import com.example.cinema.wxapi.Constants;

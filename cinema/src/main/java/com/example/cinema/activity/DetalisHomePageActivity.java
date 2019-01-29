@@ -38,6 +38,7 @@ import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.AddFilmCommentPresenter;
+import com.example.cinema.presenter.CommentGreatPresenter;
 import com.example.cinema.presenter.FilmReviewPresenter;
 import com.example.cinema.presenter.IDMoiveDetalisonePresenter;
 import com.example.cinema.presenter.IDMoiveDetalisoneTwoPresenter;
@@ -89,6 +90,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
     private AddFilmCommentPresenter addFilmCommentPresenter;
     private Button send;
     private Dialog bottomDialogtwo;
+    private CommentGreatPresenter commentGreatPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,6 +229,16 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.dismiss();
             }
         });
+        commentGreatPresenter = new CommentGreatPresenter(new CommentGreat());
+        filmReviewAdapter.setGreatOnClick(new FilmReviewAdapter.GreatOnClick() {
+            @Override
+            public void setonClick(int commentid) {
+                Log.d("abc", "setonClick: "+userInfoBeans.get(0).getUserId()+
+                    userInfoBeans.get(0).getSessionId()+commentid);
+                commentGreatPresenter.reqeust(userInfoBeans.get(0).getUserId(),
+                        userInfoBeans.get(0).getSessionId(),commentid);
+        }
+        });
 
         //添加评论按钮
         commentaddbutton = filmreview.findViewById(R.id.commentaddbutton);
@@ -335,6 +347,20 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                     addFilmCommentPresenter.reqeust(userIdOne,sessionIdOne,id,s);
                     bottomDialogtwo.dismiss();
                     break;
+        }
+    }
+    class CommentGreat implements DataCall<Result>{
+
+        @Override
+        public void success(Result result) {
+            if (result.getStatus().equals("0000")) {
+                Toast.makeText(DetalisHomePageActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
         }
     }
 

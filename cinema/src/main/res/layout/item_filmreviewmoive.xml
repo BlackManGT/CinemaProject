@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <CheckBox
+                <ImageView
                     android:layout_marginRight="25dp"
                     android:id="@+id/dianzancheckbox"
                     android:button="@null"
@@ -76,6 +76,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp" />
                 <TextView
+                    android:id="@+id/film_text_number"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="12"

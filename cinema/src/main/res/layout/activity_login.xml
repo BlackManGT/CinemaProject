@@ -90,6 +90,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp" />
         <TextView
+            android:gravity="center"
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@+id/login_remember"
             android:textSize="14dp"
@@ -97,7 +98,7 @@
             android:id="@+id/login_remember_pwd"
             android:textColor="#ffffff"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="15dp" />
         <CheckBox
             android:button="@null"
             android:background="@drawable/selector"
@@ -107,12 +108,13 @@
             android:layout_width="15dp"
             android:layout_height="15dp" />
         <TextView
+            android:gravity="center"
             android:layout_toRightOf="@+id/login_auto"
             android:textSize="14dp"
             android:text="自动登录"
             android:textColor="#ffffff"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="15dp" />
         <TextView
             android:id="@+id/login_regiest"
             android:layout_alignParentRight="true"
