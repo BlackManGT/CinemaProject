@@ -57,7 +57,7 @@ public class MyAdapter extends RecyclerView.Adapter{
                 TicketBean ticketBean = list.get(position);
                 myViewHolder.one_dingdan.setText(ticketBean.getOrderId());
                 myViewHolder.one_film.setText(ticketBean.getCinemaName());
-                myViewHolder.one_count.setText(ticketBean.getAmount());
+                myViewHolder.one_count.setText(ticketBean.getAmount()+"");
                 myViewHolder.one_money.setText(ticketBean.getPrice()+"");
                 myViewHolder.one_yingting.setText(ticketBean.getScreeningHall());
                 myViewHolder.one_time.setText(ticketBean.getBeginTime());
@@ -68,7 +68,7 @@ public class MyAdapter extends RecyclerView.Adapter{
                 TicketBean ticketBean2 = list.get(position);
                 holder2.two_dingdan.setText(ticketBean2.getOrderId());
                 holder2.two_film.setText(ticketBean2.getCinemaName());
-                holder2.two_count.setText(ticketBean2.getAmount());
+                holder2.two_count.setText(ticketBean2.getAmount()+"");
                 holder2.two_money.setText(ticketBean2.getPrice()+"");
                 holder2.two_yingting.setText(ticketBean2.getScreeningHall());
                 holder2.two_time.setText(ticketBean2.getBeginTime());
@@ -95,6 +95,10 @@ public class MyAdapter extends RecyclerView.Adapter{
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void clearIteam() {
+        list.clear();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{

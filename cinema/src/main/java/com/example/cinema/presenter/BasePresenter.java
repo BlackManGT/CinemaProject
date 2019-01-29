@@ -1,5 +1,6 @@
 package com.example.cinema.presenter;
 
+import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.Result;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.CustomException;
@@ -24,7 +25,7 @@ public abstract class BasePresenter {
         this.dataCall = dataCall;
     }
 
-    protected abstract Observable observable(Object... args);
+    protected abstract Observable<Result<LoginBean>> observable(Object... args);
 
     public void reqeust(Object... args) {
         if(running)
