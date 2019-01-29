@@ -21,7 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.DaoMaster;
+import com.bw.movie.DaoSession;
 import com.bw.movie.R;
+import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.Result;
 import com.example.cinema.bean.UserInfoBean;
@@ -67,12 +70,32 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
     private Bitmap bmp;
     private List<LoginBean> student;
     private LinearLayout resetpwd;
+    private List<UserInfoBean> userInfoBeans;
+    private UserInfoBean userInfoBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_messages);
         ButterKnife.bind(this);
+        DaoSession daoSession = DaoMaster.newDevSession(MyMessagesActivity.this, UserInfoBeanDao.TABLENAME);
+        UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
+        userInfoBeans = userInfoBeanDao.loadAll();
+        userInfoBean = userInfoBeans.get(0);
+        long birthday = userInfoBean.getBirthday();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = new Date(birthday);
+        String t1 = format.format(d1);
+        mymessagesdate.setText(t1);
+        mymessagesname.setText(userInfoBean.getNickName());
+        mymessagesheard.setImageURI(userInfoBean.getHeadPic());
+        mymessagesphone.setText(userInfoBean.getPhone());
+        int sex = userInfoBean.getSex();
+        if(sex==1){
+            mymessagessex.setText("男");
+        }else{
+            mymessagessex.setText("女");
+        }
 
         resetpwd = findViewById(R.id.resetpwd);
         resetpwd.setOnClickListener(new View.OnClickListener() {

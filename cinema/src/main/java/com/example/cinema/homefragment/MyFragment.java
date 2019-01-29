@@ -22,6 +22,7 @@ import com.bw.movie.R;
 import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.activity.FeedBackActivity;
 import com.example.cinema.activity.MyFollowActivity;
+import com.example.cinema.activity.HomePageActivity;
 import com.example.cinema.activity.LoginActivity;
 import com.example.cinema.activity.MyMessagesActivity;
 import com.example.cinema.activity.MyTicketActivity;
@@ -112,11 +113,11 @@ public class MyFragment extends Fragment implements CustomAdapt {
         userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();
 
-        if (userInfoBeans.size() != 0) {
-            userInfoBean = userInfoBeans.get(0);
-            myhead.setImageURI(userInfoBean.getHeadPic());
-            myname.setText(userInfoBean.getNickName());
-        } else {
+            if (userInfoBeans.size() != 0) {
+                userInfoBean = userInfoBeans.get(0);
+                myhead.setImageURI(userInfoBean.getHeadPic());
+                myname.setText(userInfoBean.getNickName());
+            } else {
             myLinear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -207,21 +208,22 @@ public class MyFragment extends Fragment implements CustomAdapt {
             case R.id.my_version:
                 break;
             case R.id.my_back:
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
-                startActivity(intent);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("是否确认退出");
-                builder.setNegativeButton("取消", null);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        userInfoBeanDao.deleteAll();
-                        Intent intent = new Intent(getContext(), LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                });
-                builder.show();
+                if (userInfoBeans.size() == 0) {
+                    judge();
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("是否确认退出");
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            userInfoBeanDao.deleteAll();
+                            init();
+
+                        }
+                    });
+                    builder.show();
+                }
                 break;
         }
     }

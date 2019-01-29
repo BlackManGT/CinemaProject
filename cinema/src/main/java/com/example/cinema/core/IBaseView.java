@@ -186,6 +186,10 @@ public interface IBaseView {
                                       @Header("sessionId")String sessionId,
                                       @Field("payType") int payType,
                                       @Field("orderId")String orderId);
+    //微信登录
+    @POST("movieApi/user/v1/weChatBindingLogin")
+    @FormUrlEncoded
+    Observable<Result<LoginBean>> Wxlogin(@Field("code")String code);
 
 
     //添加用户对评论的回复

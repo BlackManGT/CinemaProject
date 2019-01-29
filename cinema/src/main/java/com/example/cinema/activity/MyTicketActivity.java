@@ -1,5 +1,6 @@
 package com.example.cinema.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.solver.widgets.ConstraintAnchor;
@@ -9,6 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.bw.movie.DaoMaster;
 import com.bw.movie.DaoSession;
@@ -22,6 +24,7 @@ import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.TicketPresenter;
+import com.example.cinema.view.SpaceItemDecoration;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -32,7 +35,6 @@ import butterknife.OnClick;
 import me.jessyan.autosize.internal.CustomAdapt;
 
 public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
-
     @BindView(R.id.ticket_wait_money)
     Button ticketWaitMoney;
     @BindView(R.id.ticket_finish)
@@ -42,7 +44,6 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
     private TicketPresenter ticketPresenter;
     private MyAdapter myAdapter;
     private int id= 1;
-    private LoginBean loginBean;
     private UserInfoBean userInfoBean;
 
     @Override
@@ -50,6 +51,9 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ticket);
         ButterKnife.bind(this);
+        Intent intent = getIntent();
+        String code = intent.getStringExtra("code");
+        //id = Integer.parseInt(code);
         ticketWaitMoney.setBackgroundResource(R.drawable.btn_gradient);
         ticketWaitMoney.setTextColor(Color.WHITE);
         ticketFinish.setBackgroundResource(R.drawable.myborder);
@@ -60,33 +64,38 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
         myAdapter = new MyAdapter(this);
         ticketRecy.setAdapter(myAdapter);
 
-//        ticketPresenter.reqeust(loginBean.getUserId(), loginBean.getSessionId(),id,5);
-
         DaoSession daoSession = DaoMaster.newDevSession(MyTicketActivity.this, UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         List<UserInfoBean> userInfoBeans = userInfoBeanDao.loadAll();
         userInfoBean = userInfoBeans.get(0);
         Log.d("login2", "success: "+userInfoBean.getSessionId());
         ticketPresenter.reqeust(userInfoBean.getUserId(), userInfoBean.getSessionId(),1,5,id);
-    }
+        Log.d("login2", "success2: "+userInfoBean.getUserId()+""+ userInfoBean.getSessionId()+1+5+id);
+        ticketRecy.addItemDecoration(new SpaceItemDecoration(20));
+}
 
     @OnClick({R.id.ticket_wait_money, R.id.ticket_finish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ticket_wait_money:
+                id = 1;
+                myAdapter.clearIteam();
                 ticketWaitMoney.setBackgroundResource(R.drawable.btn_gradient);
                 ticketWaitMoney.setTextColor(Color.WHITE);
                 ticketFinish.setBackgroundResource(R.drawable.myborder);
                 ticketFinish.setTextColor(Color.BLACK);
                 ticketPresenter.reqeust(userInfoBean.getUserId(), userInfoBean.getSessionId(),1,5,id);
+                myAdapter.notifyDataSetChanged();
                 break;
             case R.id.ticket_finish:
                 id = 2;
+                myAdapter.clearIteam();
                 ticketPresenter.reqeust(userInfoBean.getUserId(), userInfoBean.getSessionId(),1,5,id);
                 ticketFinish.setBackgroundResource(R.drawable.btn_gradient);
                 ticketFinish.setTextColor(Color.WHITE);
                 ticketWaitMoney.setBackgroundResource(R.drawable.myborder);
                 ticketWaitMoney.setTextColor(Color.BLACK);
+                myAdapter.notifyDataSetChanged();
                 break;
         }
     }
@@ -105,6 +114,8 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
         @Override
         public void success(Result<List<TicketBean>> result) {
             if(result.getStatus().equals("0000")){
+                Log.d("qqq", "success: "+result.toString());
+                Toast.makeText(MyTicketActivity.this, result.getMessage()+"成功", Toast.LENGTH_SHORT).show();
                 List<TicketBean> result1 = result.getResult();
                 myAdapter.addList(result1);
                 myAdapter.notifyDataSetChanged();
@@ -113,7 +124,7 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
 
         @Override
         public void fail(ApiException e) {
-
+            Toast.makeText(MyTicketActivity.this, e.getMessage()+"失败", Toast.LENGTH_SHORT).show();
         }
     }
 }

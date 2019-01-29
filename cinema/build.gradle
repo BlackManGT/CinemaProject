@@ -6,7 +6,7 @@ android {
         config {
             keyAlias 'bw_movie'
             keyPassword '123456'
-            storeFile file('C:/Users/ajadmhqkdhaakdhkuqQL/Desktop/movie.keystore')
+            storeFile file('C:/Users/贾蕊/Desktop/movie.keystore')
             storePassword '123456'
         }
     }

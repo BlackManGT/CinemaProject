@@ -4,8 +4,9 @@
     android:paddingRight="10dp"
     android:paddingLeft="10dp"
     android:paddingBottom="20dp"
+    android:background="@drawable/myborder"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
