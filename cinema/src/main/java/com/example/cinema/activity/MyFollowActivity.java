@@ -20,37 +20,44 @@ import com.example.cinema.bean.Result;
 import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
+import com.example.cinema.presenter.CinemaAttentionPresenter;
 import com.example.cinema.presenter.MyIsFollowListPresenter;
 
 import java.util.List;
 
 import me.jessyan.autosize.internal.CustomAdapt;
 
-public class GuanZhuActivity extends AppCompatActivity implements CustomAdapt {
+public class MyFollowActivity extends AppCompatActivity implements CustomAdapt {
 
     private RadioButton guanzhu_radiobuttonone;
     private RadioButton guanzhu_radiobuttontwo;
     private MyIsFollowAdapter myIsFollowAdapter;
+    private RecyclerView guanzhu_recycleview;
+    private int userId;
+    private String sessionId;
+    private CinemaAttentionPresenter cinemaAttentionPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guan_zhu);
 
+        cinemaAttentionPresenter = new CinemaAttentionPresenter(new MyList());
+
         //数据库
         DaoSession daoSession = DaoMaster.newDevSession(this, UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         List<UserInfoBean> userInfoBeans = userInfoBeanDao.loadAll();
-        int userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-        String sessionId = userInfoBeans.get(0).getSessionId();
+        userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
+        sessionId = userInfoBeans.get(0).getSessionId();
 
-        RecyclerView guanzhu_recycleview = findViewById(R.id.guanzhu_recycleview);
+        guanzhu_recycleview = findViewById(R.id.guanzhu_recycleview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         guanzhu_recycleview.setLayoutManager(linearLayoutManager);
         MyIsFollowListPresenter myIsFollowListPresenter = new MyIsFollowListPresenter(new MyList());
         myIsFollowAdapter = new MyIsFollowAdapter(this);
         guanzhu_recycleview.setAdapter(myIsFollowAdapter);
-        myIsFollowListPresenter.reqeust(userId,sessionId,1,10);
+        myIsFollowListPresenter.reqeust(userId, sessionId,1,10);
 
         findViewById(R.id.guanzhu_return).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,18 +78,24 @@ public class GuanZhuActivity extends AppCompatActivity implements CustomAdapt {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId)
                 {
-                    case R.id.guanzhu_radiobuttonone:
+                    case R.id.guanzhu_radiobuttonone://电影关注列表
                         guanzhu_radiobuttonone.setBackgroundResource(R.drawable.btn_gradient);
                         guanzhu_radiobuttonone.setTextColor(Color.WHITE);
                         guanzhu_radiobuttontwo.setBackgroundResource(R.drawable.myborder);
                         guanzhu_radiobuttontwo.setTextColor(Color.BLACK);
+                        MyIsFollowListPresenter myIsFollowListPresenter = new MyIsFollowListPresenter(new MyList());
+                        myIsFollowAdapter = new MyIsFollowAdapter(MyFollowActivity.this);
+                        guanzhu_recycleview.setAdapter(myIsFollowAdapter);
+                        myIsFollowListPresenter.reqeust(userId, sessionId,1,10);
                         break;
-                    case R.id.guanzhu_radiobuttontwo:
+                    case R.id.guanzhu_radiobuttontwo://影院关注列表
                         guanzhu_radiobuttonone.setBackgroundResource(R.drawable.myborder);
                         guanzhu_radiobuttonone.setTextColor(Color.BLACK);
                         guanzhu_radiobuttontwo.setBackgroundResource(R.drawable.btn_gradient);
                         guanzhu_radiobuttontwo.setTextColor(Color.WHITE);
-                        break;
+                        guanzhu_recycleview.setAdapter(myIsFollowAdapter);
+                        cinemaAttentionPresenter.reqeust(userId, sessionId,1,10);
+                    break;
                 }
             }
         });
@@ -107,7 +120,7 @@ public class GuanZhuActivity extends AppCompatActivity implements CustomAdapt {
         public void success(Result result) {
             if(result.getStatus().equals("0000"))
             {
-                Toast.makeText(GuanZhuActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyFollowActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
                 List<MyIsFollowListBean> myIsFollowListBeans = (List<MyIsFollowListBean>) result.getResult();
                 myIsFollowAdapter.addItem(myIsFollowListBeans);
                 myIsFollowAdapter.notifyDataSetChanged();

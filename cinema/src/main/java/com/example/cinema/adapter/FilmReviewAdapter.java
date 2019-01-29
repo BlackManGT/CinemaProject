@@ -52,6 +52,7 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
         filmReviewVH.filmreview_heard.setImageURI(Uri.parse(filmReviewBean.getCommentHeadPic()));
         filmReviewVH.filmreview_name.setText(filmReviewBean.getCommentUserName());
         filmReviewVH.filmreview_pinglun.setText(filmReviewBean.getCommentContent());
+        filmReviewVH.filmreview_reply.setText(filmReviewBean.getHotComment());
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
         //获取当前时间
@@ -81,13 +82,14 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
         public TextView filmreview_name;
         public TextView filmreview_pinglun;
         public TextView filmreview_time;
-        public Button commentbutton;
+        public TextView filmreview_reply;
         public FilmReviewVH(@NonNull View itemView) {
             super(itemView);
             filmreview_heard = itemView.findViewById(R.id.filmreview_heard);
             filmreview_name = itemView.findViewById(R.id.filmreview_name);
             filmreview_pinglun = itemView.findViewById(R.id.filmreview_pinglun);
             filmreview_time = itemView.findViewById(R.id.filmreview_time);
+            filmreview_reply = itemView.findViewById(R.id.filmreview_reply);
         }
     }
 }

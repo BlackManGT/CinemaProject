@@ -56,11 +56,11 @@
 
     <RelativeLayout
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:layout_width="match_parent"
-        android:layout_height="106dp"
-        android:background="@drawable/border">
+        android:layout_height="96dp"
+        android:background="@drawable/myborder">
 
         <LinearLayout
             android:id="@+id/mymessages"
@@ -88,11 +88,12 @@
         </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:layout_width="match_parent"
-        android:layout_height="106dp"
-        android:background="@drawable/border">
+        android:layout_height="96dp"
+        android:background="@drawable/myborder">
 
         <LinearLayout
             android:id="@+id/my_guanzhu"
@@ -146,11 +147,12 @@
 
     </RelativeLayout>
     <RelativeLayout
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:layout_width="match_parent"
-        android:layout_height="106dp"
-        android:background="@drawable/border">
+        android:layout_height="96dp"
+        android:background="@drawable/myborder">
 
         <LinearLayout
             android:id="@+id/my_yijian"

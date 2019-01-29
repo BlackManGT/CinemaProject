@@ -20,6 +20,7 @@ import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.homefragment.CinemaFragment;
 import com.example.cinema.homefragment.FilmFragment;
 import com.example.cinema.homefragment.MyFragment;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -145,4 +146,17 @@ public class HomePageActivity extends AppCompatActivity implements CustomAdapt {
     public float getSizeInDp() {
         return 720;
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.example.cinema.homefragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,12 +10,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -23,7 +27,7 @@ import com.bw.movie.DaoMaster;
 import com.bw.movie.DaoSession;
 import com.bw.movie.R;
 import com.bw.movie.UserInfoBeanDao;
-import com.example.cinema.MyApplication;
+import com.example.cinema.activity.LoginActivity;
 import com.example.cinema.adapter.CinemaAdapter;
 import com.example.cinema.bean.CinemaBean;
 import com.example.cinema.bean.Result;
@@ -31,6 +35,7 @@ import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.CinemaMoviePresenter;
+import com.example.cinema.presenter.MyFollowCinemaPresenter;
 import com.example.cinema.presenter.NearbyMoivePresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -38,7 +43,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.internal.CustomAdapt;
@@ -67,20 +71,20 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
     private MyLocationListener myListener = new MyLocationListener();
 
     private View view;
+    private List<UserInfoBean> userInfoBeans;
+    private MyFollowCinemaPresenter myFollowCinemaPresenter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cinema, container, false);
 
-//        DaoSession daoSession = DaoMaster.newDevSession(getActivity(), UserInfoBeanDao.TABLENAME);
-//        UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
-//        List<UserInfoBean> userInfoBeans = userInfoBeanDao.loadAll();
-//        String userId = userInfoBeans.get(0).getUserId();
-//        String sessionId = userInfoBeans.get(0).getSessionId();
+        //数据库
+        DaoSession daoSession = DaoMaster.newDevSession(getActivity(), UserInfoBeanDao.TABLENAME);
+        UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
+        userInfoBeans = userInfoBeanDao.loadAll();
 
         AutoSizeConfig.getInstance().setCustomFragment(true);
-
         Button recommend = view.findViewById(R.id.recommend);
         Button nearby = view.findViewById(R.id.nearby);
         recommend.setOnClickListener(this);
@@ -103,6 +107,38 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
         nearby.setTextColor(Color.BLACK);
 
         initData();
+        //影院关注
+        myFollowCinemaPresenter = new MyFollowCinemaPresenter(new myFollowCinemaCall());
+        //接口回调
+        cinemaAdapter.setCinemaAdapter(new CinemaAdapter.Follow() {
+            @Override
+            public void FollowOnclick(int sid) {
+                if(userInfoBeans.size() != 0)
+                {
+                    int userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
+                    String sessionId = userInfoBeans.get(0).getSessionId();
+                    Log.e("=========userId========", userId +"");
+                    Log.e("======sessionId======",sessionId+"");
+                    Toast.makeText(getActivity(), ""+sid, Toast.LENGTH_SHORT).show();
+                    myFollowCinemaPresenter.reqeust(userId, sessionId,sid);
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("请先登录");
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent myMessagesintent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(myMessagesintent);
+                        }
+                    });
+                    builder.show();
+                }
+            }
+        });
+
         return view;
     }
 
@@ -144,8 +180,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
             recommend.setTextColor(Color.WHITE);
             nearby.setBackgroundResource(R.drawable.myborder);
             nearby.setTextColor(Color.BLACK);
-            cinemaAdapter.remove();
-            cinemaAdapter = new CinemaAdapter(getActivity());
             recycleView.setAdapter(cinemaAdapter);
             cinemaPresenter.reqeust(0, "", 1, 10);
         }
@@ -154,8 +188,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
             nearby.setTextColor(Color.WHITE);
             recommend.setBackgroundResource(R.drawable.myborder);
             recommend.setTextColor(Color.BLACK);
-            cinemaAdapter.remove();
-            cinemaAdapter = new CinemaAdapter(getActivity());
             recycleView.setAdapter(cinemaAdapter);
             nearbyMoivePresenter.reqeust(0, "", "116.30551391385724", "40.04571807462411", 1, 10);
         }
@@ -172,6 +204,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
         super.onResume();
         initData();
     }
+
 
 
     class CinemaCall implements DataCall<Result> {
@@ -206,4 +239,21 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
 
         }
     }
+    //关注
+    class myFollowCinemaCall implements DataCall<Result>
+    {
+
+        @Override
+        public void success(Result result) {
+            if(result.getStatus().equals("0000"))
+            {
+                Toast.makeText(getActivity(), ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
     }
+}

@@ -24,6 +24,7 @@ import me.jessyan.autosize.internal.CustomAdapt;
 public class PurchaseActivity extends AppCompatActivity implements CustomAdapt,View.OnClickListener {
 
     private PurchaseAdapter purchaseAdapter;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class PurchaseActivity extends AppCompatActivity implements CustomAdapt,V
         setContentView(R.layout.activity_purchase);
 
         //传过来的电影id
-        int id = Integer.parseInt(getIntent().getStringExtra("id"));
+        id = Integer.parseInt(getIntent().getStringExtra("id"));
         String name = getIntent().getStringExtra("name");
         PurchasePresenter purchasePresenter = new PurchasePresenter(new PurchaseCall());
 
@@ -79,6 +80,7 @@ public class PurchaseActivity extends AppCompatActivity implements CustomAdapt,V
             {
                 List<PurchaseBean> purchaseBeans = (List<PurchaseBean>) result.getResult();
                 purchaseAdapter.addItem(purchaseBeans);
+                purchaseAdapter.addId(id);
                 purchaseAdapter.notifyDataSetChanged();
             }
         }

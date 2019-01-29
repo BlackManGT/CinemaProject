@@ -60,13 +60,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:id="@+id/cinemasdvstwo"
+                <CheckBox
+                    android:button="@null"
+                    android:id="@+id/cinemasdvscheckbox"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/com_icon_collection_selectet"
+                    android:background="@drawable/xin"
                     android:layout_width="16dp"
-                    android:layout_height="14dp" />
+                    android:layout_height="16dp" />
             </RelativeLayout>
         </LinearLayout>
 

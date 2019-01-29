@@ -156,7 +156,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         //购票按钮
         Button purchase = findViewById(R.id.purchase);
         purchase.setOnClickListener(this);
-
         bottomDialog = new Dialog(DetalisHomePageActivity.this, R.style.BottomDialog);
 
         idMoiveDetalisoneTwoPresenter = new IDMoiveDetalisoneTwoPresenter(new Dialog_DetalisCall());

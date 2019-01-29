@@ -27,6 +27,7 @@ public class MyIsFollowAdapter extends RecyclerView.Adapter {
     public void addItem(List<MyIsFollowListBean> myIsFollowListBeans) {
         if(myIsFollowListBeans!=null)
         {
+            list.clear();
             list.addAll(myIsFollowListBeans);
         }
     }

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bitmap"
-    tools:context=".activity.RegiestActivity">
+    android:background="@drawable/bitmap">
     <RelativeLayout
         android:layout_marginTop="160dp"
         android:layout_marginLeft="30dp"

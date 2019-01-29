@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:layout_marginLeft="20dp"
             android:id="@+id/addcomment"
             android:background="#ededed"
             android:hint="写评论"
@@ -24,7 +25,7 @@
             android:text="发送"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/addcomment"
-            android:background="#ededed"
+            android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

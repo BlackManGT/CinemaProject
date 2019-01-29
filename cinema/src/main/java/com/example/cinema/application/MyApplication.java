@@ -1,4 +1,4 @@
-package com.example.cinema;
+package com.example.cinema.application;
 
 import android.app.Application;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.os.Looper;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.tencent.bugly.crashreport.CrashReport;
+import com.umeng.commonsdk.UMConfigure;
 
 public class MyApplication extends Application {
     /** 主线程ID */
@@ -41,17 +43,18 @@ public class MyApplication extends Application {
         mMainLooper = getMainLooper();
         sharedPreferences = getSharedPreferences("share.xml",MODE_PRIVATE);
 
+        //友盟
+        UMConfigure.init(this,  UMConfigure.DEVICE_TYPE_PHONE, null);
+        //腾讯
+        CrashReport.initCrashReport(getApplicationContext(), "d067ccf231", false);
+
     }
 
     public static SharedPreferences getShare(){
         return sharedPreferences;
     }
 
-    /**
-     * @author: 康海涛 QQ2541849981
-     * @describe: 获取全局Application的上下文
-     * @return 全局唯一的上下文
-     */
+
     public static Context getContext() {
         return context;
     }

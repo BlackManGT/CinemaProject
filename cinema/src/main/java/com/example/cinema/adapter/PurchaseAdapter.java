@@ -8,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.example.cinema.activity.CinemaDetalisActivity;
+import com.example.cinema.activity.SchedulingActivity;
 import com.example.cinema.bean.CinemaBean;
 import com.example.cinema.bean.PurchaseBean;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -21,6 +23,7 @@ import java.util.List;
 public class PurchaseAdapter extends RecyclerView.Adapter {
 
     private Context context;
+    private int sid;
 
     public PurchaseAdapter(Context context) {
         this.context = context;
@@ -33,6 +36,10 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
         }
     }
 
+    public void addId(int id) {
+        sid = id;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -43,12 +50,24 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        PurchaseBean purchaseBean = list.get(i);
+        final PurchaseBean purchaseBean = list.get(i);
         PurchaseVH purchaseVH = (PurchaseVH) viewHolder;
         purchaseVH.purchase_sdv.setImageURI(Uri.parse(purchaseBean.getLogo()));
         purchaseVH.purchase_textviewone.setText(purchaseBean.getName());
         purchaseVH.purchase_textviewtwo.setText(purchaseBean.getAddress());
         purchaseVH.purchase_textviewthree.setText(purchaseBean.getDistance()+"km");
+        purchaseVH.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,SchedulingActivity.class);
+                intent.putExtra("name",purchaseBean.getName());
+                intent.putExtra("address",purchaseBean.getAddress());
+                intent.putExtra("id",purchaseBean.getId()+"");
+                intent.putExtra("filmid",sid+"");
+                Toast.makeText(context, "电影Id"+sid, Toast.LENGTH_SHORT).show();
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -56,6 +75,8 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return list.size();
     }
+
+
 
     //创建ViewHolder
     class PurchaseVH extends RecyclerView.ViewHolder {

@@ -21,7 +21,7 @@ import com.bw.movie.DaoSession;
 import com.bw.movie.R;
 import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.activity.FeedBackActivity;
-import com.example.cinema.activity.GuanZhuActivity;
+import com.example.cinema.activity.MyFollowActivity;
 import com.example.cinema.activity.LoginActivity;
 import com.example.cinema.activity.MyMessagesActivity;
 import com.example.cinema.activity.MyTicketActivity;
@@ -184,7 +184,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
                 if (userInfoBeans.size() == 0) {
                     judge();
                 } else {
-                    Intent intent = new Intent(getActivity(), GuanZhuActivity.class);
+                    Intent intent = new Intent(getActivity(), MyFollowActivity.class);
                     startActivity(intent);
                 }
                 break;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.cinema.activity.GuanZhuActivity">
+    tools:context="com.example.cinema.activity.MyFollowActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
 
             <RadioButton
                 android:id="@+id/guanzhu_radiobuttonone"
-                android:text="正在热映"
+                android:text="电影"
                 android:button="@null"
                 android:gravity="center"
                 android:background="@drawable/myborder"
@@ -32,7 +32,7 @@
                 android:layout_height="25dp" />
             <RadioButton
                 android:id="@+id/guanzhu_radiobuttontwo"
-                android:text="即将上映"
+                android:text="影院"
                 android:button="@null"
                 android:gravity="center"
                 android:background="@drawable/myborder"

@@ -112,7 +112,7 @@ public interface IBaseView {
     //查看影院影片
     @GET("movieApi/movie/v1/findMovieListByCinemaId")
     Observable<Result<List<CinemaById>>> cinemaById(@Query("cinemaId")int cinemaId);
-    //查看影院排期
+    //根据电影id和影院id查看影院排期
     @GET("movieApi/movie/v1/findMovieScheduleList")
     Observable<Result<List<CinemaRecy>>> cinemaRecy(@Query("cinemasId")int cinemasId,
                                                     @Query("movieId") int movieId);
@@ -186,5 +186,28 @@ public interface IBaseView {
                                       @Header("sessionId")String sessionId,
                                       @Field("payType") int payType,
                                       @Field("orderId")String orderId);
+
+
+    //添加用户对评论的回复
+    @POST("movieApi/movie/v1/verify/commentReply")
+    @FormUrlEncoded
+    Observable<Result> CommentReply(@Header("userId")String userId,
+                           @Header("sessionId")String sessionId,
+                           @Field("commentId") int payType,
+                           @Field("replyContent")String orderId);
+
+    //查询用户关注的影院信息
+    @GET("movieApi/cinema/v1/verify/findCinemaPageList")
+    Observable<Result<List<MyIsFollowListBean>>> CinemaAttention(@Header("userId")int userId,
+                                                                @Header("sessionId")String sessionId,
+                                                                @Query("page") int page,
+                                                                @Query("count") int count);
+
+    //关注影院
+    @GET("movieApi/cinema/v1/verify/followCinema")
+    Observable<Result> MyisFollowListTCinema(@Header("userId")int userId,
+                                       @Header("sessionId")String sessionId,
+                                       @Query("cinemaId") int cinemaId);
+
 
 }
