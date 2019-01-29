@@ -217,6 +217,12 @@ public interface IBaseView {
     Observable<Result> MyisFollowListTCinema(@Header("userId")int userId,
                                        @Header("sessionId")String sessionId,
                                        @Query("cinemaId") int cinemaId);
+    //点赞
+    @POST("movieApi/movie/v1/verify/movieCommentGreat")
+    @FormUrlEncoded
+    Observable<Result> commentGreat(@Header("userId")String userId,
+                                    @Header("sessionId")String sessionId,
+                                    @Field("commentId")int commentId);
 
     //修改用户信息
     @POST("movieApi/user/v1/verify/modifyUserInfo")

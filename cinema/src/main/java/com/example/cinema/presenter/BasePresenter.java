@@ -25,7 +25,7 @@ public abstract class BasePresenter {
         this.dataCall = dataCall;
     }
 
-    protected abstract Observable<Result<LoginBean>> observable(Object... args);
+    protected abstract Observable observable(Object... args);
 
     public void reqeust(Object... args) {
         if(running)

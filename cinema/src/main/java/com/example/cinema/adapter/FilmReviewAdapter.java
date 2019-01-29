@@ -4,8 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -20,6 +25,7 @@ import java.util.List;
 public class FilmReviewAdapter extends RecyclerView.Adapter {
 
     private Context context;
+    private FilmReviewBean filmReviewBean;
 
     public FilmReviewAdapter(Context context) {
         this.context = context;
@@ -43,20 +49,32 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-        FilmReviewBean filmReviewBean = list.get(i);
+        filmReviewBean = list.get(i);
 
         FilmReviewVH filmReviewVH = (FilmReviewVH) viewHolder;
 
+        final FilmReviewVH filmReviewVH = (FilmReviewVH) viewHolder;
         filmReviewVH.filmreview_heard.setImageURI(Uri.parse(filmReviewBean.getCommentHeadPic()));
 
         filmReviewVH.filmreview_name.setText(filmReviewBean.getCommentUserName());
         filmReviewVH.filmreview_pinglun.setText(filmReviewBean.getCommentContent());
         filmReviewVH.filmreview_reply.setText(filmReviewBean.getHotComment()+"");
 
+        filmReviewVH.filmreview_reply.setText(filmReviewBean.getHotComment()+"");
+        filmReviewVH.text_number.setText(filmReviewBean.getGreatNum()+"");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
         //获取当前时间
         Date date = new Date(filmReviewBean.getCommentTime());
         filmReviewVH.filmreview_time.setText(simpleDateFormat.format(date));
+        filmReviewVH.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("abc", "onCheckedChanged: "+ filmReviewBean.getCommentId());
+                greatOnClick.setonClick(filmReviewBean.getCommentId());
+                filmReviewVH.checkBox.setBackgroundResource(R.drawable.com_icon_praise_selected);
+                filmReviewVH.text_number.setText(filmReviewBean.getGreatNum()+1+"");
+            }
+        });
 
         
 
@@ -82,6 +100,9 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
         public TextView filmreview_pinglun;
         public TextView filmreview_time;
         public TextView filmreview_reply;
+        private final ImageView checkBox;
+        private final TextView text_number;
+
         public FilmReviewVH(@NonNull View itemView) {
             super(itemView);
             filmreview_heard = itemView.findViewById(R.id.filmreview_heard);
@@ -89,6 +110,16 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
             filmreview_pinglun = itemView.findViewById(R.id.filmreview_pinglun);
             filmreview_time = itemView.findViewById(R.id.filmreview_time);
             filmreview_reply = itemView.findViewById(R.id.filmreview_reply);
+            checkBox = itemView.findViewById(R.id.dianzancheckbox);
+            text_number = itemView.findViewById(R.id.film_text_number);
         }
     }
+    private GreatOnClick greatOnClick;
+    public interface GreatOnClick{
+        void setonClick(int commentid);
+    }
+    public void setGreatOnClick(GreatOnClick greatOnClick){
+        this.greatOnClick = greatOnClick;
+    }
+
 }
