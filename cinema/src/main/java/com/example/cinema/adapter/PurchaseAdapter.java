@@ -2,7 +2,6 @@ package com.example.cinema.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,9 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
-import com.example.cinema.activity.CinemaDetalisActivity;
 import com.example.cinema.activity.SchedulingActivity;
-import com.example.cinema.bean.CinemaBean;
 import com.example.cinema.bean.PurchaseBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -52,7 +49,9 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         final PurchaseBean purchaseBean = list.get(i);
         PurchaseVH purchaseVH = (PurchaseVH) viewHolder;
-        purchaseVH.purchase_sdv.setImageURI(Uri.parse(purchaseBean.getLogo()));
+
+        purchaseVH.purchase_sdv.setImageURI(purchaseBean.getLogo());
+
         purchaseVH.purchase_textviewone.setText(purchaseBean.getName());
         purchaseVH.purchase_textviewtwo.setText(purchaseBean.getAddress());
         purchaseVH.purchase_textviewthree.setText(purchaseBean.getDistance()+"km");

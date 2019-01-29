@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,6 +79,16 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_messages);
         ButterKnife.bind(this);
+
+        TextView mymessagesname = findViewById(R.id.mymessagesname);
+        mymessagesname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyMessagesActivity.this,UpdateNameActivity.class);
+                startActivity(intent);
+            }
+        });
+
         DaoSession daoSession = DaoMaster.newDevSession(MyMessagesActivity.this, UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();

@@ -1,7 +1,6 @@
 package com.example.cinema.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
 import com.example.cinema.bean.IDMoiveDetalisTwo;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +46,7 @@ public class NoticeAdapter extends RecyclerView.Adapter {
         String videoUrl = shortFilmListBean.getVideoUrl();
         StilsVH stilsVH = (StilsVH) viewHolder;
         stilsVH.notice_jzv.setUp(videoUrl,JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
+
         Glide.with(context).load(imageUrl).into(stilsVH.notice_jzv.thumbImageView);
     }
 

@@ -42,6 +42,7 @@ import com.example.cinema.presenter.FilmReviewPresenter;
 import com.example.cinema.presenter.IDMoiveDetalisonePresenter;
 import com.example.cinema.presenter.IDMoiveDetalisoneTwoPresenter;
 import com.example.cinema.presenter.IsFollowPresenter;
+import com.example.cinema.presenter.NoFilmFollowPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -89,6 +90,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
     private AddFilmCommentPresenter addFilmCommentPresenter;
     private Button send;
     private Dialog bottomDialogtwo;
+    private NoFilmFollowPresenter noFilmFollowPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,11 +119,13 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         //关注
         isFollowPresenter = new IsFollowPresenter(new isFollowCall());
         detalis_home_page_follow = findViewById(R.id.detalis_home_page_follow);
+        //取消关注
+        noFilmFollowPresenter = new NoFilmFollowPresenter(new NoFollowCall());
         detalis_home_page_follow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
+                if(isChecked)//关注
                 {
                     if(userInfoBeans.size() != 0)
                     {
@@ -129,7 +133,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                         sessionId = userInfoBeans.get(0).getSessionId();
                         Log.e("=========userId========", userId +"");
                         Log.e("======sessionId======",sessionId+"");
-                        detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_selectet);
                         isFollowPresenter.reqeust(userId, sessionId,id);
                     }
                     else
@@ -146,6 +149,10 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                         });
                         builder.show();
                     }
+                }
+                else//取消关注
+                {
+                    noFilmFollowPresenter.reqeust(userId, sessionId,id);
                 }
 
             }
@@ -240,6 +247,8 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         send = addcomments.findViewById(R.id.send);
         send.setOnClickListener(this);
         addFilmCommentPresenter = new AddFilmCommentPresenter(new AddFilmCommentCall());
+        idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
+        filmReviewPresenter.reqeust(0,"",id,1,10);
     }
 
     //点击事件
@@ -259,7 +268,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.setCanceledOnTouchOutside(true);
                 bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
                 bottomDialog.show();
-                idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
+
                 break;
             case R.id.detalisbuttontwo:
                 bottomDialog.setContentView(notice);
@@ -270,7 +279,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.setCanceledOnTouchOutside(true);
                 bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
                 bottomDialog.show();
-                idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
+
                 break;
             case R.id.detalisbuttonthree:
                 bottomDialog.setContentView(stills);
@@ -281,7 +290,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.setCanceledOnTouchOutside(true);
                 bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
                 bottomDialog.show();
-                idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
+
                 break;
             case R.id.detalisbuttonfour://影评
                 bottomDialog.setContentView(filmreview);
@@ -292,7 +301,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.setCanceledOnTouchOutside(true);
                 bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
                 bottomDialog.show();
-                filmReviewPresenter.reqeust(0,"",id,1,10);
+
                 break;
             case R.id.purchase:
                 Intent intent = new Intent(DetalisHomePageActivity.this,PurchaseActivity.class);
@@ -386,6 +395,14 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 noticeAdapter.notifyDataSetChanged();
                 stillsAdapter.notifyDataSetChanged();
 
+                if(idMoiveDetalisTwo.getFollowMovie() == 1)
+                {
+                    detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_selectet);
+                }
+                else
+                {
+                    detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_default);
+                }
             }
         }
 
@@ -423,6 +440,25 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
             if(result.getStatus().equals("0000"))
             {
                 Toast.makeText(DetalisHomePageActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+                detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_selectet);
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+    //取消关注
+    class NoFollowCall implements DataCall<Result>
+    {
+
+        @Override
+        public void success(Result result) {
+            if(result.getStatus().equals("0000"))
+            {
+                Toast.makeText(DetalisHomePageActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+                detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_default);
             }
         }
 

@@ -6,11 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bw.movie.R;
 import com.example.cinema.bean.FilmReviewBean;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -49,10 +46,12 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
         FilmReviewBean filmReviewBean = list.get(i);
 
         FilmReviewVH filmReviewVH = (FilmReviewVH) viewHolder;
+
         filmReviewVH.filmreview_heard.setImageURI(Uri.parse(filmReviewBean.getCommentHeadPic()));
+
         filmReviewVH.filmreview_name.setText(filmReviewBean.getCommentUserName());
         filmReviewVH.filmreview_pinglun.setText(filmReviewBean.getCommentContent());
-        filmReviewVH.filmreview_reply.setText(filmReviewBean.getHotComment());
+        filmReviewVH.filmreview_reply.setText(filmReviewBean.getHotComment()+"");
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
         //获取当前时间

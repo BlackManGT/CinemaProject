@@ -152,7 +152,12 @@ public interface IBaseView {
     Observable<Result> isFollow(@Header("userId")int userId,
                                                         @Header("sessionId")String sessionId,
                                                         @Query("movieId") int movieId);
-    //关注列表
+    //取消关注
+    @GET("movieApi/movie/v1/verify/cancelFollowMovie")
+    Observable<Result> NoFilmFollow(@Header("userId")int userId,
+                                @Header("sessionId")String sessionId,
+                                @Query("movieId") int movieId);
+    //影片关注列表
     @GET("movieApi/movie/v1/verify/findMoviePageList")
     Observable<Result<List<MyIsFollowListBean>>> MyisFollowList(@Header("userId")int userId,
                                                                 @Header("sessionId")String sessionId,
@@ -212,6 +217,16 @@ public interface IBaseView {
     Observable<Result> MyisFollowListTCinema(@Header("userId")int userId,
                                        @Header("sessionId")String sessionId,
                                        @Query("cinemaId") int cinemaId);
+
+    //修改用户信息
+    @POST("movieApi/user/v1/verify/modifyUserInfo")
+    @FormUrlEncoded
+    Observable<Result> Update(@Header("userId")int userId,
+                              @Header("sessionId")String sessionId,
+                           @Field("nickName")String nickName,
+                           @Field("sex") int sex,
+                           @Field("email")String email);
+
 
 
 }

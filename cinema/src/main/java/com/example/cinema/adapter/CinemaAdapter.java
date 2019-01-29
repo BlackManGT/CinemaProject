@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.example.cinema.activity.CinemaDetalisActivity;
@@ -19,8 +18,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.OnClick;
 
 public class CinemaAdapter extends RecyclerView.Adapter {
 

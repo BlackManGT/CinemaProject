@@ -135,6 +135,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
                 }
             });
             myname.setText("请登录");
+            myhead.setImageResource(R.drawable.myuserhead);
 
         }
 

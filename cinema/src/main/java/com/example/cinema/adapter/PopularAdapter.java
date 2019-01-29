@@ -2,7 +2,6 @@ package com.example.cinema.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -44,7 +43,9 @@ public class PopularAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         final MoiveBean moiveBean = list.get(i);
         PopularVH popularVH = (PopularVH) viewHolder;
-        popularVH.popularsdv.setImageURI(Uri.parse(moiveBean.getImageUrl()));
+
+        popularVH.popularsdv.setImageURI(moiveBean.getImageUrl());
+
         popularVH.populartextview.setBackgroundColor(0x55000000);
         popularVH.populartextview.setText(moiveBean.getName());
         popularVH.itemView.setOnClickListener(new View.OnClickListener() {

@@ -45,6 +45,8 @@ public class MyIsFollowAdapter extends RecyclerView.Adapter {
         MyIsFollowListBean myIsFollowListBean = list.get(i);
         MyFollowVh myFollowVh = (MyFollowVh) viewHolder;
         myFollowVh.myfollow_sdv.setImageURI(myIsFollowListBean.getImageUrl());
+
+
         myFollowVh.myfollow_textviewone.setText(myIsFollowListBean.getName());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
         //获取当前时间

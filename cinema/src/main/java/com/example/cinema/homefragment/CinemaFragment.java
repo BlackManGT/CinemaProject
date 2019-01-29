@@ -113,12 +113,10 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
         cinemaAdapter.setCinemaAdapter(new CinemaAdapter.Follow() {
             @Override
             public void FollowOnclick(int sid) {
-                if(userInfoBeans.size() != 0)
+                if(userInfoBeans.size() > 0)
                 {
                     int userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
                     String sessionId = userInfoBeans.get(0).getSessionId();
-                    Log.e("=========userId========", userId +"");
-                    Log.e("======sessionId======",sessionId+"");
                     Toast.makeText(getActivity(), ""+sid, Toast.LENGTH_SHORT).show();
                     myFollowCinemaPresenter.reqeust(userId, sessionId,sid);
                 }
@@ -248,6 +246,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
             if(result.getStatus().equals("0000"))
             {
                 Toast.makeText(getActivity(), ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         }
 
