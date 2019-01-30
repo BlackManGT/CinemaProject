@@ -51,7 +51,6 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
 
         filmReviewBean = list.get(i);
 
-        FilmReviewVH filmReviewVH = (FilmReviewVH) viewHolder;
 
         final FilmReviewVH filmReviewVH = (FilmReviewVH) viewHolder;
         filmReviewVH.filmreview_heard.setImageURI(Uri.parse(filmReviewBean.getCommentHeadPic()));

@@ -12,6 +12,7 @@ import com.example.cinema.bean.MoiveBean;
 import com.example.cinema.bean.MyIsFollowListBean;
 import com.example.cinema.bean.PurchaseBean;
 import com.example.cinema.bean.Result;
+import com.example.cinema.bean.SysMsgListBean;
 import com.example.cinema.bean.TicketBean;
 
 import java.util.List;
@@ -232,6 +233,14 @@ public interface IBaseView {
                            @Field("nickName")String nickName,
                            @Field("sex") int sex,
                            @Field("email")String email);
+
+    //系统信息
+    //关注影院
+    @GET("movieApi/tool/v1/verify/findAllSysMsgList")
+    Observable<Result<List<SysMsgListBean>>> SystemMessage(@Header("userId")int userId,
+                                                           @Header("sessionId")String sessionId,
+                                                           @Query("page") int page,
+                                                           @Query("count") int count);
 
 
 

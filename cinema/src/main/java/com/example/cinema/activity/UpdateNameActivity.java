@@ -47,9 +47,10 @@ public class UpdateNameActivity extends AppCompatActivity implements CustomAdapt
             public void onClick(View v) {
                 int userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
                 String sessionId = userInfoBeans.get(0).getSessionId();
-                int sex = userInfoBeans.get(0).getSex();
                 String name = update_name.getText().toString();
-                updateNamePresenter.reqeust(userId,sessionId,name,sex,"493000539@qq.com");
+                Toast.makeText(UpdateNameActivity.this, ""+name, Toast.LENGTH_SHORT).show();
+                int sex = userInfoBeans.get(0).getSex();
+                updateNamePresenter.reqeust(userId,sessionId,name,sex,"1450655366@qq.com");
             }
         });
     }
