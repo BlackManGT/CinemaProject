@@ -14,7 +14,9 @@ import com.bumptech.glide.Glide;
 import com.bw.movie.R;
 import com.example.cinema.bean.TicketBean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
  
 /**
@@ -24,8 +26,6 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter{
     private List<TicketBean> list = new ArrayList<>();
     private Context context;
-    private ClickListener clickListener;
-    private LongClickListener longClickListener;
     public void addList(List<TicketBean> u){
         if(u!=null){
             list.addAll(u);
@@ -54,14 +54,23 @@ public class MyAdapter extends RecyclerView.Adapter{
         switch (itemViewType){
             case 0:
                 MyViewHolder myViewHolder = (MyViewHolder) holder;
-                TicketBean ticketBean = list.get(position);
+                final TicketBean ticketBean = list.get(position);
                 myViewHolder.one_dingdan.setText("订单号："+ticketBean.getOrderId());
                 myViewHolder.one_film.setText("影院："+ticketBean.getCinemaName());
                 myViewHolder.one_count.setText("数量："+ticketBean.getAmount());
-                myViewHolder.one_money.setText("余额："+ticketBean.getPrice());
+                myViewHolder.one_money.setText("金额："+ticketBean.getAmount()*ticketBean.getPrice()+"元");
                 myViewHolder.one_yingting.setText("影厅："+ticketBean.getScreeningHall());
-                myViewHolder.one_time.setText("时间："+ticketBean.getBeginTime());
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date d1 = new Date(ticketBean.getCreateTime());
+                String t1 = format.format(d1);
+                myViewHolder.one_time.setText("时间："+t1+"  "+ticketBean.getBeginTime()+"-"+ticketBean.getEndTime());
                 myViewHolder.one_title.setText(ticketBean.getMovieName());
+                myViewHolder.one_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onItemClick.getPrice(ticketBean.getAmount()*ticketBean.getPrice(),ticketBean.getOrderId());
+                    }
+                });
                 break;
             case 1:
                 ViewHolder2 holder2 = (ViewHolder2) holder;
@@ -146,18 +155,12 @@ public class MyAdapter extends RecyclerView.Adapter{
             two_money = itemView.findViewById(R.id.two_money);
         }
     }
-    public interface ClickListener{
-        void onItmeClickListener(View view,int position);
+    public interface OnItemClick{
+        void getPrice(double price,String orderId);
     }
-    public void setOnItmeClickListener(ClickListener clickListener){
-        this.clickListener = clickListener;
+    private OnItemClick onItemClick;
+    public void setOnItemClick(OnItemClick onItemClick){
+        this.onItemClick = onItemClick;
     }
-    public interface LongClickListener{
-        void onLongItmeClickListener(View view,int position);
-    }
-    public void setOnLongItmeClickListener(LongClickListener longClickListener){
-        this.longClickListener = longClickListener;
-    }
-
 
 }
