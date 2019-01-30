@@ -34,6 +34,7 @@ import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.SigninPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -262,5 +263,14 @@ public class MyFragment extends Fragment implements CustomAdapt {
     public void onResume() {
         super.onResume();
         init();
+        MobclickAgent.onResume(getContext());
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getContext());
+    }
+
+
+
 }

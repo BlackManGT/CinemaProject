@@ -16,6 +16,7 @@ import com.example.cinema.core.DataCall;
 import com.example.cinema.core.EncryptUtil;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.RegiestPresenter;
+import com.umeng.analytics.MobclickAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -134,5 +135,15 @@ public class RegiestActivity extends AppCompatActivity implements CustomAdapt {
 
         }
     }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
 
 }

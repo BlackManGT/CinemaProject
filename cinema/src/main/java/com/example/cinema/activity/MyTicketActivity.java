@@ -23,8 +23,12 @@ import com.example.cinema.bean.TicketBean;
 import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
+import com.example.cinema.presenter.PayPresenter;
 import com.example.cinema.presenter.TicketPresenter;
 import com.example.cinema.view.SpaceItemDecoration;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -45,6 +49,7 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
     private MyAdapter myAdapter;
     private int id= 1;
     private UserInfoBean userInfoBean;
+    private PayPresenter payPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +68,7 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
         ticketRecy.setLayoutManager(manager);
         myAdapter = new MyAdapter(this);
         ticketRecy.setAdapter(myAdapter);
-
+        payPresenter = new PayPresenter(new MyPay());
         DaoSession daoSession = DaoMaster.newDevSession(MyTicketActivity.this, UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         List<UserInfoBean> userInfoBeans = userInfoBeanDao.loadAll();
@@ -72,6 +77,12 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
         ticketPresenter.reqeust(userInfoBean.getUserId(), userInfoBean.getSessionId(),1,5,id);
         Log.d("login2", "success2: "+userInfoBean.getUserId()+""+ userInfoBean.getSessionId()+1+5+id);
         ticketRecy.addItemDecoration(new SpaceItemDecoration(20));
+        myAdapter.setOnItemClick(new MyAdapter.OnItemClick() {
+            @Override
+            public void getPrice(double price, String orderId) {
+                payPresenter.reqeust(userInfoBean.getUserId(),userInfoBean.getSessionId(),1,orderId);
+            }
+        });
 }
 
     @OnClick({R.id.ticket_wait_money, R.id.ticket_finish})
@@ -127,4 +138,28 @@ public class MyTicketActivity extends AppCompatActivity implements CustomAdapt {
             Toast.makeText(MyTicketActivity.this, e.getMessage()+"失败", Toast.LENGTH_SHORT).show();
         }
     }
+    class MyPay implements DataCall<Result>{
+
+        @Override
+        public void success(Result result) {
+            Toast.makeText(MyTicketActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+            final IWXAPI msgApi = WXAPIFactory.createWXAPI(MyTicketActivity.this, "wxb3852e6a6b7d9516");
+            msgApi.registerApp("wxb3852e6a6b7d9516");
+            PayReq request = new PayReq();
+            request.appId = result.getAppId();
+            request.partnerId = result.getPartnerId();
+            request.prepayId= result.getPrepayId();
+            request.packageValue = result.getPackageValue();
+            request.nonceStr= result.getNonceStr();
+            request.timeStamp=result.getTimeStamp();
+            request.sign= result.getSign();
+            msgApi.sendReq(request);
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
 }

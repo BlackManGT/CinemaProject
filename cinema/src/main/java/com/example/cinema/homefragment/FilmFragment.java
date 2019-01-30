@@ -30,6 +30,7 @@ import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.BeingMoviePresenter;
 import com.example.cinema.presenter.PopularMoviePresenter;
 import com.example.cinema.presenter.SoonMoviePresenter;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -250,4 +251,14 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
     public void clickItem(int pos) {
         movieflow.smoothScrollToPosition(pos);
     }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getContext());
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getContext());
+    }
+
 }

@@ -38,6 +38,7 @@ import com.example.cinema.presenter.CinemaMoviePresenter;
 import com.example.cinema.presenter.MyFollowCinemaPresenter;
 import com.example.cinema.presenter.NearbyMoivePresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -201,6 +202,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
     public void onResume() {
         super.onResume();
         initData();
+        MobclickAgent.onResume(getContext());
     }
 
 
@@ -255,4 +257,10 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
 
         }
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getContext());
+    }
+
 }
