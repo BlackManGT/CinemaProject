@@ -6,7 +6,7 @@ android {
         config {
             keyAlias 'bw_movie'
             keyPassword '123456'
-            storeFile file('C:/Users/ajadmhqkdhaakdhkuqQL/Desktop/movie.keystore')
+            storeFile file('C:/Users/贾蕊/Desktop/movie.keystore')
             storePassword '123456'
         }
     }
@@ -102,7 +102,6 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     implementation 'cn.jzvd:jiaozivideoplayer:6.2.9'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-    implementation project(':SeatTable')
     //友盟
     implementation 'com.umeng.umsdk:analytics:8.0.0'
     implementation 'com.umeng.umsdk:common:2.0.0'

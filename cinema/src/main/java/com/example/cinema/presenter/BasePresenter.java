@@ -1,5 +1,9 @@
 package com.example.cinema.presenter;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.Result;
 import com.example.cinema.core.DataCall;
@@ -59,6 +63,13 @@ public abstract class BasePresenter {
                         dataCall.fail(CustomException.handleException(throwable));
                     }
                 });
-
+    }
+    public boolean hasNet(Context context){
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
+        if(activeNetworkInfo == null){
+            return false;
+        }
+        return true;
     }
 }

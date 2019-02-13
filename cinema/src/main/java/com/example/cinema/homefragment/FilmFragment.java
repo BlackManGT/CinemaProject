@@ -30,8 +30,12 @@ import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.BeingMoviePresenter;
 import com.example.cinema.presenter.PopularMoviePresenter;
 import com.example.cinema.presenter.SoonMoviePresenter;
+import com.example.cinema.view.CacheManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.MobclickAgent;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import butterknife.BindView;
@@ -59,6 +63,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
     private SoonAdapter soonAdapter;
     private boolean animatort = false;
     private boolean animatorf = false;
+    private CacheManager cacheManager;
 
     @Nullable
     @Override
@@ -123,6 +128,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear2, "translationX", 30f, 510f);
         animator.setDuration(0);
         animator.start();
+        cacheManager = new CacheManager();
         return view;
     }
 
@@ -200,7 +206,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
 
                 movieFlowAdapter.addItem(moiveBeans);
-
+                cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"popularcall");
                 popularAdapter.addItem(moiveBeans);
                 popularAdapter.notifyDataSetChanged();
                 movieFlowAdapter.notifyDataSetChanged();
@@ -209,7 +215,13 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
 
         @Override
         public void fail(ApiException e) {
-
+            String s = cacheManager.loadDataFromFile(getContext(), "popularcall");
+            Type type = new TypeToken<List<MoiveBean>>() {}.getType();
+            List<MoiveBean>  moiveBeans = new Gson().fromJson(s, type);
+            movieFlowAdapter.addItem(moiveBeans);
+            movieFlowAdapter.notifyDataSetChanged();
+            popularAdapter.addItem(moiveBeans);
+            popularAdapter.notifyDataSetChanged();
         }
     }
 
@@ -219,6 +231,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         public void success(Result result) {
             if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
+                cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"beingcall");
                 beingAdapter.addItem(moiveBeans);
                 beingAdapter.notifyDataSetChanged();
             }
@@ -226,7 +239,11 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
 
         @Override
         public void fail(ApiException e) {
-
+            String s = cacheManager.loadDataFromFile(getContext(), "beingcall");
+            Type type = new TypeToken<List<MoiveBean>>() {}.getType();
+            List<MoiveBean>  moiveBeans = new Gson().fromJson(s, type);
+            beingAdapter.addItem(moiveBeans);
+            beingAdapter.notifyDataSetChanged();
         }
     }
 
@@ -236,6 +253,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         public void success(Result result) {
             if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
+                cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"sooncall");
                 soonAdapter.addItem(moiveBeans);
                 soonAdapter.notifyDataSetChanged();
             }
@@ -243,6 +261,11 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
 
         @Override
         public void fail(ApiException e) {
+            String s = cacheManager.loadDataFromFile(getContext(), "sooncall");
+            Type type = new TypeToken<List<MoiveBean>>() {}.getType();
+            List<MoiveBean>  moiveBeans = new Gson().fromJson(s, type);
+            soonAdapter.addItem(moiveBeans);
+            soonAdapter.notifyDataSetChanged();
 
         }
     }

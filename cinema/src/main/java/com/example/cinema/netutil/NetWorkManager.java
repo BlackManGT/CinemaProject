@@ -53,12 +53,4 @@ public class NetWorkManager {
     {
         return retrofit.create(service);
     }
-    public boolean hasNet(Context context){
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
-        if(activeNetworkInfo == null){
-            return false;
-        }
-        return true;
-    }
 }
