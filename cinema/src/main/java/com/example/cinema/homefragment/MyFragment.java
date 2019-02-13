@@ -26,6 +26,7 @@ import com.example.cinema.activity.HomePageActivity;
 import com.example.cinema.activity.LoginActivity;
 import com.example.cinema.activity.MyMessagesActivity;
 import com.example.cinema.activity.MyTicketActivity;
+import com.example.cinema.activity.SysMsgListActivity;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.Result;
 import com.example.cinema.bean.UserInfoBean;
@@ -68,6 +69,8 @@ public class MyFragment extends Fragment implements CustomAdapt {
     LinearLayout myLinear;
     @BindView(R.id.signin)
     Button signin;
+    @BindView(R.id.my_sysmsg)
+    SimpleDraweeView my_sysmsg;
 
     private List<LoginBean> student;
     private UserInfoBean userInfoBean;
@@ -85,6 +88,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
         DaoSession daoSession = DaoMaster.newDevSession(getActivity(), UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();
+        Toast.makeText(getContext(), ""+userInfoBeans.size(), Toast.LENGTH_SHORT).show();
 
         //签到P层
         signinPresenter = new SigninPresenter(new SigninCall());
@@ -161,7 +165,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
     }
 
 
-    @OnClick({R.id.signin,R.id.mymessages, R.id.my_guanzhu, R.id.my_ticket, R.id.my_yijian, R.id.my_version, R.id.my_back})
+    @OnClick({R.id.signin,R.id.mymessages, R.id.my_guanzhu, R.id.my_ticket, R.id.my_yijian, R.id.my_version, R.id.my_back,R.id.my_sysmsg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.signin:
@@ -226,6 +230,14 @@ public class MyFragment extends Fragment implements CustomAdapt {
                         }
                     });
                     builder.show();
+                }
+                break;
+            case R.id.my_sysmsg:
+                if (userInfoBeans.size() == 0) {
+                    judge();
+                } else {
+                    Intent intent = new Intent(getActivity(), SysMsgListActivity.class);
+                    startActivity(intent);
                 }
                 break;
         }

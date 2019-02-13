@@ -46,6 +46,7 @@ public class NetWorkManager {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
     }
 
     public <T> T create(final Class<T> service)

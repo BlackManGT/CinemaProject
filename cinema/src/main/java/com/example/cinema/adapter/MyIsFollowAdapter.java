@@ -1,6 +1,7 @@
 package com.example.cinema.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -27,7 +28,6 @@ public class MyIsFollowAdapter extends RecyclerView.Adapter {
     public void addItem(List<MyIsFollowListBean> myIsFollowListBeans) {
         if(myIsFollowListBeans!=null)
         {
-            list.clear();
             list.addAll(myIsFollowListBeans);
         }
     }
@@ -44,6 +44,7 @@ public class MyIsFollowAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         MyIsFollowListBean myIsFollowListBean = list.get(i);
         MyFollowVh myFollowVh = (MyFollowVh) viewHolder;
+
         myFollowVh.myfollow_sdv.setImageURI(myIsFollowListBean.getImageUrl());
 
 
@@ -59,6 +60,10 @@ public class MyIsFollowAdapter extends RecyclerView.Adapter {
         return list.size();
     }
 
+    public void remove() {
+        list.clear();
+        notifyDataSetChanged();
+    }
 
 
     //创建VH

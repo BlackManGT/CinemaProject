@@ -10,8 +10,10 @@ import com.example.cinema.bean.IDMoiveDetalisTwo;
 import com.example.cinema.bean.LoginBean;
 import com.example.cinema.bean.MoiveBean;
 import com.example.cinema.bean.MyIsFollowListBean;
+import com.example.cinema.bean.MyIsFollowListTwoBean;
 import com.example.cinema.bean.PurchaseBean;
 import com.example.cinema.bean.Result;
+import com.example.cinema.bean.SysMsgListBean;
 import com.example.cinema.bean.TicketBean;
 
 import java.util.List;
@@ -207,10 +209,15 @@ public interface IBaseView {
 
     //查询用户关注的影院信息
     @GET("movieApi/cinema/v1/verify/findCinemaPageList")
-    Observable<Result<List<MyIsFollowListBean>>> CinemaAttention(@Header("userId")int userId,
-                                                                @Header("sessionId")String sessionId,
-                                                                @Query("page") int page,
-                                                                @Query("count") int count);
+    Observable<Result<List<MyIsFollowListTwoBean>>> CinemaAttention(@Header("userId")int userId,
+                                                                         @Header("sessionId")String sessionId,
+                                                                         @Query("page") int page,
+                                                                         @Query("count") int count);
+    //取消关注用户影院
+    @GET("movieApi/cinema/v1/verify/cancelFollowCinema")
+    Observable<Result> CancelCinema(@Header("userId")int userId,
+                                   @Header("sessionId")String sessionId,
+                                   @Query("cinemaId") int cinemaId);
 
     //关注影院
     @GET("movieApi/cinema/v1/verify/followCinema")
@@ -232,6 +239,13 @@ public interface IBaseView {
                            @Field("nickName")String nickName,
                            @Field("sex") int sex,
                            @Field("email")String email);
+
+    //系统信息
+    @GET("movieApi/tool/v1/verify/findAllSysMsgList")
+    Observable<Result<List<SysMsgListBean>>> SystemMessage(@Header("userId")int userId,
+                                                           @Header("sessionId")String sessionId,
+                                                           @Query("page") int page,
+                                                           @Query("count") int count);
 
 
 

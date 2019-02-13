@@ -16,9 +16,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.example.cinema.bean.Result;
 import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
+import com.example.cinema.presenter.UpdateNamePresenter;
 import com.example.cinema.presenter.UploadHeadPicPresenter;
 import com.example.cinema.view.Constant;
 import com.example.cinema.view.GetRealPath;
@@ -73,6 +76,10 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
     private LinearLayout resetpwd;
     private List<UserInfoBean> userInfoBeans;
     private UserInfoBean userInfoBean;
+    private UpdateNamePresenter updateNamePresenter;
+    int sex = 0;
+    private String box;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,19 +87,68 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
         setContentView(R.layout.activity_my_messages);
         ButterKnife.bind(this);
 
-        TextView mymessagesname = findViewById(R.id.mymessagesname);
-        mymessagesname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyMessagesActivity.this,UpdateNameActivity.class);
-                startActivity(intent);
-            }
-        });
-
         DaoSession daoSession = DaoMaster.newDevSession(MyMessagesActivity.this, UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();
         userInfoBean = userInfoBeans.get(0);
+
+
+        //P层
+        updateNamePresenter = new UpdateNamePresenter(new UpdateNameCall());
+
+        TextView mymessagesname = findViewById(R.id.mymessagesname);
+        mymessagesname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyMessagesActivity.this);
+                final View view1 = View.inflate(MyMessagesActivity.this, R.layout.activity_mine_dialog, null);
+                builder.setTitle("修改信息");
+                builder.setView(view1);
+                builder.setPositiveButton("修改", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText newName = view1.findViewById(R.id.newname);
+                        EditText newBox = view1.findViewById(R.id.newbox);
+
+                        RadioButton man = view1.findViewById(R.id.man);
+                        RadioButton woman = view1.findViewById(R.id.woman);
+
+                        if (man.isChecked()){
+                            sex = 1;
+                        }
+                        if (woman.isChecked()){
+                            sex = 2;
+                        }
+
+
+                        int userId = Integer.parseInt(userInfoBean.getUserId());
+
+                        name = newName.getText().toString().trim();
+                        box = newBox.getText().toString().trim();
+
+
+                        Log.e("asd","id"+userInfoBean.getUserId());
+                        Log.e("asd","session"+userInfoBean.getSessionId());
+                        Log.e("asd","name"+ name);
+                        Log.e("asd","sex"+sex);
+                        Log.e("asd","email"+ box);
+
+                        updateNamePresenter.reqeust(userId,userInfoBean.getSessionId(), name, sex, box);
+
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
+            }
+        });
+
+
         long birthday = userInfoBean.getBirthday();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date d1 = new Date(birthday);
@@ -233,4 +289,29 @@ public class MyMessagesActivity extends AppCompatActivity implements CustomAdapt
         .show();
         }
     }
+
+    //成功修改
+    class UpdateNameCall implements DataCall<Result>
+    {
+
+        @Override
+        public void success(Result result) {
+            if(result.getStatus().equals("0000"))
+            {
+                Toast.makeText(MyMessagesActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+                mymessagesname.setText(name);
+                if (sex == 1) {
+                    mymessagessex.setText("男");
+                } else {
+                    mymessagessex.setText("女");
+                }
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
 }
