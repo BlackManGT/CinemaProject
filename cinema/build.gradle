@@ -6,7 +6,7 @@ android {
         config {
             keyAlias 'bw_movie'
             keyPassword '123456'
-            storeFile file('C:/Users/贾蕊/Desktop/movie.keystore')
+            storeFile file('C:/Users/ajadmhqkdhaakdhkuqQL/Desktop/movie.keystore')
             storePassword '123456'
         }
     }
@@ -57,6 +57,23 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+
+
+    flavorDimensions "versionCode"
+    productFlavors {
+        kuan {}
+        xiaomi{}
+        qh360 {}
+        baidu {}
+        wandoujia {}
+        yingyongbao {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
     productFlavors {
     }
 }
@@ -102,6 +119,7 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     implementation 'cn.jzvd:jiaozivideoplayer:6.2.9'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    implementation project(':SeatTable')
     //友盟
     implementation 'com.umeng.umsdk:analytics:8.0.0'
     implementation 'com.umeng.umsdk:common:2.0.0'
@@ -119,5 +137,4 @@ dependencies {
     implementation 'com.tencent.wup:wup:1.0.0.E-release'
     //mid包，minSdkVersion 14
     implementation 'com.tencent.mid:mid:4.0.7-Release'
-
 }
