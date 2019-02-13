@@ -3,14 +3,18 @@ package com.example.cinema.activity;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.bw.movie.DaoMaster;
 import com.bw.movie.DaoSession;
@@ -29,6 +33,19 @@ import butterknife.ButterKnife;
 import me.jessyan.autosize.internal.CustomAdapt;
 
 public class HomePageActivity extends AppCompatActivity implements CustomAdapt {
+    /**
+     * 点击返回按钮两次退出
+     */
+    private static boolean isExit = false;
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
+
 
     @BindView(R.id.homeradiobuttonone)
     RadioButton homeradiobuttonone;
@@ -136,6 +153,28 @@ public class HomePageActivity extends AppCompatActivity implements CustomAdapt {
             }
         });
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
+
 
     @Override
     public boolean isBaseOnWidth() {
