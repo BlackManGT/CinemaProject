@@ -15,7 +15,9 @@ import com.bw.movie.DaoSession;
 import com.bw.movie.R;
 import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.adapter.MyIsFollowAdapter;
+import com.example.cinema.adapter.MyIsFollowTwoAdapter;
 import com.example.cinema.bean.MyIsFollowListBean;
+import com.example.cinema.bean.MyIsFollowListTwoBean;
 import com.example.cinema.bean.Result;
 import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
@@ -36,13 +38,15 @@ public class MyFollowActivity extends AppCompatActivity implements CustomAdapt {
     private int userId;
     private String sessionId;
     private CinemaAttentionPresenter cinemaAttentionPresenter;
+    private MyIsFollowListPresenter myIsFollowListPresenter;
+    private MyIsFollowTwoAdapter myIsFollowTwoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guan_zhu);
 
-        cinemaAttentionPresenter = new CinemaAttentionPresenter(new MyList());
+        cinemaAttentionPresenter = new CinemaAttentionPresenter(new MyListTwo());
 
         //数据库
         DaoSession daoSession = DaoMaster.newDevSession(this, UserInfoBeanDao.TABLENAME);
@@ -54,7 +58,7 @@ public class MyFollowActivity extends AppCompatActivity implements CustomAdapt {
         guanzhu_recycleview = findViewById(R.id.guanzhu_recycleview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         guanzhu_recycleview.setLayoutManager(linearLayoutManager);
-        MyIsFollowListPresenter myIsFollowListPresenter = new MyIsFollowListPresenter(new MyList());
+        myIsFollowListPresenter = new MyIsFollowListPresenter(new MyList());
         myIsFollowAdapter = new MyIsFollowAdapter(this);
         guanzhu_recycleview.setAdapter(myIsFollowAdapter);
         myIsFollowListPresenter.reqeust(userId, sessionId,1,10);
@@ -74,6 +78,7 @@ public class MyFollowActivity extends AppCompatActivity implements CustomAdapt {
         guanzhu_radiobuttontwo.setBackgroundResource(R.drawable.myborder);
         guanzhu_radiobuttontwo.setTextColor(Color.BLACK);
         guanzhu_radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId)
@@ -83,9 +88,9 @@ public class MyFollowActivity extends AppCompatActivity implements CustomAdapt {
                         guanzhu_radiobuttonone.setTextColor(Color.WHITE);
                         guanzhu_radiobuttontwo.setBackgroundResource(R.drawable.myborder);
                         guanzhu_radiobuttontwo.setTextColor(Color.BLACK);
-                        MyIsFollowListPresenter myIsFollowListPresenter = new MyIsFollowListPresenter(new MyList());
                         myIsFollowAdapter = new MyIsFollowAdapter(MyFollowActivity.this);
                         guanzhu_recycleview.setAdapter(myIsFollowAdapter);
+                        myIsFollowTwoAdapter.remove();
                         myIsFollowListPresenter.reqeust(userId, sessionId,1,10);
                         break;
                     case R.id.guanzhu_radiobuttontwo://影院关注列表
@@ -93,7 +98,10 @@ public class MyFollowActivity extends AppCompatActivity implements CustomAdapt {
                         guanzhu_radiobuttonone.setTextColor(Color.BLACK);
                         guanzhu_radiobuttontwo.setBackgroundResource(R.drawable.btn_gradient);
                         guanzhu_radiobuttontwo.setTextColor(Color.WHITE);
-                        guanzhu_recycleview.setAdapter(myIsFollowAdapter);
+
+                        myIsFollowTwoAdapter = new MyIsFollowTwoAdapter(MyFollowActivity.this);
+                        guanzhu_recycleview.setAdapter(myIsFollowTwoAdapter);
+                        myIsFollowAdapter.remove();
                         cinemaAttentionPresenter.reqeust(userId, sessionId,1,10);
                     break;
                 }
@@ -112,7 +120,7 @@ public class MyFollowActivity extends AppCompatActivity implements CustomAdapt {
         return 720;
     }
 
-    //成功得到数据
+    //成功得到关注影片数据
     class MyList implements DataCall<Result>
     {
 
@@ -124,6 +132,27 @@ public class MyFollowActivity extends AppCompatActivity implements CustomAdapt {
                 List<MyIsFollowListBean> myIsFollowListBeans = (List<MyIsFollowListBean>) result.getResult();
                 myIsFollowAdapter.addItem(myIsFollowListBeans);
                 myIsFollowAdapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
+    //成功得到关注影院数据
+    class MyListTwo implements DataCall<Result>
+    {
+
+        @Override
+        public void success(Result result) {
+            if(result.getStatus().equals("0000"))
+            {
+                Toast.makeText(MyFollowActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+                List<MyIsFollowListTwoBean> myIsFollowListTwoBeans = (List<MyIsFollowListTwoBean>) result.getResult();
+                myIsFollowTwoAdapter.addItem(myIsFollowListTwoBeans);
+                myIsFollowTwoAdapter.notifyDataSetChanged();
             }
         }
 

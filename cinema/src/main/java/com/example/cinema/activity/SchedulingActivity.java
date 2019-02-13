@@ -1,14 +1,11 @@
 package com.example.cinema.activity;
 
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bw.movie.DaoMaster;
 import com.bw.movie.DaoSession;
@@ -17,7 +14,6 @@ import com.bw.movie.UserInfoBeanDao;
 import com.example.cinema.adapter.CinemaRecycleAdapter;
 import com.example.cinema.bean.CinemaById;
 import com.example.cinema.bean.CinemaRecy;
-import com.example.cinema.bean.IDMoiveDetalisOne;
 import com.example.cinema.bean.IDMoiveDetalisTwo;
 import com.example.cinema.bean.Result;
 import com.example.cinema.bean.UserInfoBean;

@@ -36,6 +36,7 @@ import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.CinemaMoviePresenter;
 import com.example.cinema.presenter.MyFollowCinemaPresenter;
+import com.example.cinema.presenter.MyFollowCinemaPresenterTwo;
 import com.example.cinema.presenter.NearbyMoivePresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.umeng.analytics.MobclickAgent;
@@ -74,6 +75,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
     private View view;
     private List<UserInfoBean> userInfoBeans;
     private MyFollowCinemaPresenter myFollowCinemaPresenter;
+    private MyFollowCinemaPresenterTwo myFollowCinemaPresenterTwo;
 
     @Nullable
     @Override
@@ -114,11 +116,10 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
         cinemaAdapter.setCinemaAdapter(new CinemaAdapter.Follow() {
             @Override
             public void FollowOnclick(int sid) {
-                if(userInfoBeans.size() > 0)
+                if(userInfoBeans.size() != 0)
                 {
                     int userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
                     String sessionId = userInfoBeans.get(0).getSessionId();
-                    Toast.makeText(getActivity(), ""+sid, Toast.LENGTH_SHORT).show();
                     myFollowCinemaPresenter.reqeust(userId, sessionId,sid);
                 }
                 else
@@ -137,7 +138,35 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
                 }
             }
         });
-
+        
+        //取消关注
+        myFollowCinemaPresenterTwo = new MyFollowCinemaPresenterTwo(new myFollowCinemaCall());
+        //取消接口回调
+        cinemaAdapter.setCinemaTwoAdapter(new CinemaAdapter.FollowTwo() {
+            @Override
+            public void FollowOnclickTwo(int sid) {
+                if(userInfoBeans.size() != 0)
+                {
+                    int userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
+                    String sessionId = userInfoBeans.get(0).getSessionId();
+                    myFollowCinemaPresenterTwo.reqeust(userId, sessionId,sid);
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("请先登录");
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent myMessagesintent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(myMessagesintent);
+                        }
+                    });
+                    builder.show();
+                }
+            }
+        });
         return view;
     }
 

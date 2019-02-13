@@ -87,6 +87,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
         DaoSession daoSession = DaoMaster.newDevSession(getActivity(), UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();
+        Toast.makeText(getContext(), ""+userInfoBeans.size(), Toast.LENGTH_SHORT).show();
 
         //签到P层
         signinPresenter = new SigninPresenter(new SigninCall());

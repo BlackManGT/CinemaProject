@@ -52,6 +52,7 @@ import me.jessyan.autosize.internal.CustomAdapt;
 
 public class DetalisHomePageActivity extends AppCompatActivity implements CustomAdapt,View.OnClickListener {
 
+    private IDMoiveDetalisTwo idMoiveDetalisTwo;
     private TextView detalishomepagename;
     private SimpleDraweeView detalishomepagesdvtwo;
     private IDMoiveDetalisoneTwoPresenter idMoiveDetalisoneTwoPresenter;
@@ -104,6 +105,8 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();
 
+
+
         //得到电影id
         id = Integer.parseInt(getIntent().getStringExtra("id"));
         IDMoiveDetalisonePresenter idMoiveDetalisonePresenter = new IDMoiveDetalisonePresenter(new IDMoiveDetalisOneCall());
@@ -123,6 +126,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         detalis_home_page_follow = findViewById(R.id.detalis_home_page_follow);
         //取消关注
         noFilmFollowPresenter = new NoFilmFollowPresenter(new NoFollowCall());
+        //关注影片按钮
         detalis_home_page_follow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -400,16 +404,26 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         public void success(Result result) {
             if(result.getStatus().equals("0000"))
             {
-                IDMoiveDetalisTwo idMoiveDetalisTwo = (IDMoiveDetalisTwo) result.getResult();
+                idMoiveDetalisTwo = (IDMoiveDetalisTwo) result.getResult();
+
+                if(idMoiveDetalisTwo.getFollowMovie() == 1)
+                {
+                    detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_selectet);
+                }
+                else
+                {
+                    detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_default);
+                }
+
                 List<IDMoiveDetalisTwo.ShortFilmListBean> shortFilmList = idMoiveDetalisTwo.getShortFilmList();
                 List<String> posterList = idMoiveDetalisTwo.getPosterList();
                 Log.e("============",shortFilmList.size()+"");
                 //详情
                 dialog_detalis_sdvone.setImageURI(Uri.parse(idMoiveDetalisTwo.getImageUrl()));
-                dialog_detalis_leixing.setText("类型："+idMoiveDetalisTwo.getMovieTypes());
-                dialog_detalis_daoyan.setText("导演："+idMoiveDetalisTwo.getDirector());
-                dialog_detalis_shichang.setText("时长："+idMoiveDetalisTwo.getDuration());
-                dialog_detalis_chandi.setText("产地："+idMoiveDetalisTwo.getPlaceOrigin());
+                dialog_detalis_leixing.setText("类型："+ idMoiveDetalisTwo.getMovieTypes());
+                dialog_detalis_daoyan.setText("导演："+ idMoiveDetalisTwo.getDirector());
+                dialog_detalis_shichang.setText("时长："+ idMoiveDetalisTwo.getDuration());
+                dialog_detalis_chandi.setText("产地："+ idMoiveDetalisTwo.getPlaceOrigin());
                 plot.setText(idMoiveDetalisTwo.getSummary());
 
                 //预告片
@@ -421,14 +435,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 noticeAdapter.notifyDataSetChanged();
                 stillsAdapter.notifyDataSetChanged();
 
-                if(idMoiveDetalisTwo.getFollowMovie() == 1)
-                {
-                    detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_selectet);
-                }
-                else
-                {
-                    detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_default);
-                }
+
             }
         }
 

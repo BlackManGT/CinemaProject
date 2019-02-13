@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -23,6 +24,11 @@ public class CinemaAdapter extends RecyclerView.Adapter {
 
 
     private Follow follow;
+    private FollowTwo followTwo;
+
+    public void setCinemaTwoAdapter(FollowTwo followTwo) {
+        this.followTwo = followTwo;
+    }
 
     public void  setCinemaAdapter(Follow follow) {
         this.follow = follow;
@@ -50,7 +56,7 @@ public class CinemaAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final CinemaBean cinemaBean = list.get(i);
         final CinemaVH cinemaVH = (CinemaVH) viewHolder;
 
@@ -66,17 +72,35 @@ public class CinemaAdapter extends RecyclerView.Adapter {
                 context.startActivity(intent);
             }
         });
+
         //关注
-        cinemaVH.cinemasdvscheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        final int followCinema = cinemaBean.getFollowCinema();
+        if (followCinema==1){
+            cinemaVH.cinemasdvsimageView.setBackgroundResource(R.drawable.com_icon_collection_selectet);
+        }else {
+            cinemaVH.cinemasdvsimageView.setBackgroundResource(R.drawable.xin);
+        }
+        cinemaVH.cinemasdvsimageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
+            public void onClick(View view) {
+                if (followCinema==1){
+                    list.get(i).setFollowCinema(2);
+                    cinemaVH.cinemasdvsimageView.setImageResource(R.drawable.xin);
+                    followTwo.FollowOnclickTwo(cinemaBean.getId());
+
+
+                }else {//取消关注
+                    list.get(i).setFollowCinema(1);
+                    cinemaVH.cinemasdvsimageView.setImageResource(R.drawable.com_icon_collection_selectet);
                     follow.FollowOnclick(cinemaBean.getId());
-                    cinemaVH.cinemasdvscheckbox.setBackgroundResource(R.drawable.com_icon_collection_selectet);
+
                 }
+                notifyDataSetChanged();
             }
         });
+
+
+
     }
 
     @Override
@@ -92,14 +116,14 @@ public class CinemaAdapter extends RecyclerView.Adapter {
             public TextView cinematextviewone;
             public TextView cinematextviewtwo;
             public TextView cinematextviewthree;
-            public CheckBox cinemasdvscheckbox;
+            public ImageView cinemasdvsimageView;
         public CinemaVH(@NonNull View itemView) {
             super(itemView);
             cinemasdvsone = itemView.findViewById(R.id.cinemasdvsone);
             cinematextviewone = itemView.findViewById(R.id.cinematextviewone);
             cinematextviewtwo = itemView.findViewById(R.id.cinematextviewtwo);
             cinematextviewthree = itemView.findViewById(R.id.cinematextviewthree);
-            cinemasdvscheckbox = itemView.findViewById(R.id.cinemasdvscheckbox);
+            cinemasdvsimageView = itemView.findViewById(R.id.cinemasdvsimageView);
 
         }
     }
@@ -108,5 +132,9 @@ public class CinemaAdapter extends RecyclerView.Adapter {
     public interface Follow
     {
         void FollowOnclick(int sid);
+    }
+    public interface FollowTwo
+    {
+        void FollowOnclickTwo(int sid);
     }
 }
