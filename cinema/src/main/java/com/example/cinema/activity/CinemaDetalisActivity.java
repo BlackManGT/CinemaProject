@@ -135,12 +135,8 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         cinemaRecy.setAdapter(cinemaRecycleAdapter);
         cinemaRecy.addItemDecoration(new SpaceItemDecoration(10));
 
-
-
-
-
         //点击弹框
-        cinemarelativeLayout = findViewById(R.id.CinemaRelativeLayout);
+        cinemarelativeLayout = findViewById(R.id.cinemaRelativeLayout);
         bottomDialog = new Dialog(CinemaDetalisActivity.this, R.style.BottomDialog);
         dialog_cinemadetalispinglun = View.inflate(this, R.layout.dialog_cinemadetalispinglun, null);
         dialog_cinemadetalispinglun.findViewById(R.id.cinemasdvsss).setOnClickListener(new View.OnClickListener() {

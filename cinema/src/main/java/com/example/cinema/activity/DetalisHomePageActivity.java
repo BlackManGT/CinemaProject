@@ -532,11 +532,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        idMoiveDetalisoneTwoPresenter.reqeust(userId,sessionId, id);
-    }
 
     @Override
     public boolean isBaseOnWidth() {
@@ -551,6 +546,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
     @Override
     protected void onResume() {
         super.onResume();
+        idMoiveDetalisoneTwoPresenter.reqeust(userId,sessionId, id);
         if(filmreview == null){
             noticeAdapter.clearList();
 
