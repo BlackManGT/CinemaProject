@@ -14,6 +14,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/kuang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <com.facebook.drawee.view.SimpleDraweeView
@@ -45,49 +46,52 @@
 
 
 
-                <LinearLayout
-                    android:id="@+id/seacrch_linear2"
-                    android:layout_width="220dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="22dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:background="@drawable/shape_search"
-                    android:gravity="center_vertical"
-                    android:layout_marginRight="20dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:id="@+id/imageView"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/com_icon_search_default" />
+                    <LinearLayout
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/seacrch_linear2"
+                        android:layout_width="220dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="22dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/shape_search"
+                        android:gravity="center_vertical">
 
-                    <EditText
-                        android:focusable="false"
-                        android:id="@+id/seacrch_editext"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:hint="CCTV影城"
-                        android:textColor="#ffffff"
-                        android:textColorHint="#ffffff"
-                        android:textSize="14sp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:id="@+id/imageView"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/com_icon_search_default" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:id="@+id/seacrch_text"
-                        android:text="搜索"
-                        android:textColor="#ffffff" />
+                        <EditText
+                            android:focusable="false"
+                            android:id="@+id/seacrch_editext"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="CCTV影城"
+                            android:textColor="#ffffff"
+                            android:textColorHint="#ffffff"
+                            android:textSize="14sp" />
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:id="@+id/seacrch_text"
+                            android:text="搜索"
+                            android:textColor="#ffffff" />
 
+                    </LinearLayout>
 
-
+                </RelativeLayout>
 
                 <recycler.coverflow.RecyclerCoverFlow
                     android:id="@+id/movieflow"
@@ -96,11 +100,68 @@
                     android:layout_height="223dp"></recycler.coverflow.RecyclerCoverFlow>
             </RelativeLayout>
 
-            <View
+            <RelativeLayout
                 android:layout_marginTop="20dp"
-                android:background="@drawable/lineone"
                 android:layout_width="match_parent"
-                android:layout_height="3dp"/>
+                android:layout_height="wrap_content">
+
+                <View
+                    android:background="@drawable/lineone"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"/>
+
+                <RadioGroup
+                    android:id="@+id/home_radio_group"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@drawable/lineone"
+                    android:layout_height="2dp">
+                    <RadioButton
+                        android:id="@+id/home_radio_1"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:checked="true"
+                        android:background="@drawable/radio_selector"
+                        android:layout_height="match_parent"/>
+                    <RadioButton
+                        android:id="@+id/home_radio_2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:background="@drawable/radio_selector"
+                        android:layout_height="match_parent"/>
+                    <RadioButton
+                        android:id="@+id/home_radio_3"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:background="@drawable/radio_selector"
+                        android:layout_height="match_parent"/>
+                    <RadioButton
+                        android:id="@+id/home_radio_4"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:background="@drawable/radio_selector"
+                        android:layout_height="match_parent"/>
+                    <RadioButton
+                        android:id="@+id/home_radio_5"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:background="@drawable/radio_selector"
+                        android:layout_height="match_parent"/>
+                    <RadioButton
+                        android:id="@+id/home_radio_6"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:background="@drawable/radio_selector"
+                        android:layout_height="match_parent"/>
+                </RadioGroup>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/populars"

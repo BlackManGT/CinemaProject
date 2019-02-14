@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:background="@drawable/mybordertwo"
+        android:layout_marginTop="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/one"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_below="@+id/dialog_detalis_sdvone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/cinemaradiogroup"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/cinemaradiobuttonone"
+                    android:button="@null"
+                    android:text="详情"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/cinemaradiobuttontwo"
+                    android:button="@null"
+                    android:text="评论"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
+
+            <RelativeLayout
+                android:layout_below="@+id/cinemaradiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:id="@+id/lineone"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/linetwo"
+                    android:layout_width="30dp"
+                    android:layout_height="3dp"/>
+                <View
+                    android:id="@+id/linetwo"
+                    android:visibility="gone"
+                    android:layout_marginTop="6dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="75dp"
+                    android:background="@drawable/linetwo"
+                    android:layout_width="30dp"
+                    android:layout_height="3dp"/>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/cinemasdvsss"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/com_icon_down_default"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+
+        <RelativeLayout
+            android:layout_below="@+id/one"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cinemarecycleViewOne"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/one"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cinemarecycleViewTwo"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -36,12 +36,12 @@
             android:text="铁血战士"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/twopopularsdvthree"
+        <ImageView
+            android:id="@+id/ImageViewthree"
             android:layout_marginTop="26dp"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/com_icon_collection_selectet"
+            android:background="@drawable/com_icon_collection_default"
             android:layout_width="16dp"
             android:layout_height="14dp" />
         <TextView

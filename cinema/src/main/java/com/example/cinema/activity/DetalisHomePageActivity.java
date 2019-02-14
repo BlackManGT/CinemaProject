@@ -94,6 +94,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
     private Dialog bottomDialogtwo;
     private NoFilmFollowPresenter noFilmFollowPresenter;
     private CommentGreatPresenter commentGreatPresenter;
+    private IDMoiveDetalisonePresenter idMoiveDetalisonePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,8 +110,8 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
 
         //得到电影id
         id = Integer.parseInt(getIntent().getStringExtra("id"));
-        IDMoiveDetalisonePresenter idMoiveDetalisonePresenter = new IDMoiveDetalisonePresenter(new IDMoiveDetalisOneCall());
-        idMoiveDetalisonePresenter.reqeust(0,"", id);
+        idMoiveDetalisonePresenter = new IDMoiveDetalisonePresenter(new IDMoiveDetalisOneCall());
+        idMoiveDetalisonePresenter.reqeust(userId,sessionId, id);
         //按钮
         detalisbuttonone = findViewById(R.id.detalisbuttonone);
         detalisbuttontwo = findViewById(R.id.detalisbuttontwo);
@@ -122,6 +123,8 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         detalisbuttonfour.setOnClickListener(this);
 
         //关注
+        userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
+        sessionId = userInfoBeans.get(0).getSessionId();
         isFollowPresenter = new IsFollowPresenter(new isFollowCall());
         detalis_home_page_follow = findViewById(R.id.detalis_home_page_follow);
         //取消关注
@@ -135,8 +138,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 {
                     if(userInfoBeans.size() != 0)
                     {
-                        userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-                        sessionId = userInfoBeans.get(0).getSessionId();
+
                         Log.e("=========userId========", userId +"");
                         Log.e("======sessionId======",sessionId+"");
                         isFollowPresenter.reqeust(userId, sessionId,id);
@@ -172,6 +174,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         bottomDialog = new Dialog(DetalisHomePageActivity.this, R.style.BottomDialog);
 
         idMoiveDetalisoneTwoPresenter = new IDMoiveDetalisoneTwoPresenter(new Dialog_DetalisCall());
+        idMoiveDetalisoneTwoPresenter.reqeust(userId,sessionId, id);
         //影评
         filmReviewPresenter = new FilmReviewPresenter(new FilmReviewCall());
 
@@ -263,8 +266,8 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         send = addcomments.findViewById(R.id.send);
         send.setOnClickListener(this);
         addFilmCommentPresenter = new AddFilmCommentPresenter(new AddFilmCommentCall());
-        idMoiveDetalisoneTwoPresenter.reqeust(0,"", id);
-        filmReviewPresenter.reqeust(0,"",id,1,10);
+
+        filmReviewPresenter.reqeust(userId,sessionId,id,1,10);
     }
 
     //点击事件
@@ -517,6 +520,12 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         public void fail(ApiException e) {
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        idMoiveDetalisoneTwoPresenter.reqeust(userId,sessionId, id);
     }
 
     @Override

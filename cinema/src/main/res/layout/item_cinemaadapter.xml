@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="115dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/border">
 
         <com.facebook.drawee.view.SimpleDraweeView
