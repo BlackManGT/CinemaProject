@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_marginTop="120dp"
-        android:background="@drawable/myborder"
+        android:background="@drawable/mybordertwo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

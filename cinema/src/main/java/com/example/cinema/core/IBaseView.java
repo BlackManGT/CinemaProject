@@ -1,5 +1,7 @@
 package com.example.cinema.core;
 
+import com.example.cinema.bean.CDBean;
+import com.example.cinema.bean.CPBean;
 import com.example.cinema.bean.CinemaBean;
 import com.example.cinema.bean.CinemaById;
 import com.example.cinema.bean.CinemaDetalisBean;
@@ -149,12 +151,12 @@ public interface IBaseView {
                              @Header("sessionId")String sessionId,
                              @Field("content") String content);
 
-    //关注
+    //关注电影
     @GET("movieApi/movie/v1/verify/followMovie")
     Observable<Result> isFollow(@Header("userId")int userId,
                                                         @Header("sessionId")String sessionId,
                                                         @Query("movieId") int movieId);
-    //取消关注
+    //取消关注电影
     @GET("movieApi/movie/v1/verify/cancelFollowMovie")
     Observable<Result> NoFilmFollow(@Header("userId")int userId,
                                 @Header("sessionId")String sessionId,
@@ -246,7 +248,17 @@ public interface IBaseView {
                                                            @Header("sessionId")String sessionId,
                                                            @Query("page") int page,
                                                            @Query("count") int count);
-
-
+    //影院详情
+    @GET("movieApi/cinema/v1/findCinemaInfo")
+    Observable<Result<CDBean>> CDBeans(@Header("userId")int userId,
+                                      @Header("sessionId")String sessionId,
+                                      @Query("cinemaId") int cinemaId);
+    //查询影院用户评论列表
+    @GET("movieApi/cinema/v1/findAllCinemaComment")
+    Observable<Result<List<CPBean>>> CPBeans(@Header("userId")int userId,
+                                             @Header("sessionId")String sessionId,
+                                             @Query("cinemaId") int cinemaId,
+                                             @Query("page") int page,
+                                             @Query("count") int count);
 
 }

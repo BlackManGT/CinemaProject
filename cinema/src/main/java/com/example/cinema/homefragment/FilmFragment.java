@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +60,8 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
     TextView seacrchText;
     @BindView(R.id.seacrch_linear2)
     LinearLayout seacrchLinear2;
+    @BindView(R.id.home_radio_group)
+    RadioGroup homeRadioGroup;
     private RecyclerCoverFlow movieflow;
     private MovieFlowAdapter movieFlowAdapter;
     private PopularAdapter popularAdapter;
@@ -96,6 +99,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         movieflow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
+                homeRadioGroup.check(homeRadioGroup.getChildAt(position).getId());
                 Toast.makeText(getActivity(), "" + (position + 1) + "/" + movieflow.getLayoutManager().getItemCount(), Toast.LENGTH_SHORT).show();
             }
         });

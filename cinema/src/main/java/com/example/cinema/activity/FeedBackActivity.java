@@ -1,6 +1,7 @@
 package com.example.cinema.activity;
 
 import android.os.Build;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -65,6 +66,8 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
                 String sessionId = userInfoBeans.get(0).getSessionId();
                 String s = feedback_edittext.getText().toString();
                 feedBackPresenter.reqeust(userId,sessionId,s);
+                startActivity(new Intent(this,FeedBackSuccessActivity.class));
+                finish();
                 break;
             case R.id.feedback_return:
                 finish();
@@ -91,6 +94,7 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
             if(result.getStatus().equals("0000"))
             {
                 Toast.makeText(FeedBackActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         }
 

@@ -78,6 +78,8 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
     private List<UserInfoBean> userInfoBeans;
     private MyFollowCinemaPresenter myFollowCinemaPresenter;
     private MyFollowCinemaPresenterTwo myFollowCinemaPresenterTwo;
+    private int userId;
+    private String sessionId;
 
     @Nullable
     @Override
@@ -119,6 +121,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
 
         initData();
         //影院关注
+
         myFollowCinemaPresenter = new MyFollowCinemaPresenter(new myFollowCinemaCall());
         //接口回调
         cinemaAdapter.setCinemaAdapter(new CinemaAdapter.Follow() {
@@ -126,8 +129,8 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
             public void FollowOnclick(int sid) {
                 if(userInfoBeans.size() != 0)
                 {
-                    int userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-                    String sessionId = userInfoBeans.get(0).getSessionId();
+                    userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
+                    sessionId = userInfoBeans.get(0).getSessionId();
                     myFollowCinemaPresenter.reqeust(userId, sessionId,sid);
                 }
                 else
@@ -155,8 +158,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
             public void FollowOnclickTwo(int sid) {
                 if(userInfoBeans.size() != 0)
                 {
-                    int userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-                    String sessionId = userInfoBeans.get(0).getSessionId();
                     myFollowCinemaPresenterTwo.reqeust(userId, sessionId,sid);
                 }
                 else
@@ -217,7 +218,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
             nearby.setBackgroundResource(R.drawable.myborder);
             nearby.setTextColor(Color.BLACK);
             recycleView.setAdapter(cinemaAdapter);
-            cinemaPresenter.reqeust(0, "", 1, 10);
+            cinemaPresenter.reqeust(userId, sessionId, 1, 10);
         }
         if (v.getId() == R.id.nearby) {
             nearby.setBackgroundResource(R.drawable.btn_gradient);
@@ -225,7 +226,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
             recommend.setBackgroundResource(R.drawable.myborder);
             recommend.setTextColor(Color.BLACK);
             recycleView.setAdapter(cinemaAdapter);
-            nearbyMoivePresenter.reqeust(0, "", "116.30551391385724", "40.04571807462411", 1, 10);
+            nearbyMoivePresenter.reqeust(userId, sessionId, "116.30551391385724", "40.04571807462411", 1, 10);
         }
     }
 
@@ -240,6 +241,8 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
         super.onResume();
         initData();
         MobclickAgent.onResume(getContext());
+        cinemaPresenter.reqeust(userId, sessionId, 1, 10);
+        nearbyMoivePresenter.reqeust(userId, sessionId, "116.30551391385724", "40.04571807462411", 1, 10);
     }
     class CinemaCall implements DataCall<Result> {
 
@@ -294,4 +297,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
         super.onPause();
         MobclickAgent.onPause(getContext());
     }
+
+
+
 }
