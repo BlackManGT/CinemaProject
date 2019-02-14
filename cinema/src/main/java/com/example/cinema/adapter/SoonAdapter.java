@@ -46,7 +46,6 @@ public class SoonAdapter extends RecyclerView.Adapter {
 
         popularVH.popularsdv.setImageURI(moiveBean.getImageUrl());
 
-        popularVH.populartextview.setBackgroundColor(0x55000000);
         popularVH.populartextview.setText(moiveBean.getName());
         popularVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

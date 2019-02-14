@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -81,7 +83,13 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cinema, container, false);
-
+        //沉浸式状态栏
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         //数据库
         DaoSession daoSession = DaoMaster.newDevSession(getActivity(), UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
@@ -233,9 +241,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
         initData();
         MobclickAgent.onResume(getContext());
     }
-
-
-
     class CinemaCall implements DataCall<Result> {
 
         @Override
@@ -263,9 +268,8 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
                 mLocationClient.stop();
             }
             String locationDescribe = location.getLocationDescribe();    //获取位置描述信息
-            String addr = location.getCity();    //获取详细地址信息
-
-
+            String addr = location.getAddrStr();    //获取详细地址信息
+            cimemaText.setText(addr);
         }
     }
     //关注
@@ -280,7 +284,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
 
             }
         }
-
         @Override
         public void fail(ApiException e) {
 
@@ -291,5 +294,4 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
         super.onPause();
         MobclickAgent.onPause(getContext());
     }
-
 }

@@ -92,12 +92,14 @@
             android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
     <RelativeLayout
-        android:layout_marginLeft="24dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:background="@drawable/white_layout"
+
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="78dp">
 
         <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_marginBottom="20dp"
             android:id="@+id/moivelistreturn"
             android:layout_alignParentBottom="true"
             android:background="@drawable/com_icon_my_default"

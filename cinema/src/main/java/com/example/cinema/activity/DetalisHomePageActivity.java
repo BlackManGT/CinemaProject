@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -48,6 +50,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
+import cn.jzvd.JZMediaManager;
+import cn.jzvd.JZUtils;
+import cn.jzvd.JZVideoPlayer;
+import cn.jzvd.JZVideoPlayerManager;
+import cn.jzvd.JZVideoPlayerStandard;
 import me.jessyan.autosize.internal.CustomAdapt;
 
 public class DetalisHomePageActivity extends AppCompatActivity implements CustomAdapt,View.OnClickListener {
@@ -99,7 +106,12 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalis_home_page);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         //数据库
         DaoSession daoSession = DaoMaster.newDevSession(this, UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
@@ -174,9 +186,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         idMoiveDetalisoneTwoPresenter = new IDMoiveDetalisoneTwoPresenter(new Dialog_DetalisCall());
         //影评
         filmReviewPresenter = new FilmReviewPresenter(new FilmReviewCall());
-
-
-
         detalishomepagesdvone = findViewById(R.id.detalishomepagesdvone);
         Button detalishomepagebutton = findViewById(R.id.detalishomepagebutton);
         detalishomepagename = findViewById(R.id.detalishomepagename);
@@ -244,11 +253,11 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         filmReviewAdapter.setGreatOnClick(new FilmReviewAdapter.GreatOnClick() {
             @Override
             public void setonClick(int commentid) {
-                Log.d("abc", "setonClick: "+userInfoBeans.get(0).getUserId()+
-                    userInfoBeans.get(0).getSessionId()+commentid);
+//                Log.d("abc", "setonClick: "+userInfoBeans.get(0).getUserId()+
+//                        userInfoBeans.get(0).getSessionId()+commentid);
                 commentGreatPresenter.reqeust(userInfoBeans.get(0).getUserId(),
                         userInfoBeans.get(0).getSessionId(),commentid);
-        }
+            }
         });
 
         //添加评论按钮
@@ -306,7 +315,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.setCanceledOnTouchOutside(true);
                 bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
                 bottomDialog.show();
-
                 break;
             case R.id.detalisbuttonfour://影评
                 bottomDialog.setContentView(filmreview);
@@ -317,7 +325,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 bottomDialog.setCanceledOnTouchOutside(true);
                 bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
                 bottomDialog.show();
-
                 break;
             case R.id.purchase:
                 Intent intent = new Intent(DetalisHomePageActivity.this,PurchaseActivity.class);
@@ -368,6 +375,9 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         public void success(Result result) {
             if (result.getStatus().equals("0000")) {
                 Toast.makeText(DetalisHomePageActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+//                commentGreatPresenter.reqeust(userInfoBeans.get(0).getUserId(),
+//                        userInfoBeans.get(0).getSessionId(),id);
+                filmReviewPresenter.reqeust(0,"",id,1,10);
             }
         }
 
@@ -527,6 +537,17 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
     @Override
     public float getSizeInDp() {
         return 720;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(filmreview == null){
+            noticeAdapter.clearList();
+
+            noticeAdapter.notifyDataSetChanged();
+
+        }
     }
 
 }

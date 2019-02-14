@@ -26,6 +26,7 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private FilmReviewBean filmReviewBean;
+    private int isGreat;
 
     public FilmReviewAdapter(Context context) {
         this.context = context;
@@ -47,7 +48,7 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
 
         filmReviewBean = list.get(i);
 
@@ -65,17 +66,25 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
         //获取当前时间
         Date date = new Date(filmReviewBean.getCommentTime());
         filmReviewVH.filmreview_time.setText(simpleDateFormat.format(date));
+        isGreat = filmReviewBean.getIsGreat();
+        if (isGreat ==1){
+            filmReviewVH.checkBox.setImageResource(R.drawable.com_icon_praise_selected);
+        }else {
+            filmReviewVH.checkBox.setImageResource(R.drawable.com_icon_praise_default);
+        }
         filmReviewVH.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Log.d("abc", "onCheckedChanged: "+ filmReviewBean.getCommentId());
-                greatOnClick.setonClick(filmReviewBean.getCommentId());
-                filmReviewVH.checkBox.setBackgroundResource(R.drawable.com_icon_praise_selected);
-                filmReviewVH.text_number.setText(filmReviewBean.getGreatNum()+1+"");
+            public void onClick(View view) {
+                list.get(i).setIsGreat(1);
+                if (isGreat !=1){
+                    list.get(i).setGreatNum(list.get(i).getGreatNum()+1);
+                }
+                filmReviewVH.checkBox.setImageResource(R.drawable.com_icon_praise_selected);
+                greatOnClick.setonClick(list.get(i).getCommentId());
+                notifyDataSetChanged();
             }
         });
 
-        
 
     }
 

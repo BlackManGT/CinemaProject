@@ -1,12 +1,14 @@
 package com.example.cinema.activity;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,7 +62,12 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
 
         setContentView(R.layout.activity_cinema_detalis);
         ButterKnife.bind(this);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         cinema_detalis_sdvone = findViewById(R.id.cinema_detalis_sdvone);
         cinema_detalis_textviewone = findViewById(R.id.cinema_detalis_textviewone);
         cinema_detalis_textviewtwo = findViewById(R.id.cinema_detalis_textviewtwo);

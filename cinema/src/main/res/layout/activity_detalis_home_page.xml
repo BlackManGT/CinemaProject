@@ -114,19 +114,22 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:background="@drawable/white_layout"
+
+        android:layout_alignParentBottom="true"
+
+        android:layout_width="match_parent"
+        android:layout_height="78dp">
 
         <Button
+            android:layout_marginLeft="24dp"
             android:id="@+id/detalishomepagebutton"
             android:layout_alignParentBottom="true"
             android:background="@drawable/com_icon_my_default"
             android:layout_width="58dp"
             android:layout_height="58dp" />
         <Button
+            android:layout_marginRight="24dp"
             android:id="@+id/purchase"
             android:text="购票"
             android:textSize="18sp"

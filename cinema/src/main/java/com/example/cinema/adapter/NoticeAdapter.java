@@ -13,11 +13,13 @@ import com.example.cinema.bean.IDMoiveDetalisTwo;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
 public class NoticeAdapter extends RecyclerView.Adapter {
 
     private Context context;
+    private String videoUrl;
 
     public NoticeAdapter(Context context) {
         this.context = context;
@@ -43,10 +45,10 @@ public class NoticeAdapter extends RecyclerView.Adapter {
 
         IDMoiveDetalisTwo.ShortFilmListBean shortFilmListBean = list.get(i);
         String imageUrl = shortFilmListBean.getImageUrl();
-        String videoUrl = shortFilmListBean.getVideoUrl();
+        videoUrl = shortFilmListBean.getVideoUrl();
         StilsVH stilsVH = (StilsVH) viewHolder;
         stilsVH.notice_jzv.setUp(videoUrl,JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
-
+        stilsVH.notice_jzv.releaseAllVideos();
         Glide.with(context).load(imageUrl).into(stilsVH.notice_jzv.thumbImageView);
     }
 
@@ -66,5 +68,9 @@ public class NoticeAdapter extends RecyclerView.Adapter {
             super(itemView);
             notice_jzv = itemView.findViewById(R.id.notice_jzv);
         }
+    }
+    public void clearList(){
+        list.clear();
+        videoUrl=null;
     }
 }

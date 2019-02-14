@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bw.movie.R;
 import com.example.cinema.activity.DetalisHomePageActivity;
 import com.example.cinema.bean.MoiveBean;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,10 +53,7 @@ public class MovieFlowAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final MoiveBean moiveBean = list.get(i);
         MovieVH movieVH = (MovieVH) viewHolder;
-
-        Glide.with(context).load(moiveBean.getImageUrl()).into(movieVH.img);
-
-        movieVH.populartextviewone.setBackgroundColor(0x55000000);
+        movieVH.img.setImageURI(moiveBean.getImageUrl());
         movieVH.populartextviewone.setText(moiveBean.getName());
         movieVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,11 +76,11 @@ public class MovieFlowAdapter extends RecyclerView.Adapter {
 
 
     class MovieVH extends RecyclerView.ViewHolder {
-        public ImageView img;
+        public SimpleDraweeView img;
         public TextView populartextviewone;
         public MovieVH(View itemView) {
             super(itemView);
-            img = (ImageView) itemView.findViewById(R.id.img);
+            img = (SimpleDraweeView) itemView.findViewById(R.id.img);
             populartextviewone = (TextView) itemView.findViewById(R.id.populartextviewone);
         }
     }

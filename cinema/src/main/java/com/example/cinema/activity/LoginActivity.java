@@ -1,13 +1,16 @@
 package com.example.cinema.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,11 +61,19 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
     ImageView loginWx;
     private LoginPresenter loginPresenter;
     private IWXAPI api;
+    private String name;
+    private String s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         ButterKnife.bind(this);
         loginPresenter = new LoginPresenter(new MyCall());
         //通过WXAPIFactory工厂获取IWXApI的示例
@@ -98,8 +109,8 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                String name = loginName.getText().toString();
-                String s = loginPwd.getText().toString();
+                name = loginName.getText().toString();
+                s = loginPwd.getText().toString();
                 String pwd = EncryptUtil.encrypt(s);
                 Log.d("pwd", "onViewClicked: "+pwd);
                 loginPresenter.reqeust(name, pwd);
@@ -131,6 +142,18 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
                 DaoSession daoSession = DaoMaster.newDevSession(LoginActivity.this, UserInfoBeanDao.TABLENAME);
                 UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
                 userInfoBeanDao.insertOrReplace(userInfo);
+                loginRemember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked){
+                            loginName.setText(name);
+                            loginPwd.setText(s);
+                        }else{
+                            loginName.setText("");
+                            loginPwd.setText("");
+                        }
+                    }
+                });
                 finish();
             }
 

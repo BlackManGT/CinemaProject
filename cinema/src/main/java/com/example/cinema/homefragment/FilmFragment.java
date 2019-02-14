@@ -2,6 +2,7 @@ package com.example.cinema.homefragment;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,6 +33,7 @@ import com.example.cinema.presenter.BeingMoviePresenter;
 import com.example.cinema.presenter.PopularMoviePresenter;
 import com.example.cinema.presenter.SoonMoviePresenter;
 import com.example.cinema.view.CacheManager;
+import com.example.cinema.view.SpaceItemDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.MobclickAgent;
@@ -69,7 +72,12 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_film, container, false);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         AutoSizeConfig.getInstance().setCustomFragment(true);
 
         RelativeLayout populars = view.findViewById(R.id.populars);
@@ -99,7 +107,9 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         RecyclerView popularRecycleView = view.findViewById(R.id.popular);
         RecyclerView beingRecycleView = view.findViewById(R.id.being);
         RecyclerView soonRecycleView = view.findViewById(R.id.soon);
-
+        popularRecycleView.addItemDecoration(new SpaceItemDecoration(10));
+        beingRecycleView.addItemDecoration(new SpaceItemDecoration(10));
+        soonRecycleView.addItemDecoration(new SpaceItemDecoration(10));
 
         //热门电影列表数据
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

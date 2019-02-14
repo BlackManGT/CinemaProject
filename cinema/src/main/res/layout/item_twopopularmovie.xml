@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="139dp">
         <com.facebook.drawee.view.SimpleDraweeView
+            app:roundedCornerRadius="5dp"
             android:layout_marginTop="16dp"
             android:id="@+id/twopopularsdvone"
             android:background="@drawable/moivebackgroundtwo"
@@ -19,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="123dp" />
         <com.facebook.drawee.view.SimpleDraweeView
+            app:roundedCornerRadius="5dp"
             android:id="@+id/twopopularsdvtwo"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
