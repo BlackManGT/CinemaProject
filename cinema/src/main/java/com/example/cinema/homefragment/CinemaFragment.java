@@ -317,7 +317,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
                 mLocationClient.stop();
             }
             String locationDescribe = location.getLocationDescribe();    //获取位置描述信息
-            String addr = location.getAddrStr();    //获取详细地址信息
+            String addr = location.getCity();    //获取详细地址信息
             cimemaText.setText(addr);
         }
     }

@@ -36,7 +36,9 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.cinema.activity.GuidanceActivity">
+        <activity android:name="com.example.cinema.activity.GuidanceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,21 +61,21 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name="com.example.cinema.activity.BootpageActivity" />
-        <activity android:name="com.example.cinema.activity.StartupPageActivity" />
-        <activity android:name="com.example.cinema.activity.LoginActivity" />
-        <activity android:name="com.example.cinema.activity.HomePageActivity" />
-        <activity android:name="com.example.cinema.activity.RegiestActivity" />
-        <activity android:name="com.example.cinema.activity.MyMessagesActivity" />
-        <activity android:name="com.example.cinema.activity.MoiveListActivity" />
-        <activity android:name="com.example.cinema.activity.DetalisHomePageActivity" />
-        <activity android:name="com.example.cinema.activity.CinemaDetalisActivity" />
-        <activity android:name="com.example.cinema.activity.MyTicketActivity" />
-        <activity android:name="com.example.cinema.activity.MyFollowActivity" />
-        <activity android:name="com.example.cinema.activity.PurchaseActivity" />
-        <activity android:name="com.example.cinema.activity.ResetPwdActivity" />
-        <activity android:name="com.example.cinema.activity.FeedBackActivity" />
-        <activity android:name="com.example.cinema.activity.ChooseActivity" />
+        <activity android:name="com.example.cinema.activity.BootpageActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.StartupPageActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.HomePageActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.RegiestActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.MyMessagesActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.MoiveListActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.DetalisHomePageActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.CinemaDetalisActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.MyTicketActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.MyFollowActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.PurchaseActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.ResetPwdActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.FeedBackActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.cinema.activity.ChooseActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
