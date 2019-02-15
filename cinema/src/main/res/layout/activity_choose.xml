@@ -115,6 +115,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/rl_top"
         android:layout_above="@+id/rl_bot"
+        android:layout_marginBottom="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
