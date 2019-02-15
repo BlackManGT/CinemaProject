@@ -548,6 +548,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
 
     @Override
     public float getSizeInDp() {
+
         return 720;
     }
 
