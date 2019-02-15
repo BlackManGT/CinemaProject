@@ -133,7 +133,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         cinemaRecy.setLayoutManager(manager);
         cinemaRecy.setAdapter(cinemaRecycleAdapter);
-        cinemaRecy.addItemDecoration(new SpaceItemDecoration(10));
+        cinemaRecy.addItemDecoration(new SpaceItemDecoration(40));
 
         //点击弹框
         cinemarelativeLayout = findViewById(R.id.cinemaRelativeLayout);

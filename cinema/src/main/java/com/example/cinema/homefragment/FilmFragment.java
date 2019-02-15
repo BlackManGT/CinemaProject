@@ -139,7 +139,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         soonMoviePresenter.reqeust(0, "", 1, 10);
         unbinder = ButterKnife.bind(this, view);
         //这是刚进页面设置的动画状态
-        ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear2, "translationX", 30f, 510f);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear2, "translationX", 30f, 460f);
         animator.setDuration(0);
         animator.start();
         cacheManager = new CacheManager();
@@ -205,7 +205,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
                 animatorf = true;
                 animatort = false;
                 //这是隐藏进去的动画
-                ObjectAnimator animator2 = ObjectAnimator.ofFloat(seacrchLinear2, "translationX", 30f, 510f);
+                ObjectAnimator animator2 = ObjectAnimator.ofFloat(seacrchLinear2, "translationX", 30f, 460f);
                 animator2.setDuration(1500);
                 animator2.start();
                 break;

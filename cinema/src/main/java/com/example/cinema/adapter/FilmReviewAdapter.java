@@ -129,5 +129,7 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
     public void setGreatOnClick(GreatOnClick greatOnClick){
         this.greatOnClick = greatOnClick;
     }
-
+    public void clearList(){
+        list.clear();
+    }
 }

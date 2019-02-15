@@ -380,6 +380,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 Toast.makeText(DetalisHomePageActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
 //                commentGreatPresenter.reqeust(userInfoBeans.get(0).getUserId(),
 //                        userInfoBeans.get(0).getSessionId(),id);
+                filmReviewAdapter.clearList();
                 filmReviewPresenter.reqeust(0,"",id,1,10);
             }
         }

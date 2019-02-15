@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
 import com.example.cinema.bean.CinemaById;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +51,8 @@ public class CinemaFlowAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         CinemaById cinemaById = list.get(i);
         MovieVH movieVH = (MovieVH) viewHolder;
-        Glide.with(context).load(cinemaById.getImageUrl()).into(movieVH.img);
-
-
-        movieVH.populartextviewone.setBackgroundColor(0x55000000);
+        //Glide.with(context).load(cinemaById.getImageUrl()).into(movieVH.img);
+        movieVH.img.setImageURI(cinemaById.getImageUrl());
         movieVH.populartextviewone.setText(cinemaById.getName());
         movieVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,11 +72,11 @@ public class CinemaFlowAdapter extends RecyclerView.Adapter {
 
 
     class MovieVH extends RecyclerView.ViewHolder {
-        public ImageView img;
+        public SimpleDraweeView img;
         public TextView populartextviewone;
         public MovieVH(View itemView) {
             super(itemView);
-            img = (ImageView) itemView.findViewById(R.id.img);
+            img = (SimpleDraweeView) itemView.findViewById(R.id.img);
             populartextviewone = (TextView) itemView.findViewById(R.id.populartextviewone);
         }
     }
