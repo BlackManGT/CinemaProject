@@ -105,9 +105,11 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         DaoSession daoSession = DaoMaster.newDevSession(this, UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();
-        userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-        sessionId = userInfoBeans.get(0).getSessionId();
 
+        if(userInfoBeans.size()!=0){
+            userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
+            sessionId = userInfoBeans.get(0).getSessionId();
+        }
 
         //获取传过来的电影ID
         id = Integer.parseInt(getIntent().getStringExtra("id"));

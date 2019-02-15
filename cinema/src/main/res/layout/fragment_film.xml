@@ -9,11 +9,13 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <RelativeLayout
+
                 android:id="@+id/kuang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -27,8 +29,9 @@
                     android:layout_height="wrap_content">
 
                     <com.facebook.drawee.view.SimpleDraweeView
+
                         android:id="@+id/moivesdv"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="40dp"
                         android:layout_marginLeft="24dp"
                         android:background="@drawable/com_icon_loc_white_default"
                         android:layout_width="16dp"
@@ -38,7 +41,7 @@
                         android:layout_marginLeft="6dp"
                         android:text="北京"
                         android:textColor="#ffffff"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="40dp"
                         android:layout_toRightOf="@+id/moivesdv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -55,7 +58,7 @@
                         android:id="@+id/seacrch_linear2"
                         android:layout_width="220dp"
                         android:layout_height="30dp"
-                        android:layout_marginTop="22dp"
+                        android:layout_marginTop="32dp"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:background="@drawable/shape_search"

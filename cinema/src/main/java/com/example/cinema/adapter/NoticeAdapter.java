@@ -16,7 +16,7 @@ import java.util.List;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
-public class NoticeAdapter extends RecyclerView.Adapter {
+public class NoticeAdapter extends RecyclerView.Adapter  {
 
     private Context context;
     private String videoUrl;

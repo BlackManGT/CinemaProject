@@ -135,8 +135,11 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         detalisbuttonfour.setOnClickListener(this);
 
         //关注
-        userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-        sessionId = userInfoBeans.get(0).getSessionId();
+        if(userInfoBeans.size()!=0){
+            userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
+            sessionId = userInfoBeans.get(0).getSessionId();
+        }
+
         isFollowPresenter = new IsFollowPresenter(new isFollowCall());
         detalis_home_page_follow = findViewById(R.id.detalis_home_page_follow);
         //取消关注
@@ -258,8 +261,10 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
             public void setonClick(int commentid) {
 //                Log.d("abc", "setonClick: "+userInfoBeans.get(0).getUserId()+
 //                        userInfoBeans.get(0).getSessionId()+commentid);
-                commentGreatPresenter.reqeust(userInfoBeans.get(0).getUserId(),
-                        userInfoBeans.get(0).getSessionId(),commentid);
+                if(userInfoBeans.size()!=0) {
+                    commentGreatPresenter.reqeust(userInfoBeans.get(0).getUserId(),
+                            userInfoBeans.get(0).getSessionId(), commentid);
+                }
             }
         });
 
@@ -277,6 +282,12 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         addFilmCommentPresenter = new AddFilmCommentPresenter(new AddFilmCommentCall());
 
         filmReviewPresenter.reqeust(userId,sessionId,id,1,10);
+        bottomDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                JZVideoPlayer.releaseAllVideos();
+            }
+        });
     }
 
     //点击事件
@@ -547,7 +558,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         idMoiveDetalisoneTwoPresenter.reqeust(userId,sessionId, id);
         if(filmreview == null){
             noticeAdapter.clearList();
-
+            JZVideoPlayer.releaseAllVideos();
             noticeAdapter.notifyDataSetChanged();
 
         }
