@@ -82,7 +82,6 @@ public class ChooseActivity extends AppCompatActivity {
                 }
                 return true;
             }
-
             @Override
             public boolean isSold(int row, int column) {
                 if(row==6&&column==6){
@@ -217,7 +216,4 @@ public class ChooseActivity extends AppCompatActivity {
         super.onPause();
         MobclickAgent.onPause(this);
     }
-
-
-
 }
