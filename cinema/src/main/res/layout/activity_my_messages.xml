@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_marginLeft="24sp"
             android:text="用户信息"
             android:textSize="14sp"
