@@ -110,6 +110,10 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
         DaoSession daoSession = DaoMaster.newDevSession(getActivity(), UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();
+        for (int i = 0; i < userInfoBeans.size(); i++) {
+            userId = Integer.parseInt(userInfoBeans.get(i).getUserId());
+            sessionId = userInfoBeans.get(i).getSessionId();
+        }
 
         AutoSizeConfig.getInstance().setCustomFragment(true);
         Button recommend = view.findViewById(R.id.recommend);
@@ -126,7 +130,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
         //默认推荐影院
         cinemaAdapter = new CinemaAdapter(getActivity());
         recycleView.setAdapter(cinemaAdapter);
-        cinemaPresenter.reqeust(0, "", 1, 10);
+        cinemaPresenter.reqeust(userId, sessionId, 1, 10);
         unbinder = ButterKnife.bind(this, view);
         recommend.setBackgroundResource(R.drawable.btn_gradient);
         recommend.setTextColor(Color.WHITE);
@@ -138,10 +142,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
         initData();
 
         //影院关注
-        for (int i = 0; i < userInfoBeans.size(); i++) {
-            userId = Integer.parseInt(userInfoBeans.get(i).getUserId());
-            sessionId = userInfoBeans.get(i).getSessionId();
-        }
+
         myFollowCinemaPresenter = new MyFollowCinemaPresenter(new myFollowCinemaCall());
         //接口回调
         cinemaAdapter.setCinemaAdapter(new CinemaAdapter.Follow() {
@@ -241,6 +242,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
             nearby.setTextColor(Color.WHITE);
             recommend.setBackgroundResource(R.drawable.myborder);
             recommend.setTextColor(Color.BLACK);
+            cinemaAdapter = new CinemaAdapter(getActivity());
             recycleView.setAdapter(cinemaAdapter);
             nearbyMoivePresenter.reqeust(userId, sessionId, "116.30551391385724", "40.04571807462411", 1, 10);
         }
