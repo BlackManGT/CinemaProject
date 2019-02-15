@@ -11,24 +11,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.ScaleAnimation;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.bw.movie.DaoMaster;
-import com.bw.movie.DaoSession;
 import com.bw.movie.R;
-import com.bw.movie.UserInfoBeanDao;
-import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.homefragment.CinemaFragment;
 import com.example.cinema.homefragment.FilmFragment;
 import com.example.cinema.homefragment.MyFragment;
 import com.umeng.analytics.MobclickAgent;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

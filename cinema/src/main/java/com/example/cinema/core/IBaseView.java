@@ -15,6 +15,7 @@ import com.example.cinema.bean.MyIsFollowListBean;
 import com.example.cinema.bean.MyIsFollowListTwoBean;
 import com.example.cinema.bean.PurchaseBean;
 import com.example.cinema.bean.Result;
+import com.example.cinema.bean.SigninStatusBean;
 import com.example.cinema.bean.SysMsgListBean;
 import com.example.cinema.bean.TicketBean;
 
@@ -25,7 +26,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -260,5 +260,11 @@ public interface IBaseView {
                                              @Query("cinemaId") int cinemaId,
                                              @Query("page") int page,
                                              @Query("count") int count);
+
+
+    //签到状态
+    @GET("movieApi/user/v1/verify/findUserHomeInfo")
+    Observable<Result<SigninStatusBean>> SigninStatus(@Header("userId")int userId,
+                                                      @Header("sessionId")String sessionId);
 
 }

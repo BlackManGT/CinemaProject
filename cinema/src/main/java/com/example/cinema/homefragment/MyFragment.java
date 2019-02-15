@@ -189,20 +189,55 @@ public class MyFragment extends Fragment implements CustomAdapt {
                 }
                 break;
             case R.id.mymessages:
-                Intent intent1 = new Intent(getActivity(), MyMessagesActivity.class);
-                startActivity(intent1);
+                if(userInfoBeans.size() == 0)
+                {
+                    Intent myMessagesintent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(myMessagesintent);
+                }
+                else
+                {
+                    Intent intent1 = new Intent(getActivity(), MyMessagesActivity.class);
+                    startActivity(intent1);
+                }
                 break;
             case R.id.my_guanzhu:
-                Intent intent2 = new Intent(getActivity(), MyFollowActivity.class);
-                startActivity(intent2);
+                if(userInfoBeans.size() == 0)
+                {
+                    Intent myMessagesintent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(myMessagesintent);
+                }
+                else
+                {
+                    Intent intent2 = new Intent(getActivity(), MyFollowActivity.class);
+                    startActivity(intent2);
+                }
+
                 break;
             case R.id.my_ticket:
-                Intent intent3 = new Intent(getActivity(), MyTicketActivity.class);
-                startActivity(intent3);
+                if(userInfoBeans.size() == 0)
+                {
+                    Intent myMessagesintent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(myMessagesintent);
+                }
+                else
+                {
+                    Intent intent3 = new Intent(getActivity(), MyTicketActivity.class);
+                    startActivity(intent3);
+                }
+
                 break;
             case R.id.my_yijian:
-                Intent intent4 = new Intent(getActivity(), FeedBackActivity.class);
-                startActivity(intent4);
+                if(userInfoBeans.size() == 0)
+                {
+                    Intent myMessagesintent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(myMessagesintent);
+                }
+                else
+                {
+                    Intent intent4 = new Intent(getActivity(), FeedBackActivity.class);
+                    startActivity(intent4);
+                }
+
                 break;
             case R.id.my_version:
                 Toast.makeText(getActivity(), "已是最新版本", Toast.LENGTH_SHORT).show();
@@ -214,6 +249,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            signin.setText("签到");
                             userInfoBeanDao.deleteAll();
                             init();
 

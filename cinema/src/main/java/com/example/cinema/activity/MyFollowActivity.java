@@ -59,8 +59,10 @@ public class MyFollowActivity extends AppCompatActivity implements CustomAdapt {
         DaoSession daoSession = DaoMaster.newDevSession(this, UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         List<UserInfoBean> userInfoBeans = userInfoBeanDao.loadAll();
-        userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-        sessionId = userInfoBeans.get(0).getSessionId();
+        for (int i = 0; i < userInfoBeans.size(); i++) {
+            userId = Integer.parseInt(userInfoBeans.get(i).getUserId());
+            sessionId = userInfoBeans.get(i).getSessionId();
+        }
 
         guanzhu_recycleview = findViewById(R.id.guanzhu_recycleview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
