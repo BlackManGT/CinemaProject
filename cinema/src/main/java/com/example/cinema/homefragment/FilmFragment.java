@@ -314,12 +314,13 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
             //以下只列举部分获取地址相关的结果信息
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
 
-            if (!location.equals("")) {
-                mLocationClient.stop();
-            }
             String locationDescribe = location.getLocationDescribe();    //获取位置描述信息
             String addr = location.getCity();    //获取详细地址信息
-            filmText.setText(addr);
+            if (!addr.equals("")) {
+                filmText.setText(addr);
+                mLocationClient.stop();
+            }
+
         }
     }
 

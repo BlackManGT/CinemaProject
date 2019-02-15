@@ -39,7 +39,7 @@
                     <TextView
                         android:id="@+id/film_text"
                         android:layout_marginLeft="6dp"
-                        android:text="北京"
+                        android:text="定位中..."
                         android:textColor="#ffffff"
                         android:layout_marginTop="40dp"
                         android:layout_toRightOf="@+id/moivesdv"
