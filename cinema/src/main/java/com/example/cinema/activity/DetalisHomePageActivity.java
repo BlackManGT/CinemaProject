@@ -135,8 +135,10 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         detalisbuttonfour.setOnClickListener(this);
 
         //关注
-        userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-        sessionId = userInfoBeans.get(0).getSessionId();
+        for (int i = 0; i < userInfoBeans.size(); i++) {
+            userId = Integer.parseInt(userInfoBeans.get(i).getUserId());
+            sessionId = userInfoBeans.get(i).getSessionId();
+        }
         isFollowPresenter = new IsFollowPresenter(new isFollowCall());
         detalis_home_page_follow = findViewById(R.id.detalis_home_page_follow);
         //取消关注

@@ -116,49 +116,7 @@
                     android:orientation="horizontal"
                     android:background="@drawable/lineone"
                     android:layout_height="2dp">
-                    <RadioButton
-                        android:id="@+id/home_radio_1"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:button="@null"
-                        android:checked="true"
-                        android:background="@drawable/radio_selector"
-                        android:layout_height="match_parent"/>
-                    <RadioButton
-                        android:id="@+id/home_radio_2"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:button="@null"
-                        android:background="@drawable/radio_selector"
-                        android:layout_height="match_parent"/>
-                    <RadioButton
-                        android:id="@+id/home_radio_3"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:button="@null"
-                        android:background="@drawable/radio_selector"
-                        android:layout_height="match_parent"/>
-                    <RadioButton
-                        android:id="@+id/home_radio_4"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:button="@null"
-                        android:background="@drawable/radio_selector"
-                        android:layout_height="match_parent"/>
-                    <RadioButton
-                        android:id="@+id/home_radio_5"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:button="@null"
-                        android:background="@drawable/radio_selector"
-                        android:layout_height="match_parent"/>
-                    <RadioButton
-                        android:id="@+id/home_radio_6"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:button="@null"
-                        android:background="@drawable/radio_selector"
-                        android:layout_height="match_parent"/>
+
                 </RadioGroup>
 
             </RelativeLayout>

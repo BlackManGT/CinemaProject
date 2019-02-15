@@ -1,7 +1,9 @@
 package com.example.cinema.homefragment;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,12 +17,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
+import com.example.cinema.activity.CinemaDetalisActivity;
 import com.example.cinema.activity.MoiveListActivity;
 import com.example.cinema.adapter.BeingAdapter;
 import com.example.cinema.adapter.MovieFlowAdapter;
@@ -218,6 +222,18 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         public void success(Result result) {
             if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
+
+                for (int i = 0; i < moiveBeans.size(); i++) {
+                    RadioButton radioButton = new RadioButton(getActivity());
+                    WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+                    int width = wm.getDefaultDisplay().getWidth();
+                    double widths = width / moiveBeans.size();
+                    radioButton.setWidth((int) widths);
+                    radioButton.setButtonTintMode(PorterDuff.Mode.CLEAR);
+                    radioButton.setBackgroundResource(R.drawable.radio_selector);
+                    homeRadioGroup.addView(radioButton);
+                }
+                homeRadioGroup.check(homeRadioGroup.getChildAt(0).getId());
 
                 movieFlowAdapter.addItem(moiveBeans);
                 cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"popularcall");

@@ -28,6 +28,8 @@ import me.jessyan.autosize.internal.CustomAdapt;
 public class SysMsgListActivity extends AppCompatActivity implements CustomAdapt {
 
     private SysMsgAdapter sysMsgAdapter;
+    private int userId;
+    private String sessionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +55,11 @@ public class SysMsgListActivity extends AppCompatActivity implements CustomAdapt
         sysMsgAdapter = new SysMsgAdapter(this);
         sysmsg_recycleview.setAdapter(sysMsgAdapter);
 
-        int userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-        String sessionId = userInfoBeans.get(0).getSessionId();
+        for (int i = 0; i < userInfoBeans.size(); i++) {
+            userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
+            sessionId = userInfoBeans.get(0).getSessionId();
+
+        }
         sysMsgListPresenter.reqeust(userId,sessionId,1,10);
 
 

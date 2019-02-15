@@ -1,6 +1,8 @@
 package com.example.cinema.activity;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -105,8 +108,10 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         DaoSession daoSession = DaoMaster.newDevSession(this, UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();
-        userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-        sessionId = userInfoBeans.get(0).getSessionId();
+        for (int i = 0; i < userInfoBeans.size(); i++) {
+            userId = Integer.parseInt(userInfoBeans.get(i).getUserId());
+            sessionId = userInfoBeans.get(i).getSessionId();
+        }
 
 
         //获取传过来的电影ID
@@ -125,6 +130,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
             @Override
             public void onItemSelected(int position) {
                 homeRadioGroup2.check(homeRadioGroup2.getChildAt(position).getId());
+
                 p = cinemaByIds.get(position).getId();
                 Log.d("id23", "onItemSelected: "+p);
                 cinemaRecycleAdapter.clearList();
@@ -229,6 +235,20 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         public void success(Result<List<CinemaById>> result) {
             if (result.getStatus().equals("0000")) {
                 List<String> list = new ArrayList<>();
+
+                for (int i = 0; i < list.size(); i++) {
+                    RadioButton radioButton = new RadioButton(CinemaDetalisActivity.this);
+                    WindowManager wm = (WindowManager) CinemaDetalisActivity.this.getSystemService(Context.WINDOW_SERVICE);
+                    int width = wm.getDefaultDisplay().getWidth();
+                    double widths = width / list.size();
+                    radioButton.setWidth((int) widths);
+                    radioButton.setButtonTintMode(PorterDuff.Mode.CLEAR);
+                    radioButton.setBackgroundResource(R.drawable.radio_selector);
+                    homeRadioGroup2.addView(radioButton);
+                }
+                homeRadioGroup2.check(homeRadioGroup2.getChildAt(0).getId());
+
+
                 cinemaByIds = result.getResult();
                 p=cinemaByIds.get(0).getId();
                 cinemaRecyPresenter.reqeust(id,p);
