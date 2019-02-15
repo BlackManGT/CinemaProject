@@ -1,5 +1,6 @@
 package com.example.cinema.homefragment;
 
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,12 +12,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,16 +50,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.internal.CustomAdapt;
 
-public class CinemaFragment extends Fragment implements View.OnClickListener,CustomAdapt {
+public class CinemaFragment extends Fragment implements View.OnClickListener, CustomAdapt {
 
-    @BindView(R.id.cinemasdv)
-    SimpleDraweeView cinemasdv;
-    @BindView(R.id.cimema_text)
-    TextView cimemaText;
     @BindView(R.id.cinema_relative)
     RelativeLayout cinemaRelative;
     @BindView(R.id.recommend)
@@ -66,6 +66,18 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
     @BindView(R.id.cinemarecycleview)
     RecyclerView cinemarecycleview;
     Unbinder unbinder;
+    @BindView(R.id.cinemasdv1)
+    SimpleDraweeView cinemasdv1;
+    @BindView(R.id.cimema_text1)
+    TextView cimemaText;
+    @BindView(R.id.imageView1)
+    ImageView imageView1;
+    @BindView(R.id.seacrch_editext1)
+    EditText seacrchEditext1;
+    @BindView(R.id.seacrch_text1)
+    TextView seacrchText1;
+    @BindView(R.id.seacrch_linear21)
+    LinearLayout seacrchLinear21;
     private CinemaAdapter cinemaAdapter;
     private LinearLayoutManager linearLayoutManager;
     private CinemaMoviePresenter cinemaPresenter;
@@ -80,6 +92,8 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
     private MyFollowCinemaPresenterTwo myFollowCinemaPresenterTwo;
     private int userId;
     private String sessionId;
+    private boolean animatort = false;
+    private boolean animatorf = false;
 
     @Nullable
     @Override
@@ -118,7 +132,9 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
         recommend.setTextColor(Color.WHITE);
         nearby.setBackgroundResource(R.drawable.myborder);
         nearby.setTextColor(Color.BLACK);
-
+        ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear21, "translationX", 30f, 460f);
+        animator.setDuration(0);
+        animator.start();
         initData();
         //影院关注
         userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
@@ -148,19 +164,16 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
                 }
             }
         });
-        
+
         //取消关注
         myFollowCinemaPresenterTwo = new MyFollowCinemaPresenterTwo(new myFollowCinemaCall());
         //取消接口回调
         cinemaAdapter.setCinemaTwoAdapter(new CinemaAdapter.FollowTwo() {
             @Override
             public void FollowOnclickTwo(int sid) {
-                if(userInfoBeans.size() != 0)
-                {
-                    myFollowCinemaPresenterTwo.reqeust(userId, sessionId,sid);
-                }
-                else
-                {
+                if (userInfoBeans.size() != 0) {
+                    myFollowCinemaPresenterTwo.reqeust(userId, sessionId, sid);
+                } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage("请先登录");
                     builder.setNegativeButton("取消", null);
@@ -243,6 +256,35 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
         cinemaPresenter.reqeust(userId, sessionId, 1, 10);
         nearbyMoivePresenter.reqeust(userId, sessionId, "116.30551391385724", "40.04571807462411", 1, 10);
     }
+
+    @OnClick({R.id.imageView1, R.id.seacrch_text1})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.imageView1:
+                if (animatort) {
+                    return;
+                }
+                animatort = true;
+                animatorf = false;
+                //这是显示出现的动画
+                ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear21, "translationX", 510f, 30f);
+                animator.setDuration(1500);
+                animator.start();
+                break;
+            case R.id.seacrch_text1:
+                if (animatorf) {
+                    return;
+                }
+                animatorf = true;
+                animatort = false;
+                //这是隐藏进去的动画
+                ObjectAnimator animator2 = ObjectAnimator.ofFloat(seacrchLinear21, "translationX", 30f, 460f);
+                animator2.setDuration(1500);
+                animator2.start();
+                break;
+        }
+    }
+
     class CinemaCall implements DataCall<Result> {
 
         @Override
@@ -259,6 +301,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
 
         }
     }
+
     public class MyLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
@@ -266,7 +309,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
             //以下只列举部分获取地址相关的结果信息
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
 
-            if(!location.equals("")){
+            if (!location.equals("")) {
                 mLocationClient.stop();
             }
             String locationDescribe = location.getLocationDescribe();    //获取位置描述信息
@@ -274,18 +317,18 @@ public class CinemaFragment extends Fragment implements View.OnClickListener,Cus
             cimemaText.setText(addr);
         }
     }
+
     //关注
-    class myFollowCinemaCall implements DataCall<Result>
-    {
+    class myFollowCinemaCall implements DataCall<Result> {
 
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
-                Toast.makeText(getActivity(), ""+result.getMessage(), Toast.LENGTH_SHORT).show();
+            if (result.getStatus().equals("0000")) {
+                Toast.makeText(getActivity(), "" + result.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         }
+
         @Override
         public void fail(ApiException e) {
 

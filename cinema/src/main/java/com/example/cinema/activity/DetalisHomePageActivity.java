@@ -379,6 +379,7 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
             if (result.getStatus().equals("0000")) {
 //                commentGreatPresenter.reqeust(userInfoBeans.get(0).getUserId(),
 //                        userInfoBeans.get(0).getSessionId(),id);
+                filmReviewAdapter.clearList();
                 filmReviewPresenter.reqeust(0,"",id,1,10);
             }
         }
