@@ -150,7 +150,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
             public void FollowOnclick(int sid) {
                 if(userInfoBeans.size() != 0)
                 {
-
                     myFollowCinemaPresenter.reqeust(userId, sessionId,sid);
                 }
                 else
@@ -331,7 +330,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
         public void success(Result result) {
             if (result.getStatus().equals("0000")) {
                 Toast.makeText(getActivity(), "" + result.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
         }
 

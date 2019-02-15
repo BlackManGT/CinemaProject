@@ -205,6 +205,7 @@ public class MyFragment extends Fragment implements CustomAdapt {
                 startActivity(intent4);
                 break;
             case R.id.my_version:
+                Toast.makeText(getActivity(), "已是最新版本", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.my_back:
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
