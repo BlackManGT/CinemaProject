@@ -130,7 +130,6 @@ public class LoginActivity extends AppCompatActivity implements CustomAdapt {
 
         @Override
         public void success(Result<LoginBean> result) {
-            Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
             if (result.getStatus().equals("0000")) {
                 LoginBean result1 = result.getResult();
                 int userId = result1.getUserId();

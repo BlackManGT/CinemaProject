@@ -101,7 +101,7 @@ public class MoiveListActivity extends AppCompatActivity implements CustomAdapt 
             //热门电影列表数据
             twoPopularAdapter = new FilmAdapter(this);
             recycleView.setAdapter(twoPopularAdapter);
-            popularMoviePresenter.reqeust(0,"",1,10);
+            popularMoviePresenter.reqeust(userId,sessionId,1,10);
 
         }
         else if(skrone.equals("2"))
@@ -115,7 +115,7 @@ public class MoiveListActivity extends AppCompatActivity implements CustomAdapt 
             //正在热映电影列表数据
             twoPopularAdapter = new FilmAdapter(this);
             recycleView.setAdapter(twoPopularAdapter);
-            beingMoviePresenter.reqeust(0,"",1,10);
+            beingMoviePresenter.reqeust(userId,sessionId,1,10);
         }
         else if(skrone.equals("3"))
         {
@@ -128,7 +128,7 @@ public class MoiveListActivity extends AppCompatActivity implements CustomAdapt 
             //即将上映电影列表数据
             twoPopularAdapter = new FilmAdapter(this);
             recycleView.setAdapter(twoPopularAdapter);
-            soonMoviePresenter.reqeust(0,"",1,10);
+            soonMoviePresenter.reqeust(userId,sessionId,1,10);
         }
 
         //切换
@@ -145,10 +145,9 @@ public class MoiveListActivity extends AppCompatActivity implements CustomAdapt 
                         moivelistbuttontwo.setTextColor(Color.BLACK);
                         moivelistbuttonthree.setBackgroundResource(R.drawable.myborder);
                         moivelistbuttonthree.setTextColor(Color.BLACK);
-                        twoPopularAdapter.remove();
                         twoPopularAdapter = new FilmAdapter(MoiveListActivity.this);
                         recycleView.setAdapter(twoPopularAdapter);
-                        popularMoviePresenter.reqeust(0,"",1,10);
+                        popularMoviePresenter.reqeust(userId,sessionId,1,10);
                         break;
                     case R.id.moivelistbuttontwo:
                         moivelistbuttontwo.setBackgroundResource(R.drawable.btn_gradient);
@@ -157,10 +156,9 @@ public class MoiveListActivity extends AppCompatActivity implements CustomAdapt 
                         moivelistbuttonone.setTextColor(Color.BLACK);
                         moivelistbuttonthree.setBackgroundResource(R.drawable.myborder);
                         moivelistbuttonthree.setTextColor(Color.BLACK);
-                        twoPopularAdapter.remove();
                         twoPopularAdapter = new FilmAdapter(MoiveListActivity.this);
                         recycleView.setAdapter(twoPopularAdapter);
-                        beingMoviePresenter.reqeust(0,"",1,10);
+                        beingMoviePresenter.reqeust(userId,sessionId,1,10);
                         break;
                     case R.id.moivelistbuttonthree:
                         moivelistbuttonthree.setBackgroundResource(R.drawable.btn_gradient);
@@ -169,10 +167,9 @@ public class MoiveListActivity extends AppCompatActivity implements CustomAdapt 
                         moivelistbuttonone.setTextColor(Color.BLACK);
                         moivelistbuttontwo.setBackgroundResource(R.drawable.myborder);
                         moivelistbuttontwo.setTextColor(Color.BLACK);
-                        twoPopularAdapter.remove();
                         twoPopularAdapter = new FilmAdapter(MoiveListActivity.this);
                         recycleView.setAdapter(twoPopularAdapter);
-                        soonMoviePresenter.reqeust(0,"",1,10);
+                        soonMoviePresenter.reqeust(userId,sessionId,1,10);
                         break;
                 }
             }
@@ -186,7 +183,6 @@ public class MoiveListActivity extends AppCompatActivity implements CustomAdapt 
         twoPopularAdapter.setFilmAdapterOk(new FilmAdapter.GuanzhuOk() {
             @Override
             public void GuanzhuOnclickOk(int sid) {
-
                 isFollowPresenter.reqeust(userId, sessionId,sid);
             }
         });
@@ -253,6 +249,14 @@ public class MoiveListActivity extends AppCompatActivity implements CustomAdapt 
         public void fail(ApiException e) {
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        popularMoviePresenter.reqeust(userId,sessionId,1,10);
+        beingMoviePresenter.reqeust(userId,sessionId,1,10);
+        soonMoviePresenter.reqeust(userId,sessionId,1,10);
     }
 
     @Override

@@ -93,7 +93,6 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
         public void success(Result result) {
             if(result.getStatus().equals("0000"))
             {
-                Toast.makeText(FeedBackActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         }

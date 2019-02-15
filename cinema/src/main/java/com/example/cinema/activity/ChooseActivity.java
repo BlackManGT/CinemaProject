@@ -156,7 +156,6 @@ public class ChooseActivity extends AppCompatActivity {
 
         @Override
         public void fail(ApiException e) {
-            Toast.makeText(ChooseActivity.this,e.getMessage()+"失败", Toast.LENGTH_SHORT).show();
         }
     }
     class MyPay implements DataCall<Result>{

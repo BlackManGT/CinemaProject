@@ -58,6 +58,8 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
 
     @BindView(R.id.cinema_recy2)
     RecyclerView cinemaRecy;
+    @BindView(R.id.home_radio_group2)
+    RadioGroup homeRadioGroup2;
     private RecyclerCoverFlow horse;
     private SimpleDraweeView cinema_detalis_sdvone;
     private TextView cinema_detalis_textviewone;
@@ -122,6 +124,7 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         horse.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
+                homeRadioGroup2.check(homeRadioGroup2.getChildAt(position).getId());
                 p = cinemaByIds.get(position).getId();
                 Log.d("id23", "onItemSelected: "+p);
                 cinemaRecycleAdapter.clearList();
@@ -209,7 +212,6 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
         @Override
         public void success(Result<List<CinemaRecy>> result) {
             if (result.getStatus().equals("0000")){
-                Toast.makeText(CinemaDetalisActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 List<CinemaRecy> result1 = result.getResult();
                 cinemaRecycleAdapter.addList(result1);
                 cinemaRecycleAdapter.notifyDataSetChanged();
@@ -302,7 +304,6 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
 
         @Override
         public void success(Result result) {
-            Toast.makeText(CinemaDetalisActivity.this, "评论"+result.getMessage(), Toast.LENGTH_SHORT).show();
             List<CPBean> cpBeans = (List<CPBean>) result.getResult();
             cinemaGuanzhuAdapter.addItem(cpBeans);
             cinemaGuanzhuAdapter.notifyDataSetChanged();

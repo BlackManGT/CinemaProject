@@ -34,14 +34,14 @@
         android:orientation="horizontal">
 
         <Button
-        android:id="@+id/recommend"
-        android:text="推荐影院"
-        android:background="@drawable/myborder"
-        android:layout_marginRight="32dp"
-        android:textSize="14sp"
-        android:textColor="#333333"
-        android:layout_width="83dp"
-        android:layout_height="25dp" />
+            android:id="@+id/recommend"
+            android:text="推荐影院"
+            android:background="@drawable/myborder"
+            android:layout_marginRight="32dp"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:layout_width="83dp"
+            android:layout_height="25dp" />
         <Button
             android:id="@+id/nearby"
             android:text="附近影院"

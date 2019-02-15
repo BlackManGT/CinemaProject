@@ -135,7 +135,6 @@ public class MyFollowActivity extends AppCompatActivity implements CustomAdapt {
         public void success(Result result) {
             if(result.getStatus().equals("0000"))
             {
-                Toast.makeText(MyFollowActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
                 List<MyIsFollowListBean> myIsFollowListBeans = (List<MyIsFollowListBean>) result.getResult();
                 myIsFollowAdapter.addItem(myIsFollowListBeans);
                 myIsFollowAdapter.notifyDataSetChanged();

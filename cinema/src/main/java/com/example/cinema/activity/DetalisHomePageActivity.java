@@ -377,7 +377,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         @Override
         public void success(Result result) {
             if (result.getStatus().equals("0000")) {
-                Toast.makeText(DetalisHomePageActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
 //                commentGreatPresenter.reqeust(userInfoBeans.get(0).getUserId(),
 //                        userInfoBeans.get(0).getSessionId(),id);
                 filmReviewPresenter.reqeust(0,"",id,1,10);
@@ -485,7 +484,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         public void success(Result result) {
             if(result.getStatus().equals("0000"))
             {
-                Toast.makeText(DetalisHomePageActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
                 detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_selectet);
             }
         }
@@ -503,7 +501,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
         public void success(Result result) {
             if(result.getStatus().equals("0000"))
             {
-                Toast.makeText(DetalisHomePageActivity.this, ""+result.getMessage(), Toast.LENGTH_SHORT).show();
                 detalis_home_page_follow.setBackgroundResource(R.drawable.com_icon_collection_default);
             }
         }

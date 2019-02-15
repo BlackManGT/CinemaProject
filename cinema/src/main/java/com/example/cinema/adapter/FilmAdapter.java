@@ -30,6 +30,7 @@ public class FilmAdapter extends RecyclerView.Adapter {
     public void addItem(List<MoiveBean> popularMovieBeans) {
         if(popularMovieBeans!=null)
         {
+            list.clear();
             list.addAll(popularMovieBeans);
         }
     }
