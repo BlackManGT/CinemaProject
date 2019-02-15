@@ -336,6 +336,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
         @Override
         public void fail(ApiException e) {
 
+
         }
     }
     @Override
