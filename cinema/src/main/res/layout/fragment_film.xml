@@ -76,7 +76,7 @@
                             android:id="@+id/seacrch_editext"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_weight="1"
                             android:background="@null"
                             android:hint="CCTV影城"
@@ -125,7 +125,7 @@
                         android:layout_weight="1"
                         android:button="@null"
                         android:checked="true"
-                        android:background="@drawable/btn_gradientthree"
+                        android:background="@drawable/radio_selector"
                         android:layout_height="match_parent"/>
                     <RadioButton
                         android:id="@+id/home_radio_2"
