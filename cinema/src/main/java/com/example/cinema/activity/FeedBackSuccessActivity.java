@@ -7,7 +7,9 @@ import android.view.View;
 
 import com.bw.movie.R;
 
-public class FeedBackSuccessActivity extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public class FeedBackSuccessActivity extends AppCompatActivity implements CustomAdapt {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +22,15 @@ public class FeedBackSuccessActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 720;
     }
 }

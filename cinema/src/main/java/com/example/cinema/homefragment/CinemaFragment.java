@@ -142,7 +142,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
         initData();
 
         //影院关注
-
         myFollowCinemaPresenter = new MyFollowCinemaPresenter(new myFollowCinemaCall());
         //接口回调
         cinemaAdapter.setCinemaAdapter(new CinemaAdapter.Follow() {
