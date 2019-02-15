@@ -21,10 +21,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.bw.movie.R;
-import com.example.cinema.activity.CinemaDetalisActivity;
 import com.example.cinema.activity.MoiveListActivity;
 import com.example.cinema.adapter.BeingAdapter;
 import com.example.cinema.adapter.MovieFlowAdapter;
@@ -66,6 +68,8 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
     LinearLayout seacrchLinear2;
     @BindView(R.id.home_radio_group)
     RadioGroup homeRadioGroup;
+    @BindView(R.id.film_text)
+    TextView filmText;
     private RecyclerCoverFlow movieflow;
     private MovieFlowAdapter movieFlowAdapter;
     private PopularAdapter popularAdapter;
@@ -74,6 +78,8 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
     private boolean animatort = false;
     private boolean animatorf = false;
     private CacheManager cacheManager;
+    public LocationClient mLocationClient = null;
+    private MyLocationListener myListener = new MyLocationListener();
 
     @Nullable
     @Override
@@ -147,7 +153,29 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         animator.setDuration(0);
         animator.start();
         cacheManager = new CacheManager();
+        initData();
         return view;
+    }
+
+    private void initData() {
+        mLocationClient = new LocationClient(getActivity());
+        //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);
+        //注册监听函数
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);
+        //可选，是否需要位置描述信息，默认为不需要，即参数为false
+        //如果开发者需要获得当前点的位置信息，此处必须为true
+        option.setIsNeedLocationDescribe(true);
+        //可选，设置是否需要地址信息，默认不需要
+        option.setIsNeedAddress(true);
+        //可选，默认false,设置是否使用gps
+        option.setOpenGps(true);
+        //可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
+        option.setLocationNotify(true);
+        mLocationClient.setLocOption(option);
+        mLocationClient.start();
+
     }
 
     @Override
@@ -236,7 +264,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
                 homeRadioGroup.check(homeRadioGroup.getChildAt(0).getId());
 
                 movieFlowAdapter.addItem(moiveBeans);
-                cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"popularcall");
+                cacheManager.saveDataToFile(getContext(), new Gson().toJson(moiveBeans), "popularcall");
                 popularAdapter.addItem(moiveBeans);
                 popularAdapter.notifyDataSetChanged();
                 movieFlowAdapter.notifyDataSetChanged();
@@ -246,8 +274,9 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         @Override
         public void fail(ApiException e) {
             String s = cacheManager.loadDataFromFile(getContext(), "popularcall");
-            Type type = new TypeToken<List<MoiveBean>>() {}.getType();
-            List<MoiveBean>  moiveBeans = new Gson().fromJson(s, type);
+            Type type = new TypeToken<List<MoiveBean>>() {
+            }.getType();
+            List<MoiveBean> moiveBeans = new Gson().fromJson(s, type);
             movieFlowAdapter.addItem(moiveBeans);
             movieFlowAdapter.notifyDataSetChanged();
             popularAdapter.addItem(moiveBeans);
@@ -261,7 +290,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         public void success(Result result) {
             if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
-                cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"beingcall");
+                cacheManager.saveDataToFile(getContext(), new Gson().toJson(moiveBeans), "beingcall");
                 beingAdapter.addItem(moiveBeans);
                 beingAdapter.notifyDataSetChanged();
             }
@@ -270,12 +299,30 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         @Override
         public void fail(ApiException e) {
             String s = cacheManager.loadDataFromFile(getContext(), "beingcall");
-            Type type = new TypeToken<List<MoiveBean>>() {}.getType();
-            List<MoiveBean>  moiveBeans = new Gson().fromJson(s, type);
+            Type type = new TypeToken<List<MoiveBean>>() {
+            }.getType();
+            List<MoiveBean> moiveBeans = new Gson().fromJson(s, type);
             beingAdapter.addItem(moiveBeans);
             beingAdapter.notifyDataSetChanged();
         }
     }
+
+    public class MyLocationListener implements BDLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+            //以下只列举部分获取地址相关的结果信息
+            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+
+            if (!location.equals("")) {
+                mLocationClient.stop();
+            }
+            String locationDescribe = location.getLocationDescribe();    //获取位置描述信息
+            String addr = location.getCity();    //获取详细地址信息
+            filmText.setText(addr);
+        }
+    }
+
 
     //即将上映
     class SoonCall implements DataCall<Result> {
@@ -283,7 +330,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         public void success(Result result) {
             if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
-                cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"sooncall");
+                cacheManager.saveDataToFile(getContext(), new Gson().toJson(moiveBeans), "sooncall");
                 soonAdapter.addItem(moiveBeans);
                 soonAdapter.notifyDataSetChanged();
             }
@@ -292,8 +339,9 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
         @Override
         public void fail(ApiException e) {
             String s = cacheManager.loadDataFromFile(getContext(), "sooncall");
-            Type type = new TypeToken<List<MoiveBean>>() {}.getType();
-            List<MoiveBean>  moiveBeans = new Gson().fromJson(s, type);
+            Type type = new TypeToken<List<MoiveBean>>() {
+            }.getType();
+            List<MoiveBean> moiveBeans = new Gson().fromJson(s, type);
             soonAdapter.addItem(moiveBeans);
             soonAdapter.notifyDataSetChanged();
 
@@ -304,10 +352,12 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
     public void clickItem(int pos) {
         movieflow.smoothScrollToPosition(pos);
     }
+
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(getContext());
     }
+
     @Override
     public void onPause() {
         super.onPause();
