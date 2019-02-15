@@ -104,7 +104,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
             @Override
             public void onItemSelected(int position) {
                 homeRadioGroup.check(homeRadioGroup.getChildAt(position).getId());
-                Toast.makeText(getActivity(), "" + (position + 1) + "/" + movieflow.getLayoutManager().getItemCount(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "" + (position + 1) + "/" + movieflow.getLayoutManager().getItemCount(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -198,7 +198,7 @@ public class FilmFragment extends Fragment implements MovieFlowAdapter.onItemCli
                 animatort = true;
                 animatorf = false;
                 //这是显示出现的动画
-                ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear2, "translationX", 510f, 30f);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear2, "translationX", 460f, 30f);
                 animator.setDuration(1500);
                 animator.start();
                 break;

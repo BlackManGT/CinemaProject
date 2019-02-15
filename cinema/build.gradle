@@ -6,7 +6,7 @@ android {
         config {
             keyAlias 'bw_movie'
             keyPassword '123456'
-            storeFile file('C:/Users/ajadmhqkdhaakdhkuqQL/Desktop/movie.keystore')
+            storeFile file('C:/Users/贾蕊/Desktop/movie.keystore')
             storePassword '123456'
         }
     }
@@ -43,7 +43,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
@@ -62,12 +62,24 @@ android {
 
     flavorDimensions "versionCode"
     productFlavors {
-        kuan {}
-        xiaomi{}
-        qh360 {}
-        baidu {}
-        wandoujia {}
-        yingyongbao {}
+        kuan {
+            signingConfig signingConfigs.config
+        }
+        xiaomi {
+            signingConfig signingConfigs.config
+        }
+        qh360 {
+            signingConfig signingConfigs.config
+        }
+        baidu {
+            signingConfig signingConfigs.config
+        }
+        wandoujia {
+            signingConfig signingConfigs.config
+        }
+        yingyongbao {
+            signingConfig signingConfigs.config
+        }
     }
 
     productFlavors.all {

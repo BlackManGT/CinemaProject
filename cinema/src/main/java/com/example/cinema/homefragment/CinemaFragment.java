@@ -271,7 +271,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
                 animatort = true;
                 animatorf = false;
                 //这是显示出现的动画
-                ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear21, "translationX", 510f, 30f);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(seacrchLinear21, "translationX", 460f, 30f);
                 animator.setDuration(1500);
                 animator.start();
                 break;
