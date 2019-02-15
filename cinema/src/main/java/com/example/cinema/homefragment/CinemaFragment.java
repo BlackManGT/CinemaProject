@@ -137,8 +137,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
         animator.start();
         initData();
         //影院关注
-        userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
-        sessionId = userInfoBeans.get(0).getSessionId();
+
         myFollowCinemaPresenter = new MyFollowCinemaPresenter(new myFollowCinemaCall());
         //接口回调
         cinemaAdapter.setCinemaAdapter(new CinemaAdapter.Follow() {
@@ -146,6 +145,8 @@ public class CinemaFragment extends Fragment implements View.OnClickListener, Cu
             public void FollowOnclick(int sid) {
                 if(userInfoBeans.size() != 0)
                 {
+                    userId = Integer.parseInt(userInfoBeans.get(0).getUserId());
+                    sessionId = userInfoBeans.get(0).getSessionId();
                     myFollowCinemaPresenter.reqeust(userId, sessionId,sid);
                 }
                 else
