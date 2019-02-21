@@ -16,6 +16,9 @@ import com.tencent.android.tpush.XGPushManager;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MyApplication extends Application {
     /** 主线程ID */
     private static int mMainThreadId = -1;
@@ -96,5 +99,67 @@ public class MyApplication extends Application {
     /** 获取主线程的looper */
     public static Looper getMainThreadLooper() {
         return mMainLooper;
+    }
+    /**
+     * 验证用户名只包含字母，数字，中文
+     * @param account
+     * @return
+     */
+    public static boolean checkAccountMark(String account){
+        String all = "^[a-zA-Z0-9\\u4e00-\\u9fa5]+$";
+        Pattern pattern = Pattern.compile(all);
+        return pattern.matches(all,account);
+    }
+    public static boolean isMobile(String str) {
+        Pattern p = null;
+        Matcher m = null;
+        boolean b = false;
+        p = Pattern.compile("^[1][3,5,8][0-9]{9}$"); // 验证手机号
+        m = p.matcher(str);
+        b = m.matches();
+        return b;
+    }
+    /**
+     * 验证邮箱
+     *
+     * @param email
+     * @return
+     */
+
+    public static boolean checkEmail(String email) {
+        boolean flag = false;
+        try {
+            String check = "^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+            Pattern regex = Pattern.compile(check);
+            Matcher matcher = regex.matcher(email);
+            flag = matcher.matches();
+        } catch (Exception e) {
+            flag = false;
+        }
+        return flag;
+    }
+    /**
+     * 规则3：必须同时包含大小写字母及数字
+     * 是否包含
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isContainAll(String str) {
+        boolean isDigit = false;//定义一个boolean值，用来表示是否包含数字
+        boolean isLowerCase = false;//定义一个boolean值，用来表示是否包含字母
+        boolean isUpperCase = false;
+        for (int i = 0; i < str.length(); i++) {
+            if (Character.isDigit(str.charAt(i))) {   //用char包装类中的判断数字的方法判断每一个字符
+                isDigit = true;
+            } else if (Character.isLowerCase(str.charAt(i))) {  //用char包装类中的判断字母的方法判断每一个字符
+                isLowerCase = true;
+            } else if (Character.isUpperCase(str.charAt(i))) {
+                isUpperCase = true;
+            }
+        }
+        String regex = "^[a-zA-Z0-9]+$";
+        boolean isRight = isDigit && isLowerCase && isUpperCase && str.matches(regex);
+        return isRight;
     }
 }

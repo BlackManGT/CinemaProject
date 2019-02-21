@@ -287,6 +287,39 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 JZVideoPlayer.releaseAllVideos();
             }
         });
+        filmReviewAdapter.setPinglun(new FilmReviewAdapter.Pinglun() {
+            @Override
+            public void getpinglun(String name) {
+                if(userInfoBeans.size() != 0)
+                {
+                    bottomDialogtwo = new Dialog(DetalisHomePageActivity.this, R.style.BottomDialog);
+                    bottomDialogtwo.setContentView(addcomments);
+
+                    ViewGroup.LayoutParams layoutParamsaddcomment = addcomments.getLayoutParams();
+                    layoutParamsaddcomment.width = getResources().getDisplayMetrics().widthPixels;
+                    addcomments.setLayoutParams(layoutParamsaddcomment);
+                    addcomment.setText("回复:@"+name);
+                    bottomDialogtwo.getWindow().setGravity(Gravity.BOTTOM);
+                    bottomDialogtwo.setCanceledOnTouchOutside(true);
+                    bottomDialogtwo.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+                    bottomDialogtwo.show();
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DetalisHomePageActivity.this);
+                    builder.setMessage("请先登录");
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent myMessagesintent = new Intent(DetalisHomePageActivity.this, LoginActivity.class);
+                            startActivity(myMessagesintent);
+                        }
+                    });
+                    builder.show();
+                }
+            }
+        });
     }
 
     //点击事件

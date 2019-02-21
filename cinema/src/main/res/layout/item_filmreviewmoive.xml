@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <CheckBox
+                <ImageView
                     android:layout_marginRight="25dp"
                     android:id="@+id/pingluncheckbox"
                     android:button="@null"

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
 import com.bw.movie.R;
+import com.example.cinema.application.MyApplication;
 import com.example.cinema.bean.Result;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.EncryptUtil;
@@ -107,8 +108,20 @@ public class RegiestActivity extends AppCompatActivity implements CustomAdapt {
     public void onViewClicked() {
         int i = 0;
         String name = regiestName.getText().toString();
+        boolean b = MyApplication.checkAccountMark(name);
+        if(!b){
+            Toast.makeText(this, "用户名只能包含字母,数字,和中文", Toast.LENGTH_SHORT).show();
+        }
         String phone = regiestPhone.getText().toString();
+        boolean mobile = MyApplication.isMobile(phone);
+        if(phone.length()!=11&&mobile){
+            Toast.makeText(this, "请输入正确的11位的号码", Toast.LENGTH_SHORT).show();
+        }
         String s = regiestPwd.getText().toString();
+        boolean containAll = MyApplication.isContainAll(s);
+        if(s.length()>8&&containAll){
+            Toast.makeText(this, "密码长度要大于8个同时包含数字和字母", Toast.LENGTH_SHORT).show();
+        }
         String pwd = EncryptUtil.encrypt(s);
         String sex = regiestSex.getText().toString();
         if (sex.equals("男")) {
@@ -118,6 +131,10 @@ public class RegiestActivity extends AppCompatActivity implements CustomAdapt {
         }
         String date = regiestDate.getText().toString();
         String email = regiestEmail.getText().toString();
+        boolean b1 = MyApplication.checkEmail(email);
+        if(!b1){
+            Toast.makeText(this, "请输入有效的邮箱", Toast.LENGTH_SHORT).show();
+        }
         regiestPresenter.reqeust(name, phone, pwd, pwd, i, date, "123456", "小米", " 5.0", "android", email);
     }
 

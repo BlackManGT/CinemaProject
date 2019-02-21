@@ -27,6 +27,7 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
     private Context context;
     private FilmReviewBean filmReviewBean;
     private int isGreat;
+    private int hotComment;
 
     public FilmReviewAdapter(Context context) {
         this.context = context;
@@ -58,9 +59,8 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
 
         filmReviewVH.filmreview_name.setText(filmReviewBean.getCommentUserName());
         filmReviewVH.filmreview_pinglun.setText(filmReviewBean.getCommentContent());
-        filmReviewVH.filmreview_reply.setText(filmReviewBean.getHotComment()+"");
-
-        filmReviewVH.filmreview_reply.setText(filmReviewBean.getHotComment()+"");
+        hotComment = filmReviewBean.getHotComment();
+        filmReviewVH.filmreview_reply.setText(hotComment +"");
         filmReviewVH.text_number.setText(filmReviewBean.getGreatNum()+"");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
         //获取当前时间
@@ -82,6 +82,14 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
                 filmReviewVH.checkBox.setImageResource(R.drawable.com_icon_praise_selected);
                 greatOnClick.setonClick(list.get(i).getCommentId());
                 notifyDataSetChanged();
+            }
+        });
+        filmReviewVH.pingluncheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hotComment++;
+                filmReviewVH.filmreview_reply.setText(hotComment +"");
+                pinglun.getpinglun(list.get(i).getCommentUserName());
             }
         });
 
@@ -110,6 +118,7 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
         public TextView filmreview_reply;
         private final ImageView checkBox;
         private final TextView text_number;
+        private final ImageView pingluncheckbox;
 
         public FilmReviewVH(@NonNull View itemView) {
             super(itemView);
@@ -120,6 +129,7 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
             filmreview_reply = itemView.findViewById(R.id.filmreview_reply);
             checkBox = itemView.findViewById(R.id.dianzancheckbox);
             text_number = itemView.findViewById(R.id.film_text_number);
+            pingluncheckbox = itemView.findViewById(R.id.pingluncheckbox);
         }
     }
     private GreatOnClick greatOnClick;
@@ -131,5 +141,12 @@ public class FilmReviewAdapter extends RecyclerView.Adapter {
     }
     public void clearList(){
         list.clear();
+    }
+    private Pinglun pinglun;
+    public interface Pinglun{
+        void getpinglun(String name);
+    }
+    public void setPinglun(Pinglun pinglun){
+        this.pinglun = pinglun;
     }
 }

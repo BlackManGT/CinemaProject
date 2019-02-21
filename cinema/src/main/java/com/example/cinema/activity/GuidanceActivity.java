@@ -13,8 +13,6 @@ import android.view.WindowManager;
 
 import com.bw.movie.R;
 import com.example.cinema.view.Constant;
-
-
 public class GuidanceActivity extends AppCompatActivity {
 
     private SharedPreferences sp;
@@ -40,10 +38,10 @@ public class GuidanceActivity extends AppCompatActivity {
                         Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.ACCESS_NETWORK_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, Constant.REQ_PERM_CAMERA);
 
             }
-
             Intent intent = new Intent(GuidanceActivity.this,BootpageActivity.class);
             startActivity(intent);
             finish();
+
             SharedPreferences.Editor edit = sp.edit();
             edit.putBoolean("boot",false);
             edit.commit();
@@ -54,12 +52,13 @@ public class GuidanceActivity extends AppCompatActivity {
                         Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.ACCESS_NETWORK_STATE}, Constant.REQ_PERM_CAMERA);
                 ActivityCompat.requestPermissions(GuidanceActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.ACCESS_NETWORK_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, Constant.REQ_PERM_CAMERA);
-            }
 
+            }
             Intent intent = new Intent(GuidanceActivity.this,StartupPageActivity.class);
             startActivity(intent);
             finish();
         }
 
     }
+
 }
