@@ -267,4 +267,10 @@ public interface IBaseView {
     Observable<Result<SigninStatusBean>> SigninStatus(@Header("userId")int userId,
                                                       @Header("sessionId")String sessionId);
 
+    //版本更新
+    @GET("movieApi/tool/v1/findNewVersion")
+    Observable<Result> Update(@Header("userId")int userId,
+                              @Header("sessionId")String sessionId,
+                              @Header("ak")String ak);
+
 }

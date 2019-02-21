@@ -152,7 +152,6 @@ public class DetalisHomePageActivity extends AppCompatActivity implements Custom
                 {
                     if(userInfoBeans.size() != 0)
                     {
-
                         Log.e("=========userId========", userId +"");
                         Log.e("======sessionId======",sessionId+"");
                         isFollowPresenter.reqeust(userId, sessionId,id);

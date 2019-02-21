@@ -1,8 +1,11 @@
 package com.example.cinema.homefragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ import com.bw.movie.DaoMaster;
 import com.bw.movie.DaoSession;
 import com.bw.movie.R;
 import com.bw.movie.UserInfoBeanDao;
+import com.example.cinema.DownLoadService;
 import com.example.cinema.activity.FeedBackActivity;
 import com.example.cinema.activity.MyFollowActivity;
 import com.example.cinema.activity.HomePageActivity;
@@ -35,6 +39,7 @@ import com.example.cinema.bean.UserInfoBean;
 import com.example.cinema.core.DataCall;
 import com.example.cinema.core.exception.ApiException;
 import com.example.cinema.presenter.SigninPresenter;
+import com.example.cinema.presenter.UpdatePresenter;
 import com.example.cinema.view.CacheManager;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.umeng.analytics.MobclickAgent;
@@ -77,6 +82,9 @@ public class MyFragment extends Fragment implements CustomAdapt {
     private List<UserInfoBean> userInfoBeans;
     private UserInfoBeanDao userInfoBeanDao;
     private SigninPresenter signinPresenter;
+    private UpdatePresenter updatePrensenter;
+    private int userId;
+    private String sessionId;
 
     @Nullable
     @Override
@@ -93,7 +101,13 @@ public class MyFragment extends Fragment implements CustomAdapt {
         DaoSession daoSession = DaoMaster.newDevSession(getActivity(), UserInfoBeanDao.TABLENAME);
         UserInfoBeanDao userInfoBeanDao = daoSession.getUserInfoBeanDao();
         userInfoBeans = userInfoBeanDao.loadAll();
-        Toast.makeText(getContext(), ""+userInfoBeans.size(), Toast.LENGTH_SHORT).show();
+        for (int i = 0; i < userInfoBeans.size(); i++) {
+            userId = Integer.parseInt(userInfoBeans.get(i).getUserId());
+            sessionId = userInfoBeans.get(i).getSessionId();
+        }
+        
+        //版本更新
+        updatePrensenter = new UpdatePresenter(new VersionsCall());
 
         //签到P层
         signinPresenter = new SigninPresenter(new SigninCall());
@@ -240,7 +254,13 @@ public class MyFragment extends Fragment implements CustomAdapt {
 
                 break;
             case R.id.my_version:
-                Toast.makeText(getActivity(), "已是最新版本", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "已是最新版本", Toast.LENGTH_SHORT).show();
+                try {
+                    String versionName = getVersionName(getContext());
+                    updatePrensenter.reqeust(userId, sessionId, versionName);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.my_back:
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -291,5 +311,58 @@ public class MyFragment extends Fragment implements CustomAdapt {
     }
 
 
+    /**
+     * 获取版本号
+     *
+     * @throws
+     */
+    public static String getVersionName(Context context) throws PackageManager.NameNotFoundException {
+        // 获取packagemanager的实例
+        PackageManager packageManager = context.getPackageManager();
+        // getPackageName()是你当前类的包名，0代表是获取版本信息
+        PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+        String version = packInfo.versionName;
+        return version;
+    }
+
+
+    //查询新版本
+    class VersionsCall implements DataCall<Result> {
+
+        @Override
+        public void success(final Result result) {
+            if (result.getFlag() == 2) {
+                Toast.makeText(getActivity(), "当前已是最新版本!", Toast.LENGTH_SHORT).show();
+            } else if (result.getFlag() == 1) {
+                AlertDialog.Builder builer = new AlertDialog.Builder(getContext());
+                builer.setTitle("版本升级");
+                builer.setMessage("发现新版本");
+                //当点确定按钮时从服务器上下载 新的apk 然后安装
+                builer.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getContext(), DownLoadService.class);
+                        intent.putExtra("download_url", result.getDownloadUrl());
+                        getActivity().startService(intent);
+                    }
+                });
+                //当点取消按钮时进行登录
+                builer.setNegativeButton("稍后下载", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        //LoginMain();
+                    }
+                });
+                AlertDialog dialog = builer.create();
+                dialog.show();
+            }
+        }
+
+        @Override
+        public void fail(ApiException a) {
+
+        }
+    }
 
 }
