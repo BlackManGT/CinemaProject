@@ -130,7 +130,6 @@ public class CinemaDetalisActivity extends AppCompatActivity implements CustomAd
             @Override
             public void onItemSelected(int position) {
                 homeRadioGroup2.check(homeRadioGroup2.getChildAt(position).getId());
-
                 p = cinemaByIds.get(position).getId();
                 Log.d("id23", "onItemSelected: "+p);
                 cinemaRecycleAdapter.clearList();
